@@ -1,0 +1,19 @@
+.scroll-pane {
+    -fx-background-color: #EEEEEE;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #EEEEEE;
+}
+
+.button {
+    -fx-background-color: #EEEEEE;
+}
+
+.button:hover {
+    -fx-background-color: #CCCCCC;
+}
+
+.button:pressed {
+    -fx-background-color: #AAAAAA;
+}
