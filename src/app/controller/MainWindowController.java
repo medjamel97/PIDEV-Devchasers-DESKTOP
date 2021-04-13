@@ -55,7 +55,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void candidat(ActionEvent event) {
           try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/Candidat.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/AfficherToutCandidat.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

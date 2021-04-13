@@ -6,7 +6,6 @@
 package app.service;
 
 import app.entity.Candidat;
-import app.entity.Revue;
 import app.utils.ConnecteurBD;
 import java.sql.Connection;
 import java.sql.Date;
@@ -40,28 +39,71 @@ public class CandidatCrud implements candidatInterface {
             preparedStatement.setDate(3, (Date) candidat.getDateNaissance());
             preparedStatement.setString(4, candidat.getSexe());
             preparedStatement.setString(5, candidat.getTel());
-            preparedStatement.setString(6, candidat.getIdPhoto());
+            preparedStatement.setString(6, "empty");
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
-            System.out.println("Erreur d'ajout revue : " + e.getMessage());
+            System.out.println("Erreur d'ajout candidat : " + e.getMessage());
         }
     }
 
     @Override
     public void modifierCandidat(Candidat candidat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connexion.prepareStatement(
+                    "UPDATE `candidat` "
+                    + "SET `nom` = ?, `prenom` = ?, `date_naissance` = ?, `sexe` = ?, `tel` = ?"
+                    + "WHERE `id` = ?");
+            preparedStatement.setString(1, candidat.getNom());
+            preparedStatement.setString(2, candidat.getPrenom());
+            preparedStatement.setDate(3, candidat.getDateNaissance());
+            preparedStatement.setString(4, candidat.getSexe());
+            preparedStatement.setString(5, candidat.getTel());
+            preparedStatement.setInt(6, candidat.getId());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.out.println("Erreur de modification candidat : " + e.getMessage());
+        }
     }
 
     @Override
     public void supprimerCandidat(Candidat candidat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connexion.prepareStatement("DELETE FROM `candidat` WHERE `id`=?");
+            preparedStatement.setInt(1, candidat.getId());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.out.println("Erreur de suppresion candidat : " + e.getMessage());
+        }
     }
 
     @Override
     public ObservableList<Candidat> getCandiadat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM candidat");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listCandiat.add(new Candidat(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("prenom"),
+                        resultSet.getDate("date_naissance"),
+                        resultSet.getString("sexe"),
+                        resultSet.getString("tel")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) candidat : " + e.getMessage());
+        }
+        return listCandiat;
     }
 
     @Override

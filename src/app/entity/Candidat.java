@@ -7,7 +7,7 @@ package app.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;  
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -84,6 +84,15 @@ public class Candidat implements Serializable {
     }
 
     public Candidat(String nom, String prenom, Date dateNaissance, String sexe, String tel) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.sexe = sexe;
+        this.tel = tel;
+    }
+
+    public Candidat(int id, String nom, String prenom, Date dateNaissance, String sexe, String tel) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -220,5 +229,5 @@ public class Candidat implements Serializable {
     public String toString() {
         return "app.entity.Candidat[ id=" + id + " ]";
     }
-    
+
 }
