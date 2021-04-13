@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.service;
+package app.interfaces;
 
 import app.entity.Revue;
 import javafx.collections.ObservableList;
@@ -21,6 +21,8 @@ public interface RevueInterface {
     public void supprimerRevue(Revue v);
 
     public ObservableList<Revue> getRevues();
+
+    public ObservableList<Revue> getRevuesParObjet(String objet);
 
     public String getRevueById();
 

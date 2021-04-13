@@ -1,5 +1,6 @@
 package app.service;
 
+import app.interfaces.RevueInterface;
 import app.entity.Revue;
 import app.utils.ConnecteurBD;
 import java.sql.Connection;
@@ -30,15 +31,15 @@ public class RevueService implements RevueInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO revue VALUES ( ? , ? , ? , ? , ? )");
-            preparedStatement.setInt(1, revue.getId());
-            preparedStatement.setNull(2, Types.NULL);
-            preparedStatement.setInt(3, revue.getNbEtoiles());
-            preparedStatement.setString(4, revue.getObjet());
-            preparedStatement.setString(5, revue.getDescription());
+                    "INSERT INTO revue (candidature_offre_id, nb_etoiles, objet, description) VALUES ( ? , ? , ? , ? )");
+            preparedStatement.setNull(1, Types.NULL);
+            preparedStatement.setInt(2, revue.getNbEtoiles());
+            preparedStatement.setString(3, revue.getObjet());
+            preparedStatement.setString(4, revue.getDescription());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            System.out.println("Success ajout revue");
         } catch (SQLException e) {
             System.out.println("Erreur d'ajout revue : " + e.getMessage());
         }
@@ -59,6 +60,7 @@ public class RevueService implements RevueInterface {
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            System.out.println("Success modification revue");
         } catch (SQLException e) {
             System.out.println("Erreur de modification revue : " + e.getMessage());
         }
@@ -94,6 +96,28 @@ public class RevueService implements RevueInterface {
             }
         } catch (SQLException e) {
             System.out.println("Erreur d'affichage (tout) revue : " + e.getMessage());
+        }
+        return listRevue;
+    }
+
+    @Override
+    public ObservableList<Revue> getRevuesParObjet(String objet) {
+        listRevue = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT * FROM `revue` WHERE `objet`LIKE ?");
+            preparedStatement.setString(1, objet + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listRevue.add(new Revue(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("nb_etoiles"),
+                        resultSet.getString("objet"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("candidature_offre_id")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur recherche revue : " + e.getMessage());
         }
         return listRevue;
     }

@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 
 import app.entity.Revue;
 import java.sql.Types;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
@@ -31,20 +33,34 @@ import javafx.scene.text.Text;
  */
 public class RevueManipulerController implements Initializable {
 
-    @FXML
-    private Button btnRetour;
-    @FXML
-    private TextField inputId;
-    @FXML
-    private TextField inputNbEtoiles;
+    static int nbEtoiles;
+
     @FXML
     private TextField inputObjet;
+
     @FXML
-    private TextField inputDescription;
-    @FXML
-    private Button btnAjout;
+    private TextArea inputDescription;
+
     @FXML
     private Text topText;
+
+    @FXML
+    private Button star1;
+
+    @FXML
+    private Button star2;
+
+    @FXML
+    private Button star3;
+
+    @FXML
+    private Button star4;
+
+    @FXML
+    private Button star5;
+
+    @FXML
+    private Button btnAjout;
 
     /**
      * Initializes the controller class.
@@ -53,13 +69,28 @@ public class RevueManipulerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         Revue revue = RevueAfficherToutController.revueActuelle;
+        Button[] stars = {star1, star2, star3, star4, star5};
+
         if (revue != null) {
+            for (int i = 0; i < 5; i++) {
+                if (i < revue.getNbEtoiles()) {
+                    stars[i].setGraphic(new ImageView("app/images/mdi/star.png"));
+                } else {
+                    stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+                }
+            }
             topText.setText("Modifier revue");
-            inputId.setText(String.valueOf(revue.getId()));
-            inputNbEtoiles.setText(String.valueOf(revue.getId()));
+            btnAjout.setText("Modifier");
             inputObjet.setText(revue.getObjet());
             inputDescription.setText(revue.getDescription());
+
+            nbEtoiles = revue.getNbEtoiles();
+        } else {
+            for (int i = 0; i < 5; i++) {
+                stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+            }
         }
+
     }
 
     @FXML
@@ -76,11 +107,9 @@ public class RevueManipulerController implements Initializable {
     }
 
     @FXML
-    private void ajout(ActionEvent event) {
+    private void manipuler(ActionEvent event) {
         RevueService revueService = new RevueService();
 
-        String id = inputId.getText();
-        String nbEtoiles = inputNbEtoiles.getText();
         String objet = inputObjet.getText();
         String description = inputDescription.getText();
 
@@ -94,17 +123,68 @@ public class RevueManipulerController implements Initializable {
         }
 
         if (isValid == true) {*/
-        Revue revue = new Revue(Integer.parseInt(id), Integer.parseInt(nbEtoiles), objet, description, Types.NULL);
         if (RevueAfficherToutController.revueActuelle != null) {
+            Revue revue = new Revue(RevueAfficherToutController.revueActuelle.getId(), nbEtoiles, objet, description, Types.NULL);
             revueService.modifierRevue(revue);
             RevueAfficherToutController.revueActuelle = null;
         } else {
+            Revue revue = new Revue(nbEtoiles, objet, description, Types.NULL);
             revueService.ajouterRevue(revue);
         }
         //}
 
         // retour
         revue(event);
+    }
+
+    @FXML
+    private void setStar1(ActionEvent event) {
+        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star2.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star3.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        nbEtoiles = 1;
+    }
+
+    @FXML
+    private void setStar2(ActionEvent event) {
+        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star3.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        nbEtoiles = 2;
+    }
+
+    @FXML
+    private void setStar3(ActionEvent event) {
+        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        nbEtoiles = 3;
+    }
+
+    @FXML
+    private void setStar4(ActionEvent event) {
+        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star4.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+        nbEtoiles = 4;
+    }
+
+    @FXML
+    private void setStar5(ActionEvent event) {
+        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star4.setGraphic(new ImageView("app/images/mdi/star.png"));
+        star5.setGraphic(new ImageView("app/images/mdi/star.png"));
+        nbEtoiles = 5;
     }
 
 }

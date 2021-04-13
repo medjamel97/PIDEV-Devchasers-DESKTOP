@@ -22,7 +22,9 @@ import app.service.RevueService;
 import app.entity.Revue;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -53,6 +55,12 @@ public class RevueAfficherToutController implements Initializable {
     @FXML
     private Button btnRetour;
 
+    @FXML
+    private Button btnAjout;
+
+    @FXML
+    private TextField inputRecherche;
+
     /**
      *
      * @param url
@@ -82,13 +90,13 @@ public class RevueAfficherToutController implements Initializable {
                 containerAllRevue.getChildren().add(stackPaneSingleRevue);
             }
         }
-        // makes scrolling faster
+        /* makes scrolling faster
         containerAllRevue.setOnScroll((event) -> {
             double deltaY = event.getDeltaY() * 1;
             double width = scrollPane.getContent().getBoundsInLocal().getWidth();
             double vvalue = scrollPane.getVvalue();
             scrollPane.setVvalue(vvalue + -deltaY / width);
-        });
+        });*/
     }
 
     private StackPane makeRevueStackPane(
@@ -255,11 +263,10 @@ public class RevueAfficherToutController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            System.out.print(e.getMessage());
+            System.out.print(e.getMessage() + " " + e.getCause());
         }
     }
 
-    @FXML
     private void modifierRevue(ActionEvent event, Revue revue) {
         try {
             revueActuelle = revue;
@@ -273,7 +280,6 @@ public class RevueAfficherToutController implements Initializable {
         }
     }
 
-    @FXML
     private void supprimerRevue(ActionEvent event, Revue revue) {
         revueService.supprimerRevue(revue);
         try {
@@ -300,4 +306,30 @@ public class RevueAfficherToutController implements Initializable {
         }
     }
 
+    @FXML
+    private void rechercher(KeyEvent event) {
+
+        containerAllRevue.getChildren().clear();
+
+        List<Revue> listRevue;
+
+        listRevue = revueService.getRevuesParObjet(inputRecherche.getText());
+
+        if (!listRevue.isEmpty()) {
+            for (int i = 0; i < listRevue.size(); i++) {
+                StackPane stackPaneSingleRevue = makeRevueStackPane(
+                        "prenomCandidat",
+                        "nomCandidat",
+                        "app/images/default.jpg",
+                        "offreDeTravail",
+                        "societe",
+                        listRevue.get(i).getNbEtoiles(),
+                        listRevue.get(i).getObjet(),
+                        listRevue.get(i).getDescription(),
+                        listRevue.get(i)
+                );
+                containerAllRevue.getChildren().add(stackPaneSingleRevue);
+            }
+        }
+    }
 }
