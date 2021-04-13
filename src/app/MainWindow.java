@@ -36,6 +36,7 @@ public class MainWindow extends Application {
             System.out.print(ex.getMessage());
         }
     }
+    
 
     /**
      * @param args the command line arguments

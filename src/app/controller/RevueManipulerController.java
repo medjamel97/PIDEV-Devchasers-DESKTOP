@@ -31,6 +31,8 @@ import javafx.scene.text.Text;
  */
 public class RevueManipulerController implements Initializable {
 
+    RevueService revueService = new RevueService();
+
     @FXML
     private Button btnRetour;
     @FXML
@@ -77,7 +79,6 @@ public class RevueManipulerController implements Initializable {
 
     @FXML
     private void ajout(ActionEvent event) {
-        RevueService revueService = new RevueService();
 
         String id = inputId.getText();
         String nbEtoiles = inputNbEtoiles.getText();

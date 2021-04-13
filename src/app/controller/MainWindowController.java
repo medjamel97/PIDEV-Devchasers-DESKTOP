@@ -28,6 +28,8 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private Button btRevue;
+    @FXML
+    private Button btCan;
 
     /**
      * Initializes the controller class.
@@ -48,5 +50,19 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
         }
+    }
+
+    @FXML
+    private void candidat(ActionEvent event) {
+          try {
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/Candidat.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+        }
+        
     }
 }
