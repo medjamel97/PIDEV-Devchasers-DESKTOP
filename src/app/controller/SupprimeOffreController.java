@@ -5,6 +5,8 @@
  */
 package app.controller;
 
+import app.entity.OffreDeTravail;
+import app.service.OffreDeTravailCrud;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,20 +18,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
  *
- * @author Grim
+ * @author Anis
  */
-public class MainWindowController implements Initializable {
+public class SupprimeOffreController implements Initializable {
 
     @FXML
-    private Button btRevue;
+    private Button btnS;
     @FXML
-    private Button btOffre;
+    private TextField dd;
 
     /**
      * Initializes the controller class.
@@ -37,31 +39,30 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
+    }    
 
-    @FXML
-    private void revue(ActionEvent event) {
+     private void offre(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
-        }
-    }
-
-    @FXML
-    private void offreDeTravail(ActionEvent event) {
-           try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/AfficherTout.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+        } catch (IOException ex) {
+            System.out.print(ex.getMessage());
         }
     }
+    @FXML
+    private void Supprime(ActionEvent event) {
+         OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
+            String id = dd.getText();
+        
+
+        offreDeTravailCrud.SupprimerOffre(Integer.parseInt(id));
+   
+        
+        offre(event);
+        
+    }
+    
 }
