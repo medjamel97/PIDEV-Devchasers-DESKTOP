@@ -12,7 +12,15 @@ import javafx.collections.ObservableList;
  *
  * @author PC
  */
-public interface RevueInterface {
+public interface RevueServiceInterface {
+
+    public boolean controleEtoiles(int nbEtoiles);
+
+    public boolean controleObjet(String objet);
+
+    public boolean controleDescription(String description);
+
+    public boolean controleBadWords(String texte);
 
     public void ajouterRevue(Revue v);
 
@@ -20,9 +28,9 @@ public interface RevueInterface {
 
     public void supprimerRevue(Revue v);
 
-    public ObservableList<Revue> getRevues();
+    public ObservableList<Revue> getRevuesParOffre(int idOffreDeTravail);
 
-    public ObservableList<Revue> getRevuesParObjet(String objet);
+    public ObservableList<Revue> getRevuesParOffreParObjet(int idOffreDeTravail, String objet);
 
     public String getRevueById();
 

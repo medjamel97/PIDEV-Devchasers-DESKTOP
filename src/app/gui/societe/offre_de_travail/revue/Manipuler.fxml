@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.RevueManipulerController">
+<AnchorPane prefHeight="500.0" styleClass="background-white" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.RevueManipulerController">
    <children>
-      <Text fx:id="topText" layoutX="215.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter une revue">
-         <font>
-            <Font name="Arial Bold" size="23.0" />
-         </font>
-      </Text>
-      <Button layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#revue" prefHeight="51.0" prefWidth="125.0" style="-fx-background-color: #DDDDDD;" text="Retour" textAlignment="CENTER" wrapText="true" />
-      <Text layoutX="53.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NB etoiles">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="73.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objet">
+      <StackPane layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="texte haut">
+               <font>
+                  <Font name="Arial Bold" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <Text layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NB etoiles" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputObjet" layoutX="158.0" layoutY="196.0" prefHeight="31.0" prefWidth="364.0" promptText="Tapez votre objet" />
-      <Text layoutX="50.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+      <Button fx:id="star1" layoutX="180.0" layoutY="94.0" mnemonicParsing="false" onAction="#setStar1" style="-fx-background-color: transparent;" />
+      <Button fx:id="star2" layoutX="237.0" layoutY="94.0" mnemonicParsing="false" onAction="#setStar2" style="-fx-background-color: transparent;" />
+      <Button fx:id="star3" layoutX="294.0" layoutY="94.0" mnemonicParsing="false" onAction="#setStar3" style="-fx-background-color: transparent;" />
+      <Button fx:id="star4" layoutX="351.0" layoutY="94.0" mnemonicParsing="false" onAction="#setStar4" style="-fx-background-color: transparent;" />
+      <Button fx:id="star5" layoutX="408.0" layoutY="94.0" mnemonicParsing="false" onAction="#setStar5" style="-fx-background-color: transparent;" />
+      <Text layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Objet" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <Button fx:id="btnAjout" layoutX="215.0" layoutY="445.0" mnemonicParsing="false" onAction="#manipuler" prefHeight="51.0" prefWidth="196.0" style="-fx-background-color: #DDDDDD;" text="Ajouter" textAlignment="CENTER" wrapText="true" />
-      <TextArea fx:id="inputDescription" layoutX="158.0" layoutY="254.0" prefHeight="145.0" prefWidth="364.0" promptText="Décrivez votre revue" />
-      <Button fx:id="star1" layoutX="180.0" layoutY="108.0" mnemonicParsing="false" onAction="#setStar1" style="-fx-background-color: transparent;" />
-      <Button fx:id="star2" layoutX="237.0" layoutY="108.0" mnemonicParsing="false" onAction="#setStar2" style="-fx-background-color: transparent;" />
-      <Button fx:id="star3" layoutX="294.0" layoutY="108.0" mnemonicParsing="false" onAction="#setStar3" style="-fx-background-color: transparent;" />
-      <Button fx:id="star4" layoutX="351.0" layoutY="108.0" mnemonicParsing="false" onAction="#setStar4" style="-fx-background-color: transparent;" />
-      <Button fx:id="star5" layoutX="408.0" layoutY="108.0" mnemonicParsing="false" onAction="#setStar5" style="-fx-background-color: transparent;" />
+      <Text layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" AnchorPane.leftAnchor="50.0">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnAjout" layoutX="265.0" layoutY="434.0" mnemonicParsing="false" onAction="#manipuler" prefHeight="51.0" prefWidth="150.0" styleClass="success-button" text="manipulation" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="260.0" />
+      <TextField fx:id="inputObjet" alignment="TOP_LEFT" layoutX="154.0" layoutY="166.0" prefHeight="31.0" prefWidth="456.0" promptText="Tapez l'objet de votre revue" style="-fx-border-radius: 100px; -fx-border-width: 10px;" styleClass="form-control" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="60.0" />
+      <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#revue" prefHeight="51.0" prefWidth="125.0" styleClass="normal-button" text="Retour" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <TextField fx:id="inputDescription" alignment="TOP_LEFT" layoutX="154.0" layoutY="224.0" prefHeight="156.0" prefWidth="456.0" promptText="Décrivez votre revue" style="-fx-border-radius: 100px; -fx-border-width: 10px;" styleClass="form-control" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="60.0" />
    </children>
 </AnchorPane>

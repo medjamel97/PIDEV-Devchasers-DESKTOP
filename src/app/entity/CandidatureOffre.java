@@ -1,6 +1,6 @@
 package app.entity;
 
-class CandidatureOffre {
+public class CandidatureOffre {
 
     private int id;
 
@@ -16,6 +16,17 @@ class CandidatureOffre {
         this.offreDeTravail = offreDeTravail;
         this.interview = interview;
         this.revue = revue;
+    }
+
+    public CandidatureOffre(int id, int candidat, int offreDeTravail) {
+        this.id = id;
+        this.candidat = candidat;
+        this.offreDeTravail = offreDeTravail;
+    }
+
+    public CandidatureOffre(int candidat, int offreDeTravail) {
+        this.candidat = candidat;
+        this.offreDeTravail = offreDeTravail;
     }
 
     public int getId() {

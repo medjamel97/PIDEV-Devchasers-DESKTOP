@@ -8,16 +8,11 @@ package app.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -27,24 +22,44 @@ import javafx.stage.StageStyle;
 public class MainWindowController implements Initializable {
 
     @FXML
-    private Button btRevue;
+    private AnchorPane topBar;
+    @FXML
+    private AnchorPane content;
+
+    static AnchorPane staticContent;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            staticContent = content;
+
+            Parent parent = FXMLLoader.load(getClass().getResource("/app/gui/ModeleTopBar.fxml"));
+            AnchorPane.setTopAnchor(parent, 0.0);
+            AnchorPane.setBottomAnchor(parent, 0.0);
+            AnchorPane.setRightAnchor(parent, 0.0);
+            AnchorPane.setLeftAnchor(parent, 0.0);
+            topBar.getChildren().add(parent);
+            
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + "/" + e.getCause());
+        }
+        
+        chargerInterface(getClass().getResource("/app/gui/Accueil.fxml"));
     }
 
-    @FXML
-    private void revue(ActionEvent event) {
+    public static void chargerInterface(URL location) {
+        staticContent.getChildren().clear();
+        System.out.println("Loading content : " + location);
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            Parent parent = FXMLLoader.load(location);
+            AnchorPane.setTopAnchor(parent, 0.0);
+            AnchorPane.setBottomAnchor(parent, 0.0);
+            AnchorPane.setRightAnchor(parent, 0.0);
+            AnchorPane.setLeftAnchor(parent, 0.0);
+            staticContent.getChildren().add(parent);
         } catch (IOException e) {
             System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
         }

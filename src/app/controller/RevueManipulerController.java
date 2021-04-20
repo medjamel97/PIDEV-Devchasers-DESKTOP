@@ -5,23 +5,21 @@
  */
 package app.controller;
 
+import app.entity.CandidatureOffre;
 import app.service.RevueService;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import app.entity.Revue;
+import app.service.CandidatureOffreService;
+import app.utils.BadWords;
 import java.sql.Types;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -39,7 +37,7 @@ public class RevueManipulerController implements Initializable {
     private TextField inputObjet;
 
     @FXML
-    private TextArea inputDescription;
+    private TextField inputDescription;
 
     @FXML
     private Text topText;
@@ -67,43 +65,26 @@ public class RevueManipulerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         Revue revue = RevueAfficherToutController.revueActuelle;
-        Button[] stars = {star1, star2, star3, star4, star5};
 
         if (revue != null) {
-            for (int i = 0; i < 5; i++) {
-                if (i < revue.getNbEtoiles()) {
-                    stars[i].setGraphic(new ImageView("app/images/mdi/star.png"));
-                } else {
-                    stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-                }
-            }
-            topText.setText("Modifier revue");
+            setStars(revue.getNbEtoiles());
+            topText.setText("Modifier votre revue");
             btnAjout.setText("Modifier");
             inputObjet.setText(revue.getObjet());
             inputDescription.setText(revue.getDescription());
 
             nbEtoiles = revue.getNbEtoiles();
         } else {
-            for (int i = 0; i < 5; i++) {
-                stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-            }
+            topText.setText("Ajouter une revue");
+            btnAjout.setText("Ajouter");
+            setStars(0);
         }
-
     }
 
     @FXML
     private void revue(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            System.out.print(ex.getMessage());
-        }
+        MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
     }
 
     @FXML
@@ -113,78 +94,109 @@ public class RevueManipulerController implements Initializable {
         String objet = inputObjet.getText();
         String description = inputDescription.getText();
 
-        /*if (!revueService.ControleObjet(revue)) {
-            alertObjet.setText("CIN non valable. ");
-            isValid = false;
-        }
-        if (!revueService.ControleDescription(revue)) {
-            alertDescription.setText("Role non valable. ");
-            retourstr = false;
-        }
-
-        if (isValid == true) {*/
         if (RevueAfficherToutController.revueActuelle != null) {
             Revue revue = new Revue(RevueAfficherToutController.revueActuelle.getId(), nbEtoiles, objet, description, Types.NULL);
-            revueService.modifierRevue(revue);
-            RevueAfficherToutController.revueActuelle = null;
-        } else {
-            Revue revue = new Revue(nbEtoiles, objet, description, Types.NULL);
-            revueService.ajouterRevue(revue);
-        }
-        //}
+            if (controleDeSaisie(revue)) {
+                revueService.modifierRevue(revue);
+                RevueAfficherToutController.revueActuelle = null;
 
-        // retour
-        revue(event);
+                MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                RevueAfficherToutController.information("Revue modifié avec succés");
+            }
+        } else {
+            CandidatureOffreService candidatureOffreService = new CandidatureOffreService();
+            CandidatureOffre candidatureOffre;
+            if (candidatureOffreService.getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId()) == null) {
+                candidatureOffre = new CandidatureOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId());
+                candidatureOffreService.ajouterCandidature(candidatureOffre);
+            }
+
+            candidatureOffre = candidatureOffreService
+                    .getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId());
+
+            Revue revue = new Revue(nbEtoiles, objet, description, candidatureOffre.getId());
+            if (controleDeSaisie(revue)) {
+                revueService.ajouterRevue(revue);
+                MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                RevueAfficherToutController.information("Revue ajouté avec succés");
+            }
+        }
+    }
+
+    private boolean controleDeSaisie(Revue revue) {
+        boolean isValid = true;
+        RevueService revueService = new RevueService();
+
+        if (!revueService.controleEtoiles(revue.getNbEtoiles())) {
+            creerAlerte("Donnez une note");
+            isValid = false;
+        }
+
+        if (!revueService.controleObjet(revue.getObjet())) {
+            creerAlerte("Objet vide");
+            isValid = false;
+        }
+
+        if (!revueService.controleDescription(revue.getDescription())) {
+            creerAlerte("Description trés courte ou vide");
+            isValid = false;
+        }
+
+        if (!revueService.controleBadWords(revue.getObjet())) {
+            creerAlerte("Objet contient termes non autorisés");
+            isValid = false;
+        }
+
+        if (!revueService.controleBadWords(revue.getDescription())) {
+            creerAlerte("Description contient termes non autorisés");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void creerAlerte(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML
     private void setStar1(ActionEvent event) {
-        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star2.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star3.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        nbEtoiles = 1;
+        setStars(1);
     }
 
     @FXML
     private void setStar2(ActionEvent event) {
-        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star3.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        nbEtoiles = 2;
+        setStars(2);
     }
 
     @FXML
     private void setStar3(ActionEvent event) {
-        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star4.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        nbEtoiles = 3;
+        setStars(3);
     }
 
     @FXML
     private void setStar4(ActionEvent event) {
-        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star4.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star5.setGraphic(new ImageView("app/images/mdi/star-outline.png"));
-        nbEtoiles = 4;
+        setStars(4);
     }
 
     @FXML
     private void setStar5(ActionEvent event) {
-        star1.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star2.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star3.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star4.setGraphic(new ImageView("app/images/mdi/star.png"));
-        star5.setGraphic(new ImageView("app/images/mdi/star.png"));
-        nbEtoiles = 5;
+        setStars(5);
     }
 
+    private void setStars(int nbEtoilesLocal) {
+        nbEtoiles = nbEtoilesLocal;
+        Button[] stars = {star1, star2, star3, star4, star5};
+        for (int i = 0; i < 5; i++) {
+            if (i < nbEtoiles) {
+                stars[i].setGraphic(new ImageView("app/images/mdi/star.png"));
+            } else {
+                stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+            }
+        }
+    }
 }

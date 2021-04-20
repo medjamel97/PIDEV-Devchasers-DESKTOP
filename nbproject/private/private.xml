@@ -5,8 +5,9 @@
         <group>
             <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/MainWindow.java</file>
             <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/RevueAfficherToutController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/MainWindowController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/RevueManipulerController.java</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/service/SocieteService.java</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/SelectionnerSocieteController.java</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/service/RevueService.java</file>
         </group>
     </open-files>
 </project-private>
