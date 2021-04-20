@@ -43,6 +43,7 @@ public class CandidatAjoutController implements Initializable {
     private DatePicker inputDate;
     @FXML
     private ComboBox<String> inputSexe;
+    
 
     /**
      * Initializes the controller class.
