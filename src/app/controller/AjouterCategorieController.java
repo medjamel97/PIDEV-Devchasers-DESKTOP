@@ -5,8 +5,8 @@
  */
 package app.controller;
 
-import app.entity.OffreDeTravail;
-import app.service.OffreDeTravailCrud;
+import app.entity.Categorie;
+import app.service.CategorieCrud;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,20 +26,24 @@ import javafx.stage.Stage;
  *
  * @author Anis
  */
-public class OffreManipulerController implements Initializable {
+public class AjouterCategorieController implements Initializable {
 
     @FXML
-    private TextField tfJob;
+    private TextField cat;
     @FXML
-    private TextArea tfDesc;
+    private Button ajout;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }
-
-    private void offre(ActionEvent event) {
+        // TODO
+    }    
+    
+    private void categorie(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/AfficherTout.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/admin/categorie/affichertoutCategorie.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -48,20 +52,20 @@ public class OffreManipulerController implements Initializable {
             System.out.print(ex.getMessage());
         }
     }
-    @FXML
-    private void manipulerOffre(ActionEvent event) {
-        OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
-
-        String job = tfJob.getText();
-        String desc = tfDesc.getText();
-
-        OffreDeTravail offreDeTravail = new OffreDeTravail(job, desc);
-        offreDeTravailCrud.ajouterOffre(offreDeTravail);
-   
-        
-        offre(event);
-        
-    }
     
 
+    @FXML
+    private void ajouterCat(ActionEvent event) {
+         CategorieCrud cate = new CategorieCrud();
+
+        
+        String nomcategorie = cat.getText();
+
+        Categorie cat = new Categorie(nomcategorie);
+        cate.ajouterCat(cat);
+   
+        
+        categorie(event);
+    }
+    
 }

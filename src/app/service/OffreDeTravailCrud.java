@@ -55,37 +55,8 @@ public class OffreDeTravailCrud implements Ioffre {
 
     }
 
-    public void SupprimerOffre(int id) {
-         PreparedStatement preparedStatement;
-        try {
-            preparedStatement = connexion.prepareStatement("DELETE FROM `offre_de_travail` WHERE `id`=?");
-            preparedStatement.setInt(1, id);
 
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-             System.out.println("Offre supprimé");
-        } catch (SQLException e) {
-            System.out.println("Erreur de suppresion offre : " + e.getMessage());
-        }
-
-    }
-
-    public void ModifierOffre(OffreDeTravail o) {
-        int rowsUpdated = 0;
-        try {
-
-            String requete = "UPDATE offre_de_travail SET job='" + o.getJob() + "',description='" + o.getDescription()
-                    + "' WHERE id=" + o.getId();
-            PreparedStatement pst = MyConnection.getInstance().getCnx()
-                    .prepareStatement(requete);
-            rowsUpdated = pst.executeUpdate(requete);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-    }
-
+    
     public List<OffreDeTravail> DisplayOffre() {
 
         List<OffreDeTravail> myList = new ArrayList();
@@ -117,5 +88,70 @@ public class OffreDeTravailCrud implements Ioffre {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+   
+    
+
+    @Override
+    public void SupprimerOffre(int id) {
+       PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connexion.prepareStatement("DELETE FROM `offre_de_travail` WHERE `id`=?");
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+             System.out.println("Offre supprimé");
+        } catch (SQLException e) {
+            System.out.println("Erreur de suppresion offre : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void ModifierOffre(OffreDeTravail o) {
+        
+    
+        {
+        PreparedStatement preparedStatement;
+        
+        try {
+            preparedStatement = connexion.prepareStatement(
+                    "UPDATE `offre_de_travail` "
+                    + "SET `job` = ?, `description` = ?"
+                    + "WHERE `id` = ?");
+            preparedStatement.setString(1, o.getJob());
+            preparedStatement.setString(2, o.getDescription());
+            preparedStatement.setInt(3, o.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Erreur de modification candidat : " + e.getMessage());
+        }
+    
+        }  }
+
   
+    public List rechercheOffre(String x) {
+        List<OffreDeTravail> offreList = new ArrayList<>();
+        try {
+            String requete = "Select * from offre_de_travail where job like '%" + x + "%' or description like '%" + x + "%'";
+            PreparedStatement pst = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                OffreDeTravail o = new OffreDeTravail();
+                
+                o.setId(rs.getInt("id"));
+                o.setJob(rs.getString("job"));
+                o.setDescription(rs.getString("description"));
+                
+                
+                offreList.add(o);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return offreList;
+    }
+
 }

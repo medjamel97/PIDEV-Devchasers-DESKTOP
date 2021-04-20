@@ -5,6 +5,8 @@
  */
 package app.entity;
 
+import javafx.scene.control.TextField;
+
 
 
 /**
@@ -37,6 +39,18 @@ public class OffreDeTravail  {
 
     public OffreDeTravail(int id) {
         this.id = id;
+    }
+
+    public OffreDeTravail() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public OffreDeTravail(int id, String job, String description) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public OffreDeTravail(TextField cat) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
@@ -73,10 +87,7 @@ public class OffreDeTravail  {
         this.idCat = idCat;
     }
 
-    @Override
-    public String toString() {
-        return "OffreDeTravail{" + "id=" + id + ", job=" + job + ", description=" + description + ", idCat=" + idCat + '}';
-    }
+
 
     
 }

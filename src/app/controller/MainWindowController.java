@@ -30,6 +30,8 @@ public class MainWindowController implements Initializable {
     private Button btRevue;
     @FXML
     private Button btOffre;
+    @FXML
+    private Button btcat;
 
     /**
      * Initializes the controller class.
@@ -56,6 +58,21 @@ public class MainWindowController implements Initializable {
     private void offreDeTravail(ActionEvent event) {
            try {
             Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/AfficherTout.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+        }
+    }
+    
+   
+
+    @FXML
+    private void categorie(ActionEvent event) {
+          try {
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/admin/categorie/affichertoutCategorie.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

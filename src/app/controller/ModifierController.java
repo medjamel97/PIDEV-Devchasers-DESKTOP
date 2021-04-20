@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,15 +27,24 @@ import javafx.stage.Stage;
  *
  * @author Anis
  */
-public class OffreManipulerController implements Initializable {
+public class ModifierController implements Initializable {
 
     @FXML
-    private TextField tfJob;
+    private TextField textJob;
     @FXML
-    private TextArea tfDesc;
+    private TextArea textDesc;
+    @FXML
+    private Button modifieroffre;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+   OffreDeTravail c = OffreAfficherToutController.offreActuelle;
+        textJob.setText(c.getJob());
+        textDesc.setText(c.getDescription());
+      
     }
 
     private void offre(ActionEvent event) {
@@ -44,24 +54,26 @@ public class OffreManipulerController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException ex) {
-            System.out.print(ex.getMessage());
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
     }
-    @FXML
-    private void manipulerOffre(ActionEvent event) {
-        OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
 
-        String job = tfJob.getText();
-        String desc = tfDesc.getText();
-
-        OffreDeTravail offreDeTravail = new OffreDeTravail(job, desc);
-        offreDeTravailCrud.ajouterOffre(offreDeTravail);
    
-        
-        offre(event);
-        
-    }
-    
 
+    @FXML
+    private void ModiferOffre(ActionEvent event) {
+         OffreDeTravail c =  OffreAfficherToutController.offreActuelle;
+        c.setJob(textJob.getText());
+        c.setDescription(textDesc.getText());
+        
+
+        OffreDeTravailCrud offres = new OffreDeTravailCrud();
+        offres.ModifierOffre(c);
+
+        offre(event);
+   
+}
+
+    
 }

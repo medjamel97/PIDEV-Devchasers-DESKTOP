@@ -5,8 +5,9 @@
  */
 package app.controller;
 
-import app.entity.OffreDeTravail;
-import app.service.OffreDeTravailCrud;
+
+import app.entity.Categorie;
+import app.service.CategorieCrud;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,43 +27,47 @@ import javafx.stage.Stage;
  *
  * @author Anis
  */
-public class SupprimeOffreController implements Initializable {
+public class ModifierCatController implements Initializable {
 
     @FXML
-    private Button btnS;
+    private Button btnM;
     @FXML
-    private TextField dd;
+    private TextField txtcat;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+           Categorie c = AffichertoutCategorieController.CategorieActuelle;
+           txtcat.setText(c.getNomcategorie());
+           
     }    
-
-     private void offre(ActionEvent event) {
+    
+    
+      private void categorie(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/AfficherTout.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/admin/categorie/affichertoutCategorie.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException ex) {
-            System.out.print(ex.getMessage());
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
     }
+
     @FXML
-    private void Supprime(ActionEvent event) {
-         OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
-            String id = dd.getText();
+    private void modifierCat(ActionEvent event) {
+         Categorie c =  AffichertoutCategorieController.CategorieActuelle;
+        c.setNomcategorie(txtcat.getText());
+       
         
 
-        offreDeTravailCrud.SupprimerOffre(Integer.parseInt(id));
-   
-        
-        offre(event);
-        
+        CategorieCrud cats = new CategorieCrud();
+        cats.ModifierCat(c);
+
+        categorie(event);
     }
     
 }

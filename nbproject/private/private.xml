@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/MainWindow.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/RevueAfficherToutController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/MainWindowController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/RevueManipulerController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/gui/admin/categorie/Ajouter.fxml</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/OffreAfficherToutController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/AffichertoutCategorieController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/entity/Categorie.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/service/CategorieCrud.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/AjouterCategorieController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/service/OffreDeTravailCrud.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/MainWindowController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/OffreManipulerController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/ModifierController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/gui/admin/categorie/affichertoutCategorie.fxml</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/gui/admin/categorie/ModifierCat.fxml</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/ModifierCatController.java</file>
         </group>
     </open-files>
 </project-private>
