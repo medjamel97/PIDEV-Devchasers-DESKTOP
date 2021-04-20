@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Types;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -68,6 +70,7 @@ public class AddMissionController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+          
         } catch (IOException ex) {
             System.out.print(ex.getMessage());
         }
@@ -91,8 +94,16 @@ public class AddMissionController implements Initializable {
 
     @FXML
     private void ajout(ActionEvent event) {
-         MissionCrud missionCrud = new MissionCrud();
-
+         if(inputId.getText().isEmpty() | inputnbheure.getText().isEmpty() | inputprix.getText().isEmpty()|inputDescription.getText().isEmpty()){
+            //JOptionPane.showMessageDialog(null, "Remplir les champs vides");
+            Alert al = new Alert(Alert.AlertType.ERROR);
+            al.setHeaderText(null);
+            al.setContentText("Remplir les champs vides");
+            al.showAndWait();
+        }else{
+        java.util.Date date = new java.util.Date();
+        Boolean update=true;
+        MissionCrud missionCrud = new MissionCrud();
         String nom = inputId.getText();
         String nbheure = inputnbheure.getText();
         String prix = inputprix.getText();
@@ -104,15 +115,46 @@ public class AddMissionController implements Initializable {
             System.out.println(e.getMessage()+" "+e.getCause());
         }
         Mission mission = new Mission(nom,description,d,Integer.parseInt(nbheure), Integer.parseInt(prix));
-        missionCrud.ajouterMission(mission);
-        
-        mission(event);
+            List<Mission> listmission = missionCrud.getMission();
+             for (int i = 0; i < listmission.size(); i++) {
+                if(nom.equals(listmission.get(i).getNom()))
+                {
+                    System.out.println("erreur!!");
+                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("erreur");
+                     alert.setHeaderText(null);
+                     alert.setContentText("cette mission deja existe!!! ");    
+                     alert.showAndWait();
+                    update=false;
+                }
+//                 System.out.println(listmission.get(i).getNom());
+            }
+            if(d.before(date))
+            {
+                     System.out.println("erreur!!");
+                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setTitle("erreur");
+                     alert.setHeaderText(null);
+                     alert.setContentText("on a dépasser cette date !!! ");    
+                     alert.showAndWait();
+                    update=false;
+            }
+             if(update)
+             {
+                 missionCrud.ajouterMission(mission);
+                 mission(event);
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Félicitation");
+            alert.setHeaderText(null);
+            alert.setContentText("Mission ajoutée !!");    
+            alert.showAndWait(); 
+             }
 
 //MissionCrud rt = new MissionCrud();
 //        rt.(new mission(inputId.getText(),inputDescription.getText(), Date.valueOf(Dateid.getValue()), inputnbheure.getText(), inputprix.getText()));
 //        JOptionPane.showMessageDialog(null, "evenement ajouté");
         
-
+         }
     }
    
     

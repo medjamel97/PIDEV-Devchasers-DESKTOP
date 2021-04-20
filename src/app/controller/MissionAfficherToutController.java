@@ -9,11 +9,16 @@ import app.entity.Mission;
 import app.service.MissionCrud;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +30,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -39,6 +47,8 @@ public class MissionAfficherToutController implements Initializable {
 
     MissionCrud missionCrud = new MissionCrud();
     ObservableList<Mission> observableListMission = FXCollections.observableArrayList();
+    public static Mission missionActuelle;
+    public static Mission missionClicked;
 
     @FXML
     private Button btnRetour;
@@ -64,18 +74,49 @@ public class MissionAfficherToutController implements Initializable {
     private TableColumn<Mission, Integer> columnSociete;
     @FXML
     private TableView<Mission> idTableau;
+    @FXML
+    private Button btnModifier;
+    @FXML
+    private Button btnSupprimer;
+    @FXML
+    private Text textMissionIdActuelle;
+    @FXML
+    private TextField txrecherche;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        missionActuelle = null;
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
+        Date date = new Date();
+
         List<Mission> listmission = missionCrud.getMission();
         if (!listmission.isEmpty()) {
             for (int i = 0; i < listmission.size(); i++) {
-                observableListMission.add(listmission.get(i));
+                 if(date.before(listmission.get(i).getDate()))
+                 {
+                     observableListMission.add(listmission.get(i));
+                     System.out.println("Date-1 is before Date-2  "+listmission.get(i).getNom());
+                 } 
+                else{
+                     System.out.println("non");
+                     missionCrud.supprimerMiss(listmission.get(i));}
             }
         }
+      
+//      DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//      System.out.println(format.format(date));
+        
+        loadDate();
+        List<Mission> listFed = new ArrayList<Mission>();
+        MissionCrud rs = new MissionCrud();
+        listFed = rs.getMission();
+        observableListMission.clear();
+        observableListMission.addAll(listFed);
+        idTableau.setItems(observableListMission);
 
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -83,9 +124,9 @@ public class MissionAfficherToutController implements Initializable {
         columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
         columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));;
+        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));
         idTableau.setItems(observableListMission);
-
+        Recherche();
     }
 
     @FXML
@@ -112,6 +153,112 @@ public class MissionAfficherToutController implements Initializable {
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    @FXML
+    private void modifier(ActionEvent event) {
+        if (missionActuelle != null) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/mission/modifierMission.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+            }
+
+        }
+    }
+
+    @FXML
+    private void supprimer(ActionEvent event) {
+        missionCrud.supprimerMission(missionActuelle);
+        missionActuelle = null;
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/mission/affichermission.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void changerMissionActuelle(MouseEvent event) {
+        btnModifier.setDisable(false);
+        btnSupprimer.setDisable(false);
+        missionActuelle = idTableau.getSelectionModel().getSelectedItem();
+          if (event.getClickCount() == 2 )
+         {
+              missionClicked = idTableau.getSelectionModel().getSelectedItem();
+                textMissionIdActuelle.setText("id choisi : " + missionClicked.getId());
+         }
+      
+         textMissionIdActuelle.setText("id choisi : " + missionActuelle.getId());
+    }
+    
+
+    @FXML
+    private void recherche(ActionEvent event) {
+        
+    }
+    
+       public void Recherche() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Mission> filteredData = new FilteredList<>(observableListMission, b -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
+        txrecherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(mission -> {
+                // If filter text is empty, display all persons.
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (mission.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                } else if (String.valueOf(mission.getId()).indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false; // Does not match.
+                }
+            });
+        });
+        // 3. Wrap the FilteredList in a SortedList. 
+        SortedList<Mission> sortedData = new SortedList<>(filteredData);
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(idTableau.comparatorProperty());
+        // 5. Add sorted (and filtered) data to the table.
+        idTableau.setItems(sortedData);
+    }
+       
+         private void loadDate() {
+        ObservableList<Mission> abList = FXCollections.observableArrayList();
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+          columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
+        columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));
+
+        MissionCrud rt = new MissionCrud();
+        //List old = rt.listAbonnement();
+        List old = rt.getMission();
+        abList.addAll(old);
+        idTableau.setItems(abList);
+        idTableau.refresh();
     }
 
 }

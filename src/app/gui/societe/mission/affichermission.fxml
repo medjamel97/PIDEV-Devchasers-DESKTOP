@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -34,20 +35,28 @@
          <content>
             <AnchorPane fx:id="anchorPane">
                <children>
-                  <TableView fx:id="idTableau">
+                  <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" prefHeight="388.0" prefWidth="527.0" AnchorPane.topAnchor="58.0">
                     <columns>
-                      <TableColumn fx:id="columnId" prefWidth="75.0" text="id" />
-                      <TableColumn fx:id="columnNom" prefWidth="75.0" text="nom" />
-                        <TableColumn fx:id="columnDescription" prefWidth="75.0" text="description" />
-                        <TableColumn fx:id="columnNbHeure" prefWidth="75.0" text="nbHeure" />
-                        <TableColumn fx:id="columnPrixHeure" prefWidth="75.0" text="prixHeure" />
-                        <TableColumn fx:id="columnDate" prefWidth="75.0" text="date" />
-                        <TableColumn fx:id="columnSociete" prefWidth="75.0" text="societe" />
+                      <TableColumn fx:id="columnId" prefWidth="35.0" text="id" />
+                      <TableColumn fx:id="columnNom" prefWidth="78.0" text="nom" />
+                        <TableColumn fx:id="columnDescription" prefWidth="146.0" text="description" />
+                        <TableColumn fx:id="columnNbHeure" prefWidth="62.0" text="nbHeure" />
+                        <TableColumn fx:id="columnPrixHeure" prefWidth="78.0" text="prixHeure" />
+                        <TableColumn fx:id="columnDate" prefWidth="70.0" text="date" />
+                        <TableColumn fx:id="columnSociete" prefWidth="56.0" text="societe" />
                     </columns>
                   </TableView>
+                  <TextField fx:id="txrecherche" layoutX="13.0" layoutY="14.0" onAction="#recherche" prefHeight="27.0" prefWidth="152.0" promptText=" Recherche du mission" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="355.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="51.0" prefWidth="98.0" text="Modifier" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+            <Button fx:id="btnSupprimer" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="51.0" prefWidth="98.0" text="Supprimer" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <Text fx:id="textMissionIdActuelle" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

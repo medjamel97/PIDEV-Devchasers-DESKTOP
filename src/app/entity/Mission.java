@@ -5,7 +5,7 @@
  */
 package app.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -24,6 +24,16 @@ public class Mission {
     private int[] question;
 
     public Mission() {
+    }
+
+    public Mission(int id,String nom, String description, Date date, int nombreHeures, float prixHeure, int societe) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.date = date;
+        this.nombreHeures = nombreHeures;
+        this.prixHeure = prixHeure;
+        this.societe = societe;
     }
 
     public Mission(String nom, String description, Date date, int nombreHeures, float prixHeure, int societe) {
