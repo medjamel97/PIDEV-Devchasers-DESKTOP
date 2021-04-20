@@ -14,5 +14,9 @@
         <Button fx:id="btRevue" layoutX="218.0" layoutY="32.0" mnemonicParsing="false" onAction="#revue" text="Revue" />
       <Button fx:id="btOffre" layoutX="314.0" layoutY="32.0" mnemonicParsing="false" onAction="#offreDeTravail" text="Offre de travail" />
       <Button fx:id="btcat" layoutX="115.0" layoutY="32.0" mnemonicParsing="false" onAction="#categorie" text="Categorie" />
+<AnchorPane id="AnchorPane" prefHeight="246.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainWindowController">
+    <children>
+        <Button fx:id="btRevue" layoutX="300.0" layoutY="44.0" mnemonicParsing="false" onAction="#revue" text="Revue" />
+      <Button fx:id="btPub1" layoutX="125.0" layoutY="44.0" mnemonicParsing="false" onAction="#publication" text="Publication" />
     </children>
 </AnchorPane>
