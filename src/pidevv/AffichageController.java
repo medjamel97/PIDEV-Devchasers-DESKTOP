@@ -5,7 +5,9 @@
  */
 package pidevv;
 
+import Entities.commentaire;
 import Entities.publication;
+import Service.commentaireService;
 import Service.publicationService;
 import java.io.IOException;
 
@@ -14,7 +16,10 @@ import java.sql.Date;
 import java.sql.SQLDataException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,12 +31,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ButtonType;
+
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+
+import javafx.scene.input.KeyEvent;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -45,34 +55,14 @@ import static jdk.nashorn.internal.runtime.Debug.id;
 public class AffichageController implements Initializable {
 
     public int idR = 0;
-    @FXML
-    private TableColumn<publication, String> description;
-    @FXML
-    private TableColumn<publication, String> titre;
-    @FXML
-    private TableView<publication> affichage;
+    public static publication pubActuelle;
 
-    private ObservableList<publication> RecData = FXCollections.observableArrayList();
     @FXML
-    private TableColumn<publication, Date> Date;
-    @FXML
-    private TableColumn<publication, String> nbr_like;
+    private Button btnAjout;
     @FXML
     private TextField txrecherche;
     @FXML
-    private Button btn_recherche;
-    @FXML
-    private TableColumn<publication, String> nbr_dislike;
-    @FXML
-    private Button btnModifier;
-    @FXML
-    private Button btnSupprimer;
-
-    public static publication pubActuelle;
-    @FXML
-    private Text idPubActuelle;
-    @FXML
-    private Button btnAjout;
+    private VBox pubvbox;
 
     /**
      * Initializes the controller class.
@@ -80,124 +70,73 @@ public class AffichageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        pubActuelle = null;
-        btnSupprimer.setDisable(true);
-        btnModifier.setDisable(true);
-//         List<publication> listRec= new ArrayList<publication>();
-//        publicationService rs =  new publicationService();
-//        listRec = rs.getAll();
-//        RecData.clear();
-//        RecData.addAll(listRec);
-//        affichage.setItems(RecData);
-//        
-//        description.setCellValueFactory(
-//            new PropertyValueFactory<>("description")
-//        );
-//        titre.setCellValueFactory(
-//            new PropertyValueFactory<>("titre")
-//        );
-//        Date.setCellValueFactory(
-//            new PropertyValueFactory<>("Date")
-//        );
-//          nbr_like.setCellValueFactory(
-//            new PropertyValueFactory<>("nbr_like")
-//        );
-//      
-        loadDate();
         List<publication> listFed = new ArrayList<publication>();
         publicationService rs = new publicationService();
         listFed = rs.getAll();
-        RecData.clear();
-        RecData.addAll(listFed);
-        affichage.setItems(RecData);
-        description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        titre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        nbr_like.setCellValueFactory(new PropertyValueFactory<>("nbr_like"));
-        nbr_dislike.setCellValueFactory(new PropertyValueFactory<>("all_like"));
-        Recherche();
+        for (int i = 0; i < listFed.size(); i++) {
+            creepub(listFed.get(i));
+        }
 
     }
 
-    private void jm_btn(ActionEvent event) {
-//        publication p = new publication();
-//        
-//       int nb = p.getNbr_like();
-//       nb++;
-        publicationService ps = new publicationService();
-//        
-        publication pubSelected = (publication) affichage.getSelectionModel().getSelectedItem();
-        publication p = new publication();
-        p = ps.findpublicationById((pubSelected.getId()));
-//        ps.Add_nbr_like(idR, nb);
-        ps.incrementerjaime(p.getId());
-        affichage.refresh();
+    public void creepub(publication publication) {
 
-    }
-
-    @FXML
-    private void recherche(ActionEvent event) {
-
-    }
-
-    public void Recherche() {
-        // Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<publication> filteredData = new FilteredList<>(RecData, b -> true);
-
-        // 2. Set the filter Predicate whenever the filter changes.
-        txrecherche.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(publication -> {
-                // If filter text is empty, display all persons.
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
+        try {
+            Parent modelePub = FXMLLoader.load(getClass().getResource("/pidevv/modelpub.fxml"));
+            pubvbox.getChildren().add(modelePub);
+            ((Text) ((AnchorPane) modelePub).getChildren().get(0)).setText(publication.getTitre());
+            ((Text) ((AnchorPane) modelePub).getChildren().get(1)).setText(publication.getDescription());
+            ((Button) ((AnchorPane) modelePub).getChildren().get(2)).setOnAction((event) -> {
+                try {
+                    Supprimer(event, publication);
+                } catch (SQLDataException ex) {
+                    Logger.getLogger(AffichageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
+            });
+            ((Button) ((AnchorPane) modelePub).getChildren().get(3)).setOnAction((event) -> {
 
-                if (publication.getTitre().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches first name.
-                } else if (String.valueOf(publication.getId()).indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else {
-                    return false; // Does not match.
+                Modifier(event, publication);
+
+            });
+
+            ((Button) ((AnchorPane) modelePub).getChildren().get(6)).setOnAction((event) -> {
+                String textComm = ((TextField) ((AnchorPane) modelePub).getChildren().get(5)).getText();
+                commentaire c = new commentaire(publication.getId(), textComm);
+                commentaireService cs = new commentaireService();
+                cs.AjouterCommentaire(c);
+                Parent modeleComForAjout;
+                try {
+                    modeleComForAjout = FXMLLoader.load(getClass().getResource("/pidevv/modelcom.fxml"));
+                    ((VBox) ((AnchorPane) modelePub).getChildren().get(4)).getChildren().add(modeleComForAjout);
+                    ((Text) ((StackPane) ((AnchorPane) modeleComForAjout).getChildren().get(0)).getChildren().get(0))
+                            .setText(c.getDescription());
+                } catch (IOException ex) {
+                    Logger.getLogger(AffichageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        });
-        // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<publication> sortedData = new SortedList<>(filteredData);
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        // 	  Otherwise, sorting the TableView would have no effect.
-        sortedData.comparatorProperty().bind(affichage.comparatorProperty());
-        // 5. Add sorted (and filtered) data to the table.
-        affichage.setItems(sortedData);
-    }
 
-    private void resetTableData() {
+            try {
+                List<commentaire> listFed = new ArrayList<commentaire>();
+                commentaireService cs = new commentaireService();
+                listFed = cs.getAllByPubId(publication.getId());
 
-        List<publication> listRec = new ArrayList<>();
-        publicationService rs = new publicationService();
-        listRec = rs.getAll();
-        ObservableList<publication> data = FXCollections.observableArrayList(listRec);
-        affichage.setItems(data);
+                if (listFed.size() != 0) {
+                    for (int i = 0; i < listFed.size(); i++) {
+                        Parent modeleCom = FXMLLoader.load(getClass().getResource("/pidevv/modelcom.fxml"));
+                        ((VBox) ((AnchorPane) modelePub).getChildren().get(4)).getChildren().add(modeleCom);
+                        ((Text) ((StackPane) ((AnchorPane) modeleCom).getChildren().get(0)).getChildren().get(0))
+                                .setText(listFed.get(0).getDescription());
+                    }
+                }
 
-    }
+            } catch (IOException ex) {
+                Logger.getLogger(AffichageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-    private void loadDate() {
-        ObservableList<publication> abList = FXCollections.observableArrayList();
-        description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        titre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        nbr_like.setCellValueFactory(new PropertyValueFactory<>("nbr_like"));
-        nbr_dislike.setCellValueFactory(new PropertyValueFactory<>("all_like"));
-
-        publicationService rt = new publicationService();
-        //List old = rt.listAbonnement();
-        List old = rt.getAll();
-        abList.addAll(old);
-        affichage.setItems(abList);
-        affichage.refresh();
+        } catch (IOException ex) {
+            Logger.getLogger(AffichageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -213,49 +152,57 @@ public class AffichageController implements Initializable {
         }
     }
 
-    @FXML
-    private void Modifier(ActionEvent event) {
-        if (pubActuelle != null) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/pidevv/ModifPub.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
-            }
+    private void Modifier(ActionEvent event, publication publication) {
 
-        }
-    }
-
-    @FXML
-    private void Supprimer(ActionEvent event) throws SQLDataException {
-        publicationService ps = new publicationService();
-        ps.SupprimerPublication();
-        pubActuelle = null;
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
-
+        pubActuelle = publication;
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/pidevv/Affichage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/pidevv/ModifPub.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException ex) {
-            System.out.print(ex.getMessage());
+        } catch (IOException e) {
+            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
         }
 
     }
 
-    @FXML
-    private void changerPubActuelle(MouseEvent event) {
+    private void Supprimer(ActionEvent event, publication publication) throws SQLDataException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("vous voulez vraiment supprimer cette publication ?");
 
-        pubActuelle = affichage.getSelectionModel().getSelectedItem();
-        idPubActuelle.setText("id choisi : " + pubActuelle.getId());
-        btnModifier.setDisable(false);
-        btnSupprimer.setDisable(false);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            publicationService ps = new publicationService();
+            ps.SupprimerPublication(publication);
+            pubActuelle = null;
+
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/pidevv/Accueil.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.out.print(ex.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void recherche(KeyEvent event) {
+        pubvbox.getChildren().clear();
+        publicationService ps = new publicationService();
+        List<publication> listpublication = ps.findpubBytitre(txrecherche.getText());
+
+        if (!listpublication.isEmpty()) {
+            for (int i = 0; i < listpublication.size(); i++) {
+                creepub(listpublication.get(i));
+            }
+
+        }
     }
 
 }

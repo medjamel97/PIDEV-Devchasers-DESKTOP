@@ -82,9 +82,11 @@ public class publication {
         this.titre = titre;
     }
 
-    public publication(String description, String titre) {
+    public publication(int id, String titre,String description) {
+         this.id = id;
+           this.titre = titre;
         this.description = description;
-        this.titre = titre;
+      
     }
 
     public String getTitre() {

@@ -64,19 +64,8 @@ public class BadWords {
             return new ArrayList<>();
         }
 
-        // remove leetspeak
-        input = input.replaceAll("1","i");
-        input = input.replaceAll("!","i");
-        input = input.replaceAll("3","e");
-        input = input.replaceAll("4","a");
-        input = input.replaceAll("@","a");
-        input = input.replaceAll("5","s");
-        input = input.replaceAll("7","t");
-        input = input.replaceAll("0","o");
-        input = input.replaceAll("9","g");
 
         ArrayList<String> badWords = new ArrayList<>();
-        input = input.toLowerCase().replaceAll("[^a-zA-Z]", "");
 
         // iterate over each letter in the word
         for(int start = 0; start < input.length(); start++) {

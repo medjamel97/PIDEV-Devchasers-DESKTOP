@@ -99,7 +99,7 @@ public class AjoutPubController implements Initializable {
                     
                           
        Notifications notificationBuilder = Notifications.create()
-               .title("Succes").text("Votre Reclamation est Envoyée").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+               .title("Succes").text("Votre Publication est ajoutè avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
                .position(Pos.CENTER_LEFT)
                .onAction(new EventHandler<ActionEvent>(){
                    public void handle(ActionEvent event)
@@ -117,7 +117,7 @@ public class AjoutPubController implements Initializable {
         ps.AjouterPublication(p);
 
        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/pidevv/Affichage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/pidevv/Accueil.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

@@ -18,6 +18,7 @@ import Entities.publication;
 import Service.publicationService;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Types;
 import java.time.LocalDate;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,28 +53,36 @@ public class ModifPubController implements Initializable {
  
     @FXML
     private void modifier(ActionEvent event) {
-           publication p = new publication();
+    publicationService pubService = new publicationService();
 
-        LocalDate dd = LocalDate.now();
-        Date date = java.sql.Date.valueOf(dd);
-        p.setDescription(description.getText());
-        //p.setCandidat_id(1);
-        p.setTitre(titre.getText());
-        //  p.setDate(date);
-        //   p.setCandidat_id(1);
-        publicationService ps = new publicationService();
-        ps.AjouterPublication(p);
+        String objet = titre.getText();
+        String desc = description.getText();
 
-       try {
+        
+        
+         publication publication = new publication(AffichageController.pubActuelle.getId(),objet, desc);
+            pubService.ModiferPublication(publication);
+            AffichageController.pubActuelle = null;
+          
+
+        // retour
+        publication(event);
+
+    
+
+    }
+    private void publication(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/pidevv/Affichage.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
+        } catch (IOException ex) {
+            System.out.print(ex.getMessage());
         }
-
     }
+    
+    
 
 }

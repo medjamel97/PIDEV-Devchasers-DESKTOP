@@ -16,9 +16,14 @@ import Entities.publication;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Optional;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import pidevv.AffichageController;
 
 /**
@@ -92,7 +97,7 @@ public class publicationService {
 
     public List<publication> getAll() {
         try {
-            PreparedStatement preparedStatement = cnx.prepareStatement("SELECT * FROM publication");
+            PreparedStatement preparedStatement = cnx.prepareStatement("SELECT * FROM publication order by date desc");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -111,6 +116,7 @@ public class publicationService {
         }
         return listPub;
     }
+    
 
     public void incrementerjaime(int id) {
         try {
@@ -121,6 +127,31 @@ public class publicationService {
         }
     }
 
+    public ObservableList<publication> findpubBytitre(String titre){
+        listPub = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = cnx.prepareStatement(
+                    "SELECT * FROM publication WHERE titre LIKE ?");
+            preparedStatement.setString(1, titre + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+          while (resultSet.next()) {
+                listPub.add(new publication(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("nbr_like"),
+                        resultSet.getInt("all_like"),
+                        resultSet.getDate("date"),
+                        resultSet.getString("titre")));
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur recherche publication : " + e.getMessage());
+        }
+        return listPub;
+    }
+    
+    
     public publication findpublicationById(int id) {
         publication u = new publication();
         int count = 0;
@@ -149,35 +180,41 @@ public class publicationService {
 
     }
 
-    public void SupprimerPublication() {
+    public void SupprimerPublication(publication publication) {
+      
+             // ... user chose CANCEL or closed the dialog
+        
         PreparedStatement preparedStatement;
         try {
             preparedStatement = cnx.prepareStatement("DELETE FROM `publication` WHERE `id`=?");
-            preparedStatement.setInt(1, AffichageController.pubActuelle.getId());
+            preparedStatement.setInt(1, publication.getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("Erreur de suppresion publication : " + e.getMessage());
         }
+        
     }
 
     public void ModiferPublication(publication u) {
+      PreparedStatement preparedStatement;
+        System.out.println("aaaaaaa");
         try {
-            System.out.println("-------" + u.getTitre());
-            String req = "UPDATE publication SET titre = ?, description= ?, date= ?"
-                    + " WHERE id = " + AffichageController.pubActuelle.getId() + ";";
-            PreparedStatement st = cnx.prepareStatement(req);
-            st.setString(1, u.getTitre());
-            st.setString(2, u.getDescription());
-            st.setDate(3, u.getDate());
+            preparedStatement = cnx.prepareStatement(
+                    "UPDATE publication "
+                    + "SET titre = ?, description = ? "
+                    + "WHERE id = ?");
+            preparedStatement.setString(1, u.getTitre());
+            preparedStatement.setString(2, u.getDescription());
+           // preparedStatement.setDate(3, u.getDate());
+            preparedStatement.setInt(3, u.getId());
 
-            st.executeUpdate();
-            st.close();
-            System.out.println("user modifié !!");
-
-        } catch (SQLException ex) {
-            Logger.getLogger(publicationService.class.getName()).log(Level.SEVERE, null, ex);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            System.out.println("Success modification publication");
+        } catch (SQLException e) {
+            System.out.println("Erreur de modification publication : " + e.getMessage());
         }
     }
 
