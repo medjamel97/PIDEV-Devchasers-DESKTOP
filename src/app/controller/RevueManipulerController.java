@@ -32,6 +32,7 @@ import javafx.scene.text.Text;
 public class RevueManipulerController implements Initializable {
 
     static int nbEtoiles;
+    RevueService revueService = new RevueService();
 
     @FXML
     private TextField inputObjet;
