@@ -5,23 +5,23 @@
  */
 package app.controller;
 
+import app.entity.CandidatureOffre;
 import app.service.RevueService;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import app.entity.Revue;
+import app.service.CandidatureOffreService;
+import app.utils.BadWords;
 import java.sql.Types;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
@@ -31,80 +31,172 @@ import javafx.scene.text.Text;
  */
 public class RevueManipulerController implements Initializable {
 
-    @FXML
-    private Button btnRetour;
-    @FXML
-    private TextField inputId;
-    @FXML
-    private TextField inputNbEtoiles;
+    static int nbEtoiles;
+
     @FXML
     private TextField inputObjet;
+
     @FXML
     private TextField inputDescription;
-    @FXML
-    private Button btnAjout;
+
     @FXML
     private Text topText;
+
+    @FXML
+    private Button star1;
+
+    @FXML
+    private Button star2;
+
+    @FXML
+    private Button star3;
+
+    @FXML
+    private Button star4;
+
+    @FXML
+    private Button star5;
+
+    @FXML
+    private Button btnAjout;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         Revue revue = RevueAfficherToutController.revueActuelle;
+
         if (revue != null) {
-            topText.setText("Modifier revue");
-            inputId.setText(String.valueOf(revue.getId()));
-            inputNbEtoiles.setText(String.valueOf(revue.getId()));
+            setStars(revue.getNbEtoiles());
+            topText.setText("Modifier votre revue");
+            btnAjout.setText("Modifier");
             inputObjet.setText(revue.getObjet());
             inputDescription.setText(revue.getDescription());
+
+            nbEtoiles = revue.getNbEtoiles();
+        } else {
+            topText.setText("Ajouter une revue");
+            btnAjout.setText("Ajouter");
+            setStars(0);
         }
     }
 
     @FXML
     private void revue(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            System.out.print(ex.getMessage());
-        }
+        MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
     }
 
     @FXML
-    private void ajout(ActionEvent event) {
+    private void manipuler(ActionEvent event) {
         RevueService revueService = new RevueService();
 
-        String id = inputId.getText();
-        String nbEtoiles = inputNbEtoiles.getText();
         String objet = inputObjet.getText();
         String description = inputDescription.getText();
 
-        /*if (!revueService.ControleObjet(revue)) {
-            alertObjet.setText("CIN non valable. ");
-            isValid = false;
-        }
-        if (!revueService.ControleDescription(revue)) {
-            alertDescription.setText("Role non valable. ");
-            retourstr = false;
-        }
-
-        if (isValid == true) {*/
-        Revue revue = new Revue(Integer.parseInt(id), Integer.parseInt(nbEtoiles), objet, description, Types.NULL);
         if (RevueAfficherToutController.revueActuelle != null) {
-            revueService.modifierRevue(revue);
-            RevueAfficherToutController.revueActuelle = null;
-        } else {
-            revueService.ajouterRevue(revue);
-        }
-        //}
+            Revue revue = new Revue(RevueAfficherToutController.revueActuelle.getId(), nbEtoiles, objet, description, Types.NULL);
+            if (controleDeSaisie(revue)) {
+                revueService.modifierRevue(revue);
+                RevueAfficherToutController.revueActuelle = null;
 
-        // retour
-        revue(event);
+                MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                RevueAfficherToutController.information("Revue modifié avec succés");
+            }
+        } else {
+            CandidatureOffreService candidatureOffreService = new CandidatureOffreService();
+            CandidatureOffre candidatureOffre;
+            if (candidatureOffreService.getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId()) == null) {
+                candidatureOffre = new CandidatureOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId());
+                candidatureOffreService.ajouterCandidature(candidatureOffre);
+            }
+
+            candidatureOffre = candidatureOffreService
+                    .getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId());
+
+            Revue revue = new Revue(nbEtoiles, objet, description, candidatureOffre.getId());
+            if (controleDeSaisie(revue)) {
+                revueService.ajouterRevue(revue);
+                MainWindowController.chargerInterface(getClass().getResource("/app/gui/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                RevueAfficherToutController.information("Revue ajouté avec succés");
+            }
+        }
     }
 
+    private boolean controleDeSaisie(Revue revue) {
+        boolean isValid = true;
+        RevueService revueService = new RevueService();
+
+        if (!revueService.controleEtoiles(revue.getNbEtoiles())) {
+            creerAlerte("Donnez une note");
+            isValid = false;
+        }
+
+        if (!revueService.controleObjet(revue.getObjet())) {
+            creerAlerte("Objet vide");
+            isValid = false;
+        }
+
+        if (!revueService.controleDescription(revue.getDescription())) {
+            creerAlerte("Description trés courte ou vide");
+            isValid = false;
+        }
+
+        if (!revueService.controleBadWords(revue.getObjet())) {
+            creerAlerte("Objet contient termes non autorisés");
+            isValid = false;
+        }
+
+        if (!revueService.controleBadWords(revue.getDescription())) {
+            creerAlerte("Description contient termes non autorisés");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void creerAlerte(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void setStar1(ActionEvent event) {
+        setStars(1);
+    }
+
+    @FXML
+    private void setStar2(ActionEvent event) {
+        setStars(2);
+    }
+
+    @FXML
+    private void setStar3(ActionEvent event) {
+        setStars(3);
+    }
+
+    @FXML
+    private void setStar4(ActionEvent event) {
+        setStars(4);
+    }
+
+    @FXML
+    private void setStar5(ActionEvent event) {
+        setStars(5);
+    }
+
+    private void setStars(int nbEtoilesLocal) {
+        nbEtoiles = nbEtoilesLocal;
+        Button[] stars = {star1, star2, star3, star4, star5};
+        for (int i = 0; i < 5; i++) {
+            if (i < nbEtoiles) {
+                stars[i].setGraphic(new ImageView("app/images/mdi/star.png"));
+            } else {
+                stars[i].setGraphic(new ImageView("app/images/mdi/star-outline.png"));
+            }
+        }
+    }
 }

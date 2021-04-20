@@ -1,6 +1,6 @@
 package app.entity;
 
-class Interview {
+public class Interview {
 
     private int id;
     private String objet;
@@ -12,6 +12,13 @@ class Interview {
 
     public Interview(int id, String objet, String description, String difficulte, int candidatureOffre) {
         this.id = id;
+        this.objet = objet;
+        this.description = description;
+        this.difficulte = difficulte;
+        this.candidatureOffre = candidatureOffre;
+    }
+
+    public Interview(String objet, String description, String difficulte, int candidatureOffre) {
         this.objet = objet;
         this.description = description;
         this.difficulte = difficulte;

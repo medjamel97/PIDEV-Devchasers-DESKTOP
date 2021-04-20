@@ -18,6 +18,13 @@ public class Revue {
         this.candidatureOffre = candidatureOffre;
     }
 
+    public Revue(int nbEtoiles, String objet, String description, int candidatureOffre) {
+        this.nbEtoiles = nbEtoiles;
+        this.objet = objet;
+        this.description = description;
+        this.candidatureOffre = candidatureOffre;
+    }
+
     public int getId() {
         return id;
     }
