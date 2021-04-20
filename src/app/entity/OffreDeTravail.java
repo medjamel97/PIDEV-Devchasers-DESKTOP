@@ -5,26 +5,21 @@
  */
 package app.entity;
 
+import javafx.scene.control.TextField;
+
 /**
  *
  * @author Anis
  */
-public class OffreDeTravail {
 
+public class OffreDeTravail  {
+
+   
     private int id;
 
-    private int idCat;
-    private int idSociete;
     private String job;
     private String description;
-
-    public OffreDeTravail(int id, int idCat, int idSociete, String job, String description) {
-        this.id = id;
-        this.idCat = idCat;
-        this.idSociete = idSociete;
-        this.job = job;
-        this.description = description;
-    }
+    private int idCat;
 
     public OffreDeTravail(int id, String job, String description, int idCat) {
         this.id = id;
@@ -32,6 +27,7 @@ public class OffreDeTravail {
         this.description = description;
         this.idCat = idCat;
     }
+   
 
     public OffreDeTravail(String job, String description) {
 
@@ -42,6 +38,20 @@ public class OffreDeTravail {
     public OffreDeTravail(int id) {
         this.id = id;
     }
+
+    public OffreDeTravail() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public OffreDeTravail(int id, String job, String description) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public OffreDeTravail(TextField cat) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     public int getId() {
         return id;
@@ -74,10 +84,4 @@ public class OffreDeTravail {
     public void setIdCat(int idCat) {
         this.idCat = idCat;
     }
-
-    @Override
-    public String toString() {
-        return "OffreDeTravail{" + "id=" + id + ", job=" + job + ", description=" + description + ", idCat=" + idCat + '}';
-    }
-
 }
