@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface Ioffre {
     
+    public boolean controleJob(String job);
+    public boolean controleDescription(String description);
      public void ajouterOffre(OffreDeTravail o);
      public void SupprimerOffre(int id);
      public void ModifierOffre(OffreDeTravail o);

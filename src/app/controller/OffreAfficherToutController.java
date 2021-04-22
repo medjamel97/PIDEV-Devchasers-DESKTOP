@@ -8,9 +8,7 @@ package app.controller;
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -22,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -31,7 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -96,31 +94,7 @@ public class OffreAfficherToutController implements Initializable {
         T.setItems(prds);
         
     }
-private void initTable(List<OffreDeTravail> listoffre) {
-        OffreDeTravailCrud of = new OffreDeTravailCrud();
-        if (listoffre == null) {
-            listoffre = of.DisplayOffre();
-        }
-        List<OffreDeTravail> lf = new ArrayList<OffreDeTravail>();
-        listoffre.forEach(e -> {
 
-            try {
-                OffreDeTravail addoffre = new OffreDeTravail(e.getId(), e.getJob(), e.getDescription());
-                addoffre.setId(0);
-                String description = null;
-                addoffre.setDescription(description);
-                lf.add(addoffre);
-            } catch (MalformedURLException ex) {
-                System.out.print(ex.getMessage());
-            }
-
-        });
-        //System.out.println("ev " + lIm);
-
-        ObservableList<OffreDeTravail> listoffre = FXCollections.observableArrayList(lf);
-
-        tableCours.setItems(listoffre);
-    }
     @FXML
     private void accueil(ActionEvent event) {
         try {
@@ -193,11 +167,23 @@ private void initTable(List<OffreDeTravail> listoffre) {
     
     @FXML
     private void rechercheOffre(KeyEvent event) {
+        T.getItems().clear();
         OffreDeTravailCrud o = new OffreDeTravailCrud();
 
-        initTable(o.rechercheOffre(recherche.getText()));
+        List<OffreDeTravail> liste= (o.rechercheOffre(recherche.getText()));
+        if (!liste.isEmpty()) {
+			for (int i = 0; i < liste.size(); i++) {
+				prds.add(liste.get(i));
+			}
+		}
+        c1.setCellValueFactory(new PropertyValueFactory<>("id"));
+        c2.setCellValueFactory(new PropertyValueFactory<>("job"));
+        c3.setCellValueFactory(new PropertyValueFactory<>("description"));
+        c4.setCellValueFactory(new PropertyValueFactory<>("idCat"));
+        T.setItems(prds);
     }
   
+      
 }
 
   

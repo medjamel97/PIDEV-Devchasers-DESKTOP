@@ -13,8 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.stage.Stage;
@@ -31,10 +29,20 @@ public class OffreDeTravailCrud implements Ioffre {
         connexion = ConnecteurBD.driverBD();
     }
 
-    /**
-     *
-     * @param o
-     */
+ 
+    @Override
+   public boolean controleJob (String job) {
+        return (job.length() > 0);
+    }
+
+
+    @Override
+    public boolean controleDescription(String description) {
+        return (description.length() > 5);
+    }
+
+ 
+    
     @Override
     public void ajouterOffre(OffreDeTravail o) {
 

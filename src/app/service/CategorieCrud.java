@@ -31,26 +31,34 @@ public class CategorieCrud implements Icategorie  {
         connexion = ConnecteurBD.driverBD();
     }
 
+    
+    @Override
+   public boolean controleNomcat (String nomcategorie) {
+        return (nomcategorie.length() > 0);
+    }
+
+
+    
+
     public CategorieCrud(TextField cat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
      *
-     * @param o
+     * @param c
      */
     
+    @Override
     public void ajouterCat(Categorie c) {
 
         try {
-            PreparedStatement preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO categorie (nom_categorie) VALUES (?)");
-
-            
-            preparedStatement.setString(1,c.getNomcategorie());
-
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
+            try (PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "INSERT INTO categorie (nom_categorie) VALUES (?) ")) {
+                preparedStatement.setString(1,c.getNomcategorie());
+                
+                preparedStatement.executeUpdate();
+            }
 
             System.out.println("Categorie ajouté");
         } catch (SQLException ex) {

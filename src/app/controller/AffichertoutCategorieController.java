@@ -6,7 +6,6 @@
 package app.controller;
 
 
-import static app.controller.OffreAfficherToutController.offreActuelle;
 import app.entity.Categorie;
 import app.service.CategorieCrud;
 import java.io.IOException;
@@ -22,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -128,5 +128,5 @@ public class AffichertoutCategorieController implements Initializable {
             System.out.print(e.getMessage());
         }
     }
-    
+      
 }

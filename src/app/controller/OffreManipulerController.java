@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -50,18 +51,44 @@ public class OffreManipulerController implements Initializable {
     }
     @FXML
     private void manipulerOffre(ActionEvent event) {
-        OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
-
+         OffreDeTravailCrud offreDeTravailCrud = new OffreDeTravailCrud();
         String job = tfJob.getText();
         String desc = tfDesc.getText();
-
         OffreDeTravail offreDeTravail = new OffreDeTravail(job, desc);
+        
+        if(controleDeSaisie(offreDeTravail)){
+        
         offreDeTravailCrud.ajouterOffre(offreDeTravail);
    
-        
         offre(event);
-        
+        }
     }
     
+private boolean controleDeSaisie(OffreDeTravail offre) {
+        boolean isValid = true;
+        OffreDeTravailCrud offresdetravail = new OffreDeTravailCrud();
 
+
+        if (!offresdetravail.controleJob(offre.getJob())) {
+            creerAlerte("Objet vide");
+            isValid = false;
+        }
+
+        if (!offresdetravail.controleDescription(offre.getDescription())) {
+            creerAlerte("Description trés courte ou vide");
+            isValid = false;
+        }
+
+      
+
+        return isValid;
+    }
+
+    private void creerAlerte(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
