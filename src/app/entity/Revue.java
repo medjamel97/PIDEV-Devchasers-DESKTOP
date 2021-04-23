@@ -1,28 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package app.entity;
 
+/**
+ *
+ * @author Grim
+ */
 public class Revue {
 
     private int id;
+    private int candidatureOffreId;
     private int nbEtoiles;
     private String objet;
     private String description;
 
-    // relations
-    private int candidatureOffre;
-
-    public Revue(int id, int nbEtoiles, String objet, String description, int candidatureOffre) {
+    public Revue(int id, int candidatureOffreId, int nbEtoiles, String objet, String description) {
         this.id = id;
+        this.candidatureOffreId = candidatureOffreId;
         this.nbEtoiles = nbEtoiles;
         this.objet = objet;
         this.description = description;
-        this.candidatureOffre = candidatureOffre;
     }
 
-    public Revue(int nbEtoiles, String objet, String description, int candidatureOffre) {
+    public Revue(int candidatureOffreId, int nbEtoiles, String objet, String description) {
+        this.candidatureOffreId = candidatureOffreId;
         this.nbEtoiles = nbEtoiles;
         this.objet = objet;
         this.description = description;
-        this.candidatureOffre = candidatureOffre;
     }
 
     public int getId() {
@@ -31,6 +38,14 @@ public class Revue {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCandidatureOffreId() {
+        return candidatureOffreId;
+    }
+
+    public void setCandidatureOffreId(int candidatureOffreId) {
+        this.candidatureOffreId = candidatureOffreId;
     }
 
     public int getNbEtoiles() {
@@ -55,14 +70,6 @@ public class Revue {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getCandidatureOffre() {
-        return candidatureOffre;
-    }
-
-    public void setCandidatureOffre(int candidatureOffre) {
-        this.candidatureOffre = candidatureOffre;
     }
 
 }

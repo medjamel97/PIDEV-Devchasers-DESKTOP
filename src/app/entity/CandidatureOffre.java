@@ -1,32 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package app.entity;
 
+/**
+ *
+ * @author Grim
+ */
 public class CandidatureOffre {
 
     private int id;
+    private int offreDeTravailId;
+    private int candidatId;
 
-    // relations
-    private int candidat;
-    private int offreDeTravail;
-    private int[] interview;
-    private int[] revue;
-
-    public CandidatureOffre(int id, int candidat, int offreDeTravail, int[] interview, int[] revue) {
+    public CandidatureOffre(int id, int offreDeTravailId, int candidatId) {
         this.id = id;
-        this.candidat = candidat;
-        this.offreDeTravail = offreDeTravail;
-        this.interview = interview;
-        this.revue = revue;
+        this.offreDeTravailId = offreDeTravailId;
+        this.candidatId = candidatId;
     }
 
-    public CandidatureOffre(int id, int candidat, int offreDeTravail) {
-        this.id = id;
-        this.candidat = candidat;
-        this.offreDeTravail = offreDeTravail;
-    }
-
-    public CandidatureOffre(int candidat, int offreDeTravail) {
-        this.candidat = candidat;
-        this.offreDeTravail = offreDeTravail;
+    public CandidatureOffre(int offreDeTravailId, int candidatId) {
+        this.offreDeTravailId = offreDeTravailId;
+        this.candidatId = candidatId;
     }
 
     public int getId() {
@@ -37,36 +34,20 @@ public class CandidatureOffre {
         this.id = id;
     }
 
-    public int getCandidat() {
-        return candidat;
+    public int getOffreDeTravailId() {
+        return offreDeTravailId;
     }
 
-    public void setCandidat(int candidat) {
-        this.candidat = candidat;
+    public void setOffreDeTravailId(int offreDeTravailId) {
+        this.offreDeTravailId = offreDeTravailId;
     }
 
-    public int getOffreDeTravail() {
-        return offreDeTravail;
+    public int getCandidatId() {
+        return candidatId;
     }
 
-    public void setOffreDeTravail(int offreDeTravail) {
-        this.offreDeTravail = offreDeTravail;
-    }
-
-    public int[] getInterview() {
-        return interview;
-    }
-
-    public void setInterview(int[] interview) {
-        this.interview = interview;
-    }
-
-    public int[] getRevue() {
-        return revue;
-    }
-
-    public void setRevue(int[] revue) {
-        this.revue = revue;
+    public void setCandidatId(int candidatId) {
+        this.candidatId = candidatId;
     }
 
 }

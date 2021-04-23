@@ -6,43 +6,45 @@
 package app.service;
 
 import app.entity.OffreDeTravail;
-import app.interfaces.Ioffre;
 import app.utils.ConnecteurBD;
-import gestionentrepot.utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
-import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import app.interfaces.OffreDeTravailCrudInterface;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author Anis
  */
-public class OffreDeTravailCrud implements Ioffre {
+public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
 
+    private static OffreDeTravailCrud instance;
     private final Connection connexion;
+
+    public static OffreDeTravailCrud getInstance() {
+        if (instance == null) {
+            instance = new OffreDeTravailCrud();
+        }
+        return instance;
+
+    }
 
     public OffreDeTravailCrud() {
         connexion = ConnecteurBD.driverBD();
     }
 
-    /**
-     *
-     * @param o
-     */
     @Override
     public void ajouterOffre(OffreDeTravail o) {
-
+        PreparedStatement preparedStatement;
         try {
-            PreparedStatement preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO offre_de_travail (job,description) VALUES ( ? , ? )");
+            preparedStatement = connexion.prepareStatement(
+                    "INSERT INTO offre_de_travail (nom,description) VALUES ( ? , ? )");
 
-            preparedStatement.setString(1, o.getJob());
+            preparedStatement.setString(1, o.getNom());
             preparedStatement.setString(2, o.getDescription());
 
             preparedStatement.executeUpdate();
@@ -52,106 +54,136 @@ public class OffreDeTravailCrud implements Ioffre {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-    }
-
-
-    
-    public List<OffreDeTravail> DisplayOffre() {
-
-        List<OffreDeTravail> myList = new ArrayList();
-        try {
-            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM offre_de_travail");
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                myList.add(new OffreDeTravail(
-                        resultSet.getInt("id"),
-                        resultSet.getString("job"),
-                        resultSet.getString("description"),
-                        resultSet.getInt("categorie_id")
-                       ));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) Offre : " + e.getMessage());
-        }
-        return myList;
-
-    }
-
-    public void start(Stage stage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<OffreDeTravail> displayOffre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void ModifierOffre(OffreDeTravail o) {
 
-   
-    
+        {
+            PreparedStatement preparedStatement;
+
+            try {
+                preparedStatement = connexion.prepareStatement(
+                        "UPDATE `offre_de_travail` "
+                        + "SET `nom` = ?, `description` = ?"
+                        + "WHERE `id` = ?");
+                preparedStatement.setString(1, o.getNom());
+                preparedStatement.setString(2, o.getDescription());
+                preparedStatement.setInt(3, o.getId());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+
+            } catch (SQLException e) {
+                System.out.println("Erreur de modification candidat : " + e.getMessage());
+            }
+
+        }
+    }
 
     @Override
     public void SupprimerOffre(int id) {
-       PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement("DELETE FROM `offre_de_travail` WHERE `id`=?");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
-             System.out.println("Offre supprimé");
+            System.out.println("Offre supprimé");
         } catch (SQLException e) {
             System.out.println("Erreur de suppresion offre : " + e.getMessage());
         }
     }
 
     @Override
-    public void ModifierOffre(OffreDeTravail o) {
-        
-    
-        {
-        PreparedStatement preparedStatement;
-        
+    public List<OffreDeTravail> getOffreDeTravailBySociete(int idSociete) {
+        ObservableList<OffreDeTravail> listOffreDeTravail = FXCollections.observableArrayList();
         try {
-            preparedStatement = connexion.prepareStatement(
-                    "UPDATE `offre_de_travail` "
-                    + "SET `job` = ?, `description` = ?"
-                    + "WHERE `id` = ?");
-            preparedStatement.setString(1, o.getJob());
-            preparedStatement.setString(2, o.getDescription());
-            preparedStatement.setInt(3, o.getId());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            
-        } catch (SQLException e) {
-            System.out.println("Erreur de modification candidat : " + e.getMessage());
-        }
-    
-        }  }
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM offre_de_travail WHERE societe_id = ?");
+            preparedStatement.setInt(1, idSociete);
 
-  
-    public List rechercheOffre(String x) {
-        List<OffreDeTravail> offreList = new ArrayList<>();
-        try {
-            String requete = "Select * from offre_de_travail where job like '%" + x + "%' or description like '%" + x + "%'";
-            PreparedStatement pst = MyConnection.getInstance().getCnx()
-                    .prepareStatement(requete);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                OffreDeTravail o = new OffreDeTravail();
-                
-                o.setId(rs.getInt("id"));
-                o.setJob(rs.getString("job"));
-                o.setDescription(rs.getString("description"));
-                
-                
-                offreList.add(o);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listOffreDeTravail.add(new OffreDeTravail(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("categorie_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("description")
+                ));
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage offres de travails : " + e.getMessage());
         }
-        return offreList;
+        return listOffreDeTravail;
+    }
+
+    @Override
+    public List<OffreDeTravail> displayOffre() {
+        ObservableList<OffreDeTravail> listOffreDeTravail = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM offre_de_travail");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listOffreDeTravail.add(new OffreDeTravail(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("categorie_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("description")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) Offre : " + e.getMessage());
+        }
+        return listOffreDeTravail;
+    }
+
+    @Override
+    public List rechercheOffre(String recherche) {
+        ObservableList<OffreDeTravail> listOffreDeTravail = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT *"
+                    + "FROM offre_de_travail"
+                    + "WHERE nom LIKE ?");
+            preparedStatement.setString(1, recherche + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listOffreDeTravail.add(new OffreDeTravail(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("categorie_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("description")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) offre : " + e.getMessage());
+        }
+        return listOffreDeTravail;
+    }
+
+    @Override
+    public OffreDeTravail getOffreDeTravailById(int idOffre) {
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM offre_de_travail WHERE id = ?");
+            preparedStatement.setInt(1, idOffre);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return new OffreDeTravail(
+                    resultSet.getInt("id"),
+                    resultSet.getInt("categorie_id"),
+                    resultSet.getInt("societe_id"),
+                    resultSet.getString("nom"),
+                    resultSet.getString("description")
+            );
+        } catch (SQLException e) {
+            System.out.println("Erreur getOffreDeTravailById : " + e.getMessage());
+        }
+        return null;
     }
 
 }

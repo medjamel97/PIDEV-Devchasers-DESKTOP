@@ -10,26 +10,18 @@ package app.entity;
  * @author Anis
  */
 public class Categorie {
-  
 
-   
     private int id;
+    private String nom;
 
-    private String nomcategorie;
-
-    public Categorie(int id ,String nomcategorie) {
+    public Categorie(int id, String nom) {
         this.id = id;
-        this.nomcategorie = nomcategorie;
+        this.nom = nom;
     }
 
-    public Categorie(String nomcategorie) {
-        
+    public Categorie(String nom) {
+        this.nom = nom;
     }
-
-
- 
-  
-    
 
     public int getId() {
         return id;
@@ -39,30 +31,12 @@ public class Categorie {
         this.id = id;
     }
 
-    public String getNomcategorie() {
-        return nomcategorie;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNomcategorie(String nomcategorie) {
-        this.nomcategorie = nomcategorie;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-   
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

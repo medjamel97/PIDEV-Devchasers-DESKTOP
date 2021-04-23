@@ -5,146 +5,77 @@
  */
 package app.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.sql.Date;
 
 /**
  *
  * @author Faten
  */
-@Entity
-@Table(name = "societe")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Societe.findAll", query = "SELECT s FROM Societe s"),
-    @NamedQuery(name = "Societe.findById", query = "SELECT s FROM Societe s WHERE s.id = :id"),
-    @NamedQuery(name = "Societe.findByNomSociete", query = "SELECT s FROM Societe s WHERE s.nomSociete = :nomSociete"),
-    @NamedQuery(name = "Societe.findByDateCreationSociete", query = "SELECT s FROM Societe s WHERE s.dateCreationSociete = :dateCreationSociete"),
-    @NamedQuery(name = "Societe.findByNumTelSociete", query = "SELECT s FROM Societe s WHERE s.numTelSociete = :numTelSociete"),
-    @NamedQuery(name = "Societe.findByIdPhotoSociete", query = "SELECT s FROM Societe s WHERE s.idPhotoSociete = :idPhotoSociete")})
-public class Societe implements Serializable {
+public class Societe {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "nom_societe")
-    private String nomSociete;
-    @Basic(optional = false)
-    @Column(name = "date_creation_societe")
-    @Temporal(TemporalType.DATE)
-    private Date dateCreationSociete;
-    @Basic(optional = false)
-    @Column(name = "num_tel_societe")
-    private String numTelSociete;
-    @Basic(optional = false)
-    @Column(name = "id_photo_societe")
-    private String idPhotoSociete;
-    @OneToOne(mappedBy = "societeId")
-    private Utilisateur utilisateur;
+    private int id;
+    private String nom;
+    private Date dateCreation;
+    private String tel;
+    private String idPhoto;
 
-    public Societe() {
-    }
-
-    public Societe(Integer id) {
+    public Societe(int id, String nom, Date dateCreation, String tel, String idPhoto) {
         this.id = id;
+        this.nom = nom;
+        this.dateCreation = dateCreation;
+        this.tel = tel;
+        this.idPhoto = idPhoto;
     }
 
-    public Societe(Integer id, String nomSociete, Date dateCreationSociete, String numTelSociete, String idPhotoSociete) {
-        this.id = id;
-        this.nomSociete = nomSociete;
-        this.dateCreationSociete = dateCreationSociete;
-        this.numTelSociete = numTelSociete;
-        this.idPhotoSociete = idPhotoSociete;
+    public Societe(String nom, Date dateCreation, String tel, String idPhoto) {
+        this.nom = nom;
+        this.dateCreation = dateCreation;
+        this.tel = tel;
+        this.idPhoto = idPhoto;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getNomSociete() {
-        return nomSociete;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNomSociete(String nomSociete) {
-        this.nomSociete = nomSociete;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Date getDateCreationSociete() {
-        return dateCreationSociete;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDateCreationSociete(Date dateCreationSociete) {
-        this.dateCreationSociete = dateCreationSociete;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
-    public String getNumTelSociete() {
-        return numTelSociete;
+    public String getTel() {
+        return tel;
     }
 
-    public void setNumTelSociete(String numTelSociete) {
-        this.numTelSociete = numTelSociete;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
-    public String getIdPhotoSociete() {
-        return idPhotoSociete;
+    public String getIdPhoto() {
+        return idPhoto;
     }
 
-    public void setIdPhotoSociete(String idPhotoSociete) {
-        this.idPhotoSociete = idPhotoSociete;
-    }
-
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Societe)) {
-            return false;
-        }
-        Societe other = (Societe) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setIdPhoto(String idPhoto) {
+        this.idPhoto = idPhoto;
     }
 
     @Override
     public String toString() {
-        return "app.entity.Societe[ id=" + id + " ]";
+        return "Societe{" + "id=" + id + ", nom=" + nom + ", dateCreation=" + dateCreation + ", tel=" + tel + ", idPhoto=" + idPhoto + '}';
     }
-    
 }

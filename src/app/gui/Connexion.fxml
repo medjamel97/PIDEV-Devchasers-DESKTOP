@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane styleClass="window-shadow" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ConnexionController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="500.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Pane onMouseDragged="#drag" onMousePressed="#startDrag" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connexion" textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="20.0">
+               <font>
+                  <Font name="Segoe UI" size="30.0" />
+               </font>
+            </Text>
+            <HBox layoutX="40.0" layoutY="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+               </children>
+            </HBox>
+            <TextField fx:id="inputEmail" layoutY="130.0" prefHeight="50.0" promptText="Exemple@email.com" styleClass="form-control" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+            <HBox layoutX="40.0" layoutY="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+               </children>
+            </HBox>
+            <PasswordField fx:id="inputPassword" layoutY="230.0" prefHeight="50.0" promptText="Tapez votre mot de passe" styleClass="form-control" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+            <Button layoutY="320.0" mnemonicParsing="false" onAction="#connexion" prefHeight="50.0" styleClass="success-button" text="Connexion" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+            <HBox alignment="CENTER" layoutY="420.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+               <children>
+                  <Text fill="#343a40" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous n'avez pas de compte ? " />
+                  <Button fx:id="btnInscription" mnemonicParsing="false" onAction="#inscription" styleClass="signup-button" text="S'inscrire" textFill="#343a40">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="btnVisiteur" layoutY="460.0" mnemonicParsing="false" onAction="#connexionVisiteur" styleClass="signup-button" text="Procéder en tant que visiteur" textFill="#343a40" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="145.0" layoutY="550.0" mnemonicParsing="false" onAction="#connexionPourTest" text="Connexion" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="180.0" />
+            <ComboBox fx:id="comboBoxConnexion" layoutY="500.0" promptText="choisir utilisateur pour test" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+         </children>
+         <styleClass>
+            <String fx:value="window-rounded" />
+            <String fx:value="background-white" />
+         </styleClass>
+      </AnchorPane>
+   </children>
+</AnchorPane>

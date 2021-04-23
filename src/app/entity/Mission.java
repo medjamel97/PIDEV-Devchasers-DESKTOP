@@ -14,50 +14,25 @@ import java.sql.Date;
 public class Mission {
 
     private int id;
+    private int societeId;
     private String nom;
     private String description;
     private Date date;
     private int nombreHeures;
     private float prixHeure;
-    private int societe;
-    private int[] candidatureMission;
-    private int[] question;
 
-    public Mission() {
-    }
-
-    public Mission(int id,String nom, String description, Date date, int nombreHeures, float prixHeure, int societe) {
+    public Mission(int id, int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure) {
         this.id = id;
+        this.societeId = societeId;
         this.nom = nom;
         this.description = description;
         this.date = date;
         this.nombreHeures = nombreHeures;
         this.prixHeure = prixHeure;
-        this.societe = societe;
     }
 
-    public Mission(String nom, String description, Date date, int nombreHeures, float prixHeure, int societe) {
-        this.nom = nom;
-        this.description = description;
-        this.date = date;
-        this.nombreHeures = nombreHeures;
-        this.prixHeure = prixHeure;
-        this.societe = societe;
-    }
-
-    public Mission(int id, String nom, String description, Date date, int nombreHeures, float prixHeure, int societe, int[] candidatureMission, int[] question) {
-        this.id = id;
-        this.nom = nom;
-        this.description = description;
-        this.date = date;
-        this.nombreHeures = nombreHeures;
-        this.prixHeure = prixHeure;
-        this.societe = societe;
-        this.candidatureMission = candidatureMission;
-        this.question = question;
-    }
-
-    public Mission(String nom, String description, Date date, int nombreHeures, float prixHeure) {
+    public Mission(int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure) {
+        this.societeId = societeId;
         this.nom = nom;
         this.description = description;
         this.date = date;
@@ -71,6 +46,14 @@ public class Mission {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSocieteId() {
+        return societeId;
+    }
+
+    public void setSocieteId(int societeId) {
+        this.societeId = societeId;
     }
 
     public String getNom() {
@@ -111,30 +94,6 @@ public class Mission {
 
     public void setPrixHeure(float prixHeure) {
         this.prixHeure = prixHeure;
-    }
-
-    public int getSociete() {
-        return societe;
-    }
-
-    public void setSociete(int societe) {
-        this.societe = societe;
-    }
-
-    public int[] getCandidatureMission() {
-        return candidatureMission;
-    }
-
-    public void setCandidatureMission(int[] candidatureMission) {
-        this.candidatureMission = candidatureMission;
-    }
-
-    public int[] getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(int[] question) {
-        this.question = question;
     }
 
 }

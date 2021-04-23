@@ -1,0 +1,71 @@
+.link-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+}
+
+.link-button:hover {
+
+}
+
+.link-button-blue {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+}
+
+.link-button-blue:hover {
+    -fx-background-color: #4e73df;
+}
+
+.link-button-light {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.link-button-light:hover {
+    -fx-background-color: #F3F3F3;
+}
+
+.light-button {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.light-button:hover {
+    -fx-background-color: #F3F3F3;
+}
+
+.background-blue{
+    -fx-background-color: #4e73df;
+}
+
+.background-white{
+    -fx-background-color: #FFFFFF;
+}
+
+.background-gray{
+    -fx-background-color: #cccccc;
+}
+
+.background-light{
+    -fx-background-color: #f8f9fc;
+}
+
+.border-gray{
+    -fx-border-color: #cccccc;
+}
+
+.search-bar{
+    -fx-background-color: #f8f9fc;
+    -fx-text-box-border: #BDBFBF;
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 4, 4, 0 ,0;
+}
+
+.search-button {
+    -fx-background-color: #2e59d9;
+    -fx-background-radius: 0 4 4 0;
+}
+
+.search-button:hover {
+    -fx-background-color: #2552d2;
+}

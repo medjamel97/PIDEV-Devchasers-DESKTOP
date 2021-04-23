@@ -5,53 +5,32 @@
  */
 package app.entity;
 
-import javafx.scene.control.TextField;
-
 /**
  *
  * @author Anis
  */
+public class OffreDeTravail {
 
-public class OffreDeTravail  {
-
-   
     private int id;
-
-    private String job;
+    private int categorieId;
+    private int societeId;
+    private String nom;
     private String description;
-    private int idCat;
 
-    public OffreDeTravail(int id, String job, String description, int idCat) {
+    public OffreDeTravail(int id, int categorieId, int societeId, String nom, String description) {
         this.id = id;
-        this.job = job;
-        this.description = description;
-        this.idCat = idCat;
-    }
-   
-
-    public OffreDeTravail(String job, String description) {
-
-        this.job = job;
+        this.categorieId = categorieId;
+        this.societeId = societeId;
+        this.nom = nom;
         this.description = description;
     }
 
-    public OffreDeTravail(int id) {
-        this.id = id;
+    public OffreDeTravail(int categorieId, int societeId, String nom, String description) {
+        this.categorieId = categorieId;
+        this.societeId = societeId;
+        this.nom = nom;
+        this.description = description;
     }
-
-    public OffreDeTravail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public OffreDeTravail(int id, String job, String description) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public OffreDeTravail(TextField cat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
 
     public int getId() {
         return id;
@@ -61,12 +40,28 @@ public class OffreDeTravail  {
         this.id = id;
     }
 
-    public String getJob() {
-        return job;
+    public int getCategorieId() {
+        return categorieId;
     }
 
-    public void setJob(String job) {
-        this.job = job;
+    public void setCategorieId(int categorieId) {
+        this.categorieId = categorieId;
+    }
+
+    public int getSocieteId() {
+        return societeId;
+    }
+
+    public void setSocieteId(int societeId) {
+        this.societeId = societeId;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getDescription() {
@@ -77,11 +72,4 @@ public class OffreDeTravail  {
         this.description = description;
     }
 
-    public int getIdCat() {
-        return idCat;
-    }
-
-    public void setIdCat(int idCat) {
-        this.idCat = idCat;
-    }
 }

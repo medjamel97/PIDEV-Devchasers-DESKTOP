@@ -5,75 +5,24 @@
  */
 package app.entity;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
  * @author Faten
  */
-@Entity
-@Table(name = "education")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Education.findAll", query = "SELECT e FROM Education e"),
-    @NamedQuery(name = "Education.findById", query = "SELECT e FROM Education e WHERE e.id = :id"),
-    @NamedQuery(name = "Education.findByDescription", query = "SELECT e FROM Education e WHERE e.description = :description"),
-    @NamedQuery(name = "Education.findByNiveauEducation", query = "SELECT e FROM Education e WHERE e.niveauEducation = :niveauEducation"),
-    @NamedQuery(name = "Education.findByFiliere", query = "SELECT e FROM Education e WHERE e.filiere = :filiere"),
-    @NamedQuery(name = "Education.findByEtablissement", query = "SELECT e FROM Education e WHERE e.etablissement = :etablissement"),
-    @NamedQuery(name = "Education.findByVille", query = "SELECT e FROM Education e WHERE e.ville = :ville"),
-    @NamedQuery(name = "Education.findByDuree", query = "SELECT e FROM Education e WHERE e.duree = :duree")})
-public class Education implements Serializable {
+public class Education {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "description")
+    private int id;
+    private int candidatId;
     private String description;
-    @Basic(optional = false)
-    @Column(name = "niveau_education")
     private String niveauEducation;
-    @Basic(optional = false)
-    @Column(name = "filiere")
     private String filiere;
-    @Basic(optional = false)
-    @Column(name = "etablissement")
     private String etablissement;
-    @Basic(optional = false)
-    @Column(name = "ville")
     private String ville;
-    @Basic(optional = false)
-    @Column(name = "duree")
     private String duree;
-    @JoinColumn(name = "candidat_id", referencedColumnName = "id")
-    @ManyToOne
-    private Candidat candidatId;
 
-    public Education() {
-    }
-
-    public Education(Integer id) {
+    public Education(int id, int candidatId, String description, String niveauEducation, String filiere, String etablissement, String ville, String duree) {
         this.id = id;
-    }
-
-    public Education(Integer id, String description, String niveauEducation, String filiere, String etablissement, String ville, String duree) {
-        this.id = id;
+        this.candidatId = candidatId;
         this.description = description;
         this.niveauEducation = niveauEducation;
         this.filiere = filiere;
@@ -82,12 +31,30 @@ public class Education implements Serializable {
         this.duree = duree;
     }
 
-    public Integer getId() {
+    public Education(int candidatId, String description, String niveauEducation, String filiere, String etablissement, String ville, String duree) {
+        this.candidatId = candidatId;
+        this.description = description;
+        this.niveauEducation = niveauEducation;
+        this.filiere = filiere;
+        this.etablissement = etablissement;
+        this.ville = ville;
+        this.duree = duree;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCandidatId() {
+        return candidatId;
+    }
+
+    public void setCandidatId(int candidatId) {
+        this.candidatId = candidatId;
     }
 
     public String getDescription() {
@@ -137,38 +104,6 @@ public class Education implements Serializable {
     public void setDuree(String duree) {
         this.duree = duree;
     }
-
-    public Candidat getCandidatId() {
-        return candidatId;
-    }
-
-    public void setCandidatId(Candidat candidatId) {
-        this.candidatId = candidatId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Education)) {
-            return false;
-        }
-        Education other = (Education) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "app.entity.Education[ id=" + id + " ]";
-    }
+    
     
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane layoutY="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Text text="Societe" textAlignment="CENTER" wrappingWidth="111.0" />
+            </children>
+        </StackPane>
+        <StackPane layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Text text="details" textAlignment="CENTER" wrappingWidth="111.0" />
+            </children>
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+        </StackPane>
+    </children>
+    <styleClass>
+        <String fx:value="link-panel" />
+        <String fx:value="background-white" />
+        <String fx:value="border-gray" />
+    </styleClass>
+</AnchorPane>

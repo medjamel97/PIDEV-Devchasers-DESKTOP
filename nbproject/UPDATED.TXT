@@ -1,5 +1,5 @@
 ===================================
-Project pidevv build script updated
+Project app build script updated
 ===================================
 
 Project build script file jfx-impl.xml in nbproject sub-directory has not been recognized

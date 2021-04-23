@@ -1,33 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package app.entity;
 
 import java.sql.Date;
 
-class Message
-{
-    private int $id;
+/**
+ *
+ * @author Grim
+ */
+public class Message {
+
+    private int id;
+    private int conversationId;
     private String contenu;
     private Date dateCreation;
-    private boolean estProprietaire;
-    private boolean estVu;
+    private byte estProprietaire;
+    private byte estVu;
 
-    // relations
-    private int conversation;
-
-    public Message(int $id, String contenu, Date dateCreation, boolean estProprietaire, boolean estVu, int conversation) {
-        this.$id = $id;
+    public Message(int id, int conversationId, String contenu, Date dateCreation, byte estProprietaire, byte estVu) {
+        this.id = id;
+        this.conversationId = conversationId;
         this.contenu = contenu;
         this.dateCreation = dateCreation;
         this.estProprietaire = estProprietaire;
         this.estVu = estVu;
-        this.conversation = conversation;
     }
 
-    public int get$id() {
-        return $id;
+    public Message(int conversationId, String contenu, Date dateCreation, byte estProprietaire, byte estVu) {
+        this.conversationId = conversationId;
+        this.contenu = contenu;
+        this.dateCreation = dateCreation;
+        this.estProprietaire = estProprietaire;
+        this.estVu = estVu;
     }
 
-    public void set$id(int $id) {
-        this.$id = $id;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(int conversationId) {
+        this.conversationId = conversationId;
     }
 
     public String getContenu() {
@@ -46,29 +69,20 @@ class Message
         this.dateCreation = dateCreation;
     }
 
-    public boolean isEstProprietaire() {
+    public byte getEstProprietaire() {
         return estProprietaire;
     }
 
-    public void setEstProprietaire(boolean estProprietaire) {
+    public void setEstProprietaire(byte estProprietaire) {
         this.estProprietaire = estProprietaire;
     }
 
-    public boolean isEstVu() {
+    public byte getEstVu() {
         return estVu;
     }
 
-    public void setEstVu(boolean estVu) {
+    public void setEstVu(byte estVu) {
         this.estVu = estVu;
     }
 
-    public int getConversation() {
-        return conversation;
-    }
-
-    public void setConversation(int conversation) {
-        this.conversation = conversation;
-    }
-    
-    
 }

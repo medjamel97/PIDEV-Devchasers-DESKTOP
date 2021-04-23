@@ -1,0 +1,145 @@
+
+.scroll-pane {
+    -fx-background-color: #F8F9FD;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #F8F9FD;
+}
+
+/* ------------------ BUTTONS ------------------ */
+.link-button {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.link-button:hover {
+    -fx-background-color: #E5E5E5;
+}
+
+.close-button {
+    -fx-background-color: white;
+    -fx-background-radius: 0px;
+}
+
+.top-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #EEEEEE;
+}
+
+.top-button:hover {
+    -fx-background-color: #CCCCCC;
+}
+
+.top-button:pressed {
+    -fx-background-color: #AAAAAA;
+}
+
+.normal-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #DDDDDD;
+}
+
+.normal-button:hover {
+    -fx-background-color: #CCCCCC;
+}
+
+.normal-button:pressed {
+    -fx-background-color: #AAAAAA;
+}
+
+.success-button {
+    -fx-background-color: #2F55D4;
+    -fx-background-radius: 10px;
+}
+
+.success-button:hover {
+    -fx-background-color: #2443AD;
+}
+
+.danger-button {
+    -fx-background-color: #e43f52;
+    -fx-background-radius: 10px;
+}
+
+.danger-button:hover {
+    -fx-background-color: #c82333;
+}
+
+.light-button {
+    -fx-background-color: #f8f9fc;
+    -fx-background-radius: 10px;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+.light-button:hover {
+    -fx-background-color: #e2e6ea;
+}
+
+.link-panel {
+}
+
+.link-panel:hover {
+    -fx-background-color: #E5E5E5;
+    -fx-border-color: #8F8F8F;
+    -fx-border-width: 1px;
+}
+/* ------------------- FORMS ------------------- */
+.form-control{
+    -fx-text-box-border: #BDBFBF;
+}
+
+.form-control:focused {
+    -fx-text-box-border: #2F55D4;
+}
+
+.search-bar{
+    -fx-text-box-border: #BDBFBF;
+    -fx-background-insets: 2, 2, 2;
+    -fx-background-radius: 0, 0, 0;
+}
+/* ------------------ BORDERS ------------------ */
+.border-gray{
+    -fx-border-color: #cccccc;
+}
+.border-dark{
+    -fx-border-color: #202020;
+}
+
+.border-gray{
+    -fx-border-color: #cccccc;
+}
+
+.border-light{
+    -fx-border-color: #F8F9FD;
+}
+
+.border-white{
+    -fx-border-color: white;
+}
+/* ---------------- BACKGROUNDS ---------------- */
+.background-gray{
+    -fx-background-color: #cccccc;
+}
+
+.background-light{
+    -fx-background-color: #FDFDFD;
+}
+
+.background-blue{
+    -fx-background-color: #2F55D4;
+}
+
+.background-dark{
+    -fx-background-color: #202020;
+}
+
+.background-light{
+    -fx-background-color: #F8F9FD;
+}
+
+.background-white{
+    -fx-background-color: white;
+}

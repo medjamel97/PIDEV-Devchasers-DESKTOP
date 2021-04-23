@@ -5,9 +5,7 @@
  */
 package app.service;
 
-
 import app.entity.Categorie;
-import app.interfaces.Icategorie;
 import app.utils.ConnecteurBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,39 +13,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
+import app.interfaces.CategorieCrudInterface;
 
 /**
  *
  * @author Anis
  */
-public class CategorieCrud implements Icategorie  {
+public class CategorieCrud implements CategorieCrudInterface {
 
+    private static CategorieCrud instance;
     private final Connection connexion;
+
+    public static CategorieCrud getInstance() {
+        if (instance == null) {
+            instance = new CategorieCrud();
+        }
+        return instance;
+
+    }
 
     public CategorieCrud() {
         connexion = ConnecteurBD.driverBD();
     }
 
-    public CategorieCrud(TextField cat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     *
-     * @param o
-     */
-    
+    @Override
     public void ajouterCat(Categorie c) {
-
+        PreparedStatement preparedStatement;
         try {
-            PreparedStatement preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO categorie (nom_categorie) VALUES (?)");
-
-            
-            preparedStatement.setString(1,c.getNomcategorie());
+            preparedStatement = connexion.prepareStatement(
+                    "INSERT INTO categorie (nom) VALUES (?)");
+            preparedStatement.setString(1, c.getNom());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -59,20 +54,19 @@ public class CategorieCrud implements Icategorie  {
 
     }
 
-
-    
+    @Override
     public List<Categorie> DisplayCat() {
 
         List<Categorie> myList = new ArrayList();
         try {
-            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT id,nom_categorie FROM categorie");
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM categorie");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 myList.add(new Categorie(
                         resultSet.getInt("id"),
-                        resultSet.getString("nom_categorie")
-                       ));
+                        resultSet.getString("nom")
+                ));
             }
         } catch (SQLException e) {
             System.out.println("Erreur d'affichage (tout) categories : " + e.getMessage());
@@ -81,48 +75,41 @@ public class CategorieCrud implements Icategorie  {
 
     }
 
-   
-
-  
-    
-   
-
+    @Override
     public void SupprimerCat(int id) {
-       PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement("DELETE FROM `categorie` WHERE `id`=?");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
-             System.out.println("Categorie supprimé");
+            System.out.println("Categorie supprimé");
         } catch (SQLException e) {
             System.out.println("Erreur de suppresion categorie : " + e.getMessage());
         }
     }
 
-
+    @Override
     public void ModifierCat(Categorie c) {
-        
-    
         {
-        PreparedStatement preparedStatement;
-        
-        try {
-            preparedStatement = connexion.prepareStatement(
-                    "UPDATE `categorie` "
-                    + "SET `nom_categorie` = ?"
-                    + "WHERE `id` = ?");
-            preparedStatement.setString(1, c.getNomcategorie());
-            preparedStatement.setInt(2, c.getId());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            
-        } catch (SQLException e) {
-            System.out.println("Erreur de modification categorie : " + e.getMessage());
-        }
-    
-        }  }
+            PreparedStatement preparedStatement;
 
-  
+            try {
+                preparedStatement = connexion.prepareStatement(
+                        "UPDATE `categorie` "
+                        + "SET `nom` = ?"
+                        + "WHERE `id` = ?");
+                preparedStatement.setString(1, c.getNom());
+                preparedStatement.setInt(2, c.getId());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+
+            } catch (SQLException e) {
+                System.out.println("Erreur de modification categorie : " + e.getMessage());
+            }
+
+        }
+    }
+
 }

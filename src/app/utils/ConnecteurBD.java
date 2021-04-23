@@ -8,12 +8,12 @@ import java.sql.SQLException;
 
 public class ConnecteurBD {
 
-    static Connection conx = null;
-    static ResultSet rs = null;
-    static Statement stmt = null;
+    static Connection connection = null;
+    static ResultSet resultSet = null;
+    static Statement statement = null;
 
     public static void main(String[] args) {
-        conx = driverBD();
+        connection = driverBD();
     }
 
     public static Connection driverBD() {

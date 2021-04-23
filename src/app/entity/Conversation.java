@@ -1,23 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package app.entity;
 
 import java.sql.Date;
 
-class Conversation {
+/**
+ *
+ * @author Grim
+ */
+public class Conversation {
 
     private int id;
-    private Date $dateDernierMessage;
+    private int candidatExpediteurId;
+    private int candidatDestinataireId;
+    private Date dateDernierMessage;
 
-    // relations
-    private int[] message;
-    private int candidatExpediteur;
-    private int candidatDestinataire;
-
-    public Conversation(int id, Date $dateDernierMessage, int[] message, int candidatExpediteur, int candidatDestinataire) {
+    public Conversation(int id, int candidatExpediteurId, int candidatDestinataireId, Date dateDernierMessage) {
         this.id = id;
-        this.$dateDernierMessage = $dateDernierMessage;
-        this.message = message;
-        this.candidatExpediteur = candidatExpediteur;
-        this.candidatDestinataire = candidatDestinataire;
+        this.candidatExpediteurId = candidatExpediteurId;
+        this.candidatDestinataireId = candidatDestinataireId;
+        this.dateDernierMessage = dateDernierMessage;
+    }
+
+    public Conversation(int candidatExpediteurId, int candidatDestinataireId, Date dateDernierMessage) {
+        this.candidatExpediteurId = candidatExpediteurId;
+        this.candidatDestinataireId = candidatDestinataireId;
+        this.dateDernierMessage = dateDernierMessage;
     }
 
     public int getId() {
@@ -28,36 +39,29 @@ class Conversation {
         this.id = id;
     }
 
-    public Date get$dateDernierMessage() {
-        return $dateDernierMessage;
+    public int getCandidatExpediteurId() {
+        return candidatExpediteurId;
     }
 
-    public void set$dateDernierMessage(Date $dateDernierMessage) {
-        this.$dateDernierMessage = $dateDernierMessage;
+    public void setCandidatExpediteurId(int candidatExpediteurId) {
+        this.candidatExpediteurId = candidatExpediteurId;
     }
 
-    public int[] getMessage() {
-        return message;
+    public int getCandidatDestinataireId() {
+        return candidatDestinataireId;
     }
 
-    public void setMessage(int[] message) {
-        this.message = message;
+    public void setCandidatDestinataireId(int candidatDestinataireId) {
+        this.candidatDestinataireId = candidatDestinataireId;
     }
 
-    public int getCandidatExpediteur() {
-        return candidatExpediteur;
+    public Date getDateDernierMessage() {
+        return dateDernierMessage;
     }
 
-    public void setCandidatExpediteur(int candidatExpediteur) {
-        this.candidatExpediteur = candidatExpediteur;
+    public void setDateDernierMessage(Date dateDernierMessage) {
+        this.dateDernierMessage = dateDernierMessage;
     }
-
-    public int getCandidatDestinataire() {
-        return candidatDestinataire;
-    }
-
-    public void setCandidatDestinataire(int candidatDestinataire) {
-        this.candidatDestinataire = candidatDestinataire;
-    }
-
+    
+    
 }
