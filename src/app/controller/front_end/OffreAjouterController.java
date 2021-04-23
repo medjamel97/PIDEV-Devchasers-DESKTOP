@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -45,10 +46,35 @@ public class OffreAjouterController implements Initializable {
         String desc = tfDesc.getText();
 
         OffreDeTravail offreDeTravail = new OffreDeTravail(Types.NULL, Types.NULL, nom, desc);
-        OffreDeTravailCrud.getInstance().ajouterOffre(offreDeTravail);
+        if (controleDeSaisie(offreDeTravail)) {
+            OffreDeTravailCrud.getInstance().ajouterOffre(offreDeTravail);
 
-        offre(event);
+            offre(event);
+        }
+    }
 
+    boolean controleDeSaisie(OffreDeTravail offre) {
+        boolean isValid = true;
+
+        if (!OffreDeTravailCrud.getInstance().controleJob(offre.getNom())) {
+            creerAlerte("Objet vide");
+            isValid = false;
+        }
+
+        if (!OffreDeTravailCrud.getInstance().controleDescription(offre.getDescription())) {
+            creerAlerte("Description trés courte ou vide");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void creerAlerte(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

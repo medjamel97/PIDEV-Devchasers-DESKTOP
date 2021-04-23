@@ -117,7 +117,7 @@ public class MissionAfficherToutController implements Initializable {
     @FXML
     private void accueil(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/MainWindow.fxml")
+                getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
         );
     }
 

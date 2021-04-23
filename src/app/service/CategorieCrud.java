@@ -37,6 +37,15 @@ public class CategorieCrud implements CategorieCrudInterface {
     }
 
     @Override
+    public boolean controleNomcat(String nomcategorie) {
+        return (nomcategorie.length() > 0);
+    }
+
+    /**
+     *
+     * @param c
+     */
+    @Override
     public void ajouterCat(Categorie c) {
         PreparedStatement preparedStatement;
         try {
@@ -51,7 +60,6 @@ public class CategorieCrud implements CategorieCrudInterface {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     @Override

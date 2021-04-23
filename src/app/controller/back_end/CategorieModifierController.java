@@ -34,7 +34,6 @@ public class CategorieModifierController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Categorie c = CategorieAfficherToutController.CategorieActuelle;
         txtcat.setText(c.getNom());
-
     }
 
     private void categorie(ActionEvent event) {

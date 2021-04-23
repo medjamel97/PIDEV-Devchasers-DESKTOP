@@ -8,8 +8,7 @@ package app.controller.front_end;
 import app.entity.Candidat;
 import app.service.CandidatCrud;
 import java.net.URL;
-import java.time.ZoneId;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +46,7 @@ public class CandidatModifierController implements Initializable {
         Candidat c = CandidatAfficherToutController.candidatActuel;
         inputNom.setText(c.getNom());
         inputPrenom.setText(c.getPrenom());
-        //inputDate.setValue(c.getDateNaissance().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        inputDate.setValue(c.getDateNaissance().toLocalDate());
         inputTelephone.setText(c.getTel());
         inputSexe.getItems().add("feminin");
         inputSexe.getItems().add("masculin");
@@ -66,12 +65,12 @@ public class CandidatModifierController implements Initializable {
                 CandidatAfficherToutController.candidatActuel.getId(),
                 inputNom.getText(),
                 inputPrenom.getText(),
-                java.sql.Date.valueOf(inputDate.getValue()),
+                Date.valueOf(inputDate.getValue()),
                 inputSexe.getValue(),
                 inputTelephone.getText(),
                 null
         );
-        
+
         CandidatCrud.getInstance().modifierCandidat(candidat);
         candidat(event);
     }

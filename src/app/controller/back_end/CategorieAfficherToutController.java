@@ -28,6 +28,9 @@ import javafx.scene.input.MouseEvent;
  */
 public class CategorieAfficherToutController implements Initializable {
 
+    public static Categorie CategorieActuelle = null;
+    ObservableList<Categorie> prds = FXCollections.observableArrayList();
+
     @FXML
     private TableColumn<Categorie, Integer> cat;
     @FXML
@@ -38,9 +41,6 @@ public class CategorieAfficherToutController implements Initializable {
     private Button modcat;
     @FXML
     private TableView<Categorie> tab;
-
-    public static Categorie CategorieActuelle = null;
-    ObservableList<Categorie> prds = FXCollections.observableArrayList();
     @FXML
     private Button btnajout;
 

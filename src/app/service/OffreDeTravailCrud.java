@@ -37,6 +37,18 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
         connexion = ConnecteurBD.driverBD();
     }
 
+ 
+    @Override
+   public boolean controleJob (String job) {
+        return (job.length() > 0);
+    }
+
+
+    @Override
+    public boolean controleDescription(String description) {
+        return (description.length() > 5);
+    }
+
     @Override
     public void ajouterOffre(OffreDeTravail o) {
         PreparedStatement preparedStatement;

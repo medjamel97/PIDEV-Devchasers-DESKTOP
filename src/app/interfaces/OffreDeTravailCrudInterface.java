@@ -14,6 +14,10 @@ import java.util.List;
  */
 public interface OffreDeTravailCrudInterface {
 
+    public boolean controleJob(String job);
+
+    public boolean controleDescription(String description);
+
     public List<OffreDeTravail> getOffreDeTravailBySociete(int idSociete);
 
     public List<OffreDeTravail> displayOffre();

@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface CategorieCrudInterface {
 
+    public boolean controleNomcat(String nomcategorie);
+
     public void ajouterCat(Categorie c);
 
     public List<Categorie> DisplayCat();

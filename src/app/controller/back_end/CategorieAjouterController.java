@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -47,9 +48,32 @@ public class CategorieAjouterController implements Initializable {
         String nomcategorie = cat.getText();
 
         Categorie categorie = new Categorie(nomcategorie);
-        CategorieCrud.getInstance().ajouterCat(categorie);
 
-        categorie(event);
+        if (controleDeSaisie(categorie)) {
+
+            CategorieCrud.getInstance().ajouterCat(categorie);
+
+            categorie(event);
+        }
+    }
+
+    private boolean controleDeSaisie(Categorie cat) {
+        boolean isValid = true;
+
+        if (!CategorieCrud.getInstance().controleNomcat(cat.getNom())) {
+            creerAlerte("Objet vide");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void creerAlerte(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

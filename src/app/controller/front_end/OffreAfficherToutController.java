@@ -40,17 +40,17 @@ public class OffreAfficherToutController implements Initializable {
     @FXML
     private Button btnAjout;
     @FXML
-    private ScrollPane scrollPane;
-    @FXML
     private AnchorPane anchorPane;
     @FXML
     private TableColumn<OffreDeTravail, Integer> c1;
     @FXML
-    private TableColumn<OffreDeTravail, String> c2;
+    private TableColumn<OffreDeTravail, Integer> c2;
     @FXML
     private TableColumn<OffreDeTravail, String> c3;
     @FXML
-    private TableColumn<OffreDeTravail, Integer> c4;
+    private TableColumn<OffreDeTravail, String> c4;
+    @FXML
+    private TableColumn<OffreDeTravail, Integer> c5;
     @FXML
     private TableView<OffreDeTravail> T;
     @FXML
@@ -65,6 +65,8 @@ public class OffreAfficherToutController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnM.setDisable(true);
+        btns.setDisable(true);
 
         List<OffreDeTravail> liste = OffreDeTravailCrud.getInstance().displayOffre();
         if (!liste.isEmpty()) {
@@ -73,9 +75,10 @@ public class OffreAfficherToutController implements Initializable {
             }
         }
         c1.setCellValueFactory(new PropertyValueFactory<>("id"));
-        c2.setCellValueFactory(new PropertyValueFactory<>("job"));
-        c3.setCellValueFactory(new PropertyValueFactory<>("description"));
-        c4.setCellValueFactory(new PropertyValueFactory<>("idCat"));
+        c2.setCellValueFactory(new PropertyValueFactory<>("societeId"));
+        c3.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        c4.setCellValueFactory(new PropertyValueFactory<>("description"));
+        c5.setCellValueFactory(new PropertyValueFactory<>("categorieId"));
         T.setItems(listOffre);
 
     }
@@ -83,7 +86,7 @@ public class OffreAfficherToutController implements Initializable {
     @FXML
     private void accueil(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/MainWindow.fxml")
+                getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
         );
     }
 

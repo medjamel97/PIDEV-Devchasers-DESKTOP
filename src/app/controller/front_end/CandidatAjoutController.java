@@ -8,6 +8,7 @@ package app.controller.front_end;
 import app.service.CandidatCrud;
 import app.entity.Candidat;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,7 +59,7 @@ public class CandidatAjoutController implements Initializable {
         Candidat candidat = new Candidat(
                 inputNom.getText(),
                 inputPrenom.getText(),
-                java.sql.Date.valueOf(inputDate.getValue()),
+                Date.valueOf(inputDate.getValue()),
                 inputSexe.getValue(),
                 inputTelephone.getText(),
                 null
