@@ -19,5 +19,7 @@ public interface CandidatureOffreCrudInterface {
     public CandidatureOffre getCandidatureOffreByCandidatOffre(int idCandidat, int idOffre);
 
     public void ajouterCandidature(CandidatureOffre candidatureOffre);
+    
+    public void modifierEtat(CandidatureOffre candidatureOffre);
 
 }

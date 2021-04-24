@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
+import app.controller.front_end.MainWindowController;
+import app.controller.front_end.OffreAfficherToutController;
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
 import java.net.URL;
@@ -35,7 +37,7 @@ public class OffreModifierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        OffreDeTravail c = OffreAfficherToutController.offreActuelle;
+        OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
         textJob.setText(c.getNom());
         textDesc.setText(c.getDescription());
 
@@ -49,7 +51,7 @@ public class OffreModifierController implements Initializable {
 
     @FXML
     private void ModiferOffre(ActionEvent event) {
-        OffreDeTravail c = OffreAfficherToutController.offreActuelle;
+        OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
         c.setNom(textJob.getText());
         c.setDescription(textDesc.getText());
 

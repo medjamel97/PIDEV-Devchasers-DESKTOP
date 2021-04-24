@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: blue;" stylesheets="@../../../MainStyle.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Text fx:id="nomOffre" fill="WHITE" layoutX="89.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nom offre" AnchorPane.bottomAnchor="42.98828125" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="88.86328125" AnchorPane.topAnchor="41.05078125" />
+         </children>
+         <styleClass>
+            <String fx:value="window-shadow" />
+            <String fx:value="window-rounded" />
+         </styleClass>
+      </AnchorPane>
+   </children>
+</AnchorPane>

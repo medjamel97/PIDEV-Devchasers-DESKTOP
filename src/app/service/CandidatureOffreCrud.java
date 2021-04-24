@@ -92,4 +92,9 @@ public class CandidatureOffreCrud implements CandidatureOffreCrudInterface {
             System.out.println("Erreur d'ajout candidature : " + e.getMessage());
         }
     }
+
+    @Override
+    public void modifierEtat(CandidatureOffre candidatureOffre) {
+        System.out.println("null");
+    }
 }

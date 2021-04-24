@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
+import app.controller.front_end.MainWindowController;
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
 import java.net.URL;

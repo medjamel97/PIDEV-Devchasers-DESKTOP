@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/back_end/CategorieModifierController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/CandidatModifierController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/CandidatAjoutController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/MissionAfficherToutController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/OffreAjouterController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/TopBarController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/back_end/CategorieAfficherToutController.java</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/front_end/OffreAfficherToutController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/interfaces/CandidatureOffreCrudInterface.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/controller/front_end/OffreAfficherToutController.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/service/CandidatureOffreCrud.java</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/gui/MainStyle.css</file>
+            <file>file:/C:/Users/Anis/Desktop/PIDEV/PIDEV-Devchasers-DESKTOP/src/app/gui/front_end/societe/offre_de_travail/ModeleOffre.fxml</file>
         </group>
     </open-files>
 </project-private>
