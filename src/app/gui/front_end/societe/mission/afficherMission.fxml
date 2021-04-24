@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MissionAfficherToutController">
+<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MissionMesMissionsController">
     <children>
         <AnchorPane minHeight="70.0" style="-fx-background-color: #2F55D4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -25,17 +25,16 @@
                     </children>
                 </StackPane>
                 <Button fx:id="btnRetour" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#accueil" prefHeight="51.0" prefWidth="98.0" styleClass="light-button" text="Retour" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                <Button fx:id="btnAjout" layoutX="536.0" layoutY="10.0" mnemonicParsing="false" onAction="#ajouterMission" prefHeight="51.0" prefWidth="130.0" styleClass="light-button" text="Ajouter Mission" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
             </children>
         </AnchorPane>
-        <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             <content>
                 <AnchorPane fx:id="anchorPane">
                     <children>
-                        <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" prefHeight="388.0" prefWidth="527.0" AnchorPane.topAnchor="58.0">
+                        <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
                             <columns>
                                 <TableColumn fx:id="columnId" prefWidth="35.0" text="id" />
                                 <TableColumn fx:id="columnNom" prefWidth="78.0" text="nom" />
@@ -51,12 +50,6 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="355.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
-            <children>
-                <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="51.0" prefWidth="98.0" styleClass="light-button" text="Modifier" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-                <Button fx:id="btnSupprimer" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="51.0" prefWidth="98.0" styleClass="light-button" text="Supprimer" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-                <Text fx:id="textMissionIdActuelle" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
-            </children>
-        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="355.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0" />
     </children>
 </AnchorPane>

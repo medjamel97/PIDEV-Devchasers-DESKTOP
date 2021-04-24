@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
 import app.entity.Mission;
 import app.service.MissionCrud;
@@ -37,14 +37,18 @@ import javafx.stage.Stage;
  *
  * @author Akram
  */
-public class MissionAfficherToutController implements Initializable {
+public class MissionMesMissionsController implements Initializable {
 
+   
+    MissionCrud missionCrud = new MissionCrud();
     ObservableList<Mission> observableListMission = FXCollections.observableArrayList();
     public static Mission missionActuelle;
     public static Mission missionClicked;
 
     @FXML
     private Button btnRetour;
+    @FXML
+    private Button btnAjout;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -66,7 +70,14 @@ public class MissionAfficherToutController implements Initializable {
     @FXML
     private TableView<Mission> idTableau;
     @FXML
+    private Button btnModifier;
+    @FXML
+    private Button btnSupprimer;
+    @FXML
+    private Text textMissionIdActuelle;
+    @FXML
     private TextField txrecherche;
+
 
     /**
      * Initializes the controller class.
@@ -74,6 +85,8 @@ public class MissionAfficherToutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         missionActuelle = null;
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
         Date date = new Date();
 
         List<Mission> listmission = MissionCrud.getInstance().getMission();
@@ -103,7 +116,7 @@ public class MissionAfficherToutController implements Initializable {
         columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
         columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));
+        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societeId"));
         idTableau.setItems(observableListMission);
         Recherche();
     }
@@ -111,37 +124,45 @@ public class MissionAfficherToutController implements Initializable {
     @FXML
     private void accueil(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
+                getClass().getResource("/app/gui/back_end/candidat/publication/Accueil.fxml")
         );
     }
 
+    @FXML
     private void ajouterMission(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/mission/ajouterMission.fxml")
+                getClass().getResource("/app/gui/back_end/societe/mission/ajouterMission.fxml")
         );
     }
 
+    @FXML
     private void modifier(ActionEvent event) {
         if (missionActuelle != null) {
             MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/societe/mission/modifierMission.fxml")
+                    getClass().getResource("/app/gui/back_end/societe/mission/modifierMission.fxml")
             );
         }
     }
 
+    @FXML
     private void supprimer(ActionEvent event) {
         MissionCrud.getInstance().supprimerMission(missionActuelle);
         missionActuelle = null;
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/mission/affichermission.fxml")
+                getClass().getResource("/app/gui/back_end/societe/mission/affichermission.fxml")
         );
     }
 
     @FXML
     private void changerMissionActuelle(MouseEvent event) {
+        btnModifier.setDisable(false);
+        btnSupprimer.setDisable(false);
         missionActuelle = idTableau.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2) {
             missionClicked = idTableau.getSelectionModel().getSelectedItem();
+            textMissionIdActuelle.setText("id choisi : " + missionClicked.getId());
 //                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //                     alert.setTitle("erreur");
 //                     alert.setHeaderText(null);
@@ -160,12 +181,10 @@ public class MissionAfficherToutController implements Initializable {
             webView.getEngine().executeScript("document.body.innerHTML = '';");
 
         }
+
+        textMissionIdActuelle.setText("id choisi : " + missionActuelle.getId());
     }
 
-    @FXML
-    private void recherche(ActionEvent event) {
-
-    }
 
     public void Recherche() {
         // Wrap the ObservableList in a FilteredList (initially display all data).
@@ -215,6 +234,10 @@ public class MissionAfficherToutController implements Initializable {
         abList.addAll(old);
         idTableau.setItems(abList);
         idTableau.refresh();
+    }
+
+    @FXML
+    private void recherche(ActionEvent event) {
     }
 
 }

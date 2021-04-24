@@ -5,6 +5,7 @@
  */
 package app.service;
 
+import app.MainApp;
 import app.entity.Mission;
 import app.interfaces.MissionCrudInterface;
 import app.utils.ConnecteurBD;
@@ -54,11 +55,15 @@ public class MissionCrud implements MissionCrudInterface {
             while (resultSet.next()) {
                 listMission.add(new Mission(
                         resultSet.getInt("id"),
-                        resultSet.getString("mission_name"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
                         resultSet.getString("description"),
                         resultSet.getDate("date"),
-                        resultSet.getInt("nbheure"),
-                        resultSet.getFloat("prix_h")
+                        resultSet.getInt("nombre_heures"),
+                        resultSet.getFloat("prix_heure"),
+                        resultSet.getString("ville"),
+                        resultSet.getString("longitude"),
+                        resultSet.getString("latitude")
                 ));
             }
         } catch (SQLException e) {
@@ -70,15 +75,18 @@ public class MissionCrud implements MissionCrudInterface {
     @Override
     public void ajouterMission(Mission u) {
         try {
-            String req = "INSERT INTO mission (societe_id,date,mission_name,nbheure,prix_h,description) VALUES (?,?,?,?,?,?)";
+            String req = "INSERT INTO mission (societe_id,date,nom,nombre_heures,prix_heure,description,ville,longitude,latitude) VALUES (?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement st = connexion.prepareStatement(req);
-            st.setNull(1, Types.NULL);
+            st.setInt(1, MainApp.getSession().getSocieteId());
             st.setDate(2, (Date) u.getDate());
             st.setString(3, u.getNom());
             st.setInt(4, u.getNombreHeures());
             st.setDouble(5, u.getPrixHeure());
             st.setString(6, u.getDescription());
+            st.setString(7, u.getVille());
+            st.setString(8, u.getLongitude());
+            st.setString(9, u.getLatitude());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -92,15 +100,17 @@ public class MissionCrud implements MissionCrudInterface {
         try {
             preparedStatement = connexion.prepareStatement(
                     "UPDATE `mission` "
-                    + "SET `societe_id` = ?, `date` = ?, `mission_name` = ?, `nbheure` = ?, `prix_h` = ?, `description` = ? "
+                    + "SET `date` = ?, `nom` = ?, `nombre_heures` = ?, `prix_heure` = ?, `description` = ? ,`ville` = ? ,`longitude` = ? ,`latitude` = ?  "
                     + "WHERE `id` = ? ");
-            preparedStatement.setNull(1, Types.NULL);
-            preparedStatement.setDate(2, (Date) mission.getDate());
-            preparedStatement.setString(3, mission.getNom());
-            preparedStatement.setInt(4, mission.getNombreHeures());
-            preparedStatement.setDouble(5, mission.getPrixHeure());
-            preparedStatement.setString(6, mission.getDescription());
-            preparedStatement.setInt(7, mission.getId());
+            preparedStatement.setDate(1, (Date) mission.getDate());
+            preparedStatement.setString(2, mission.getNom());
+            preparedStatement.setInt(3, mission.getNombreHeures());
+            preparedStatement.setDouble(4, mission.getPrixHeure());
+            preparedStatement.setString(5, mission.getDescription());
+            preparedStatement.setString(6, mission.getVille());
+            preparedStatement.setString(7, mission.getLongitude());
+            preparedStatement.setString(8, mission.getLatitude());
+            preparedStatement.setInt(9, mission.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {

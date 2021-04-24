@@ -20,8 +20,11 @@ public class Mission {
     private Date date;
     private int nombreHeures;
     private float prixHeure;
+    private String ville;
+    private String longitude;
+    private String latitude;
 
-    public Mission(int id, int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure) {
+    public Mission(int id, int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure, String ville, String longitude, String latitude) {
         this.id = id;
         this.societeId = societeId;
         this.nom = nom;
@@ -29,15 +32,21 @@ public class Mission {
         this.date = date;
         this.nombreHeures = nombreHeures;
         this.prixHeure = prixHeure;
+        this.ville = ville;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public Mission(int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure) {
+    public Mission(int societeId, String nom, String description, Date date, int nombreHeures, float prixHeure, String ville, String longitude, String latitude) {
         this.societeId = societeId;
         this.nom = nom;
         this.description = description;
         this.date = date;
         this.nombreHeures = nombreHeures;
         this.prixHeure = prixHeure;
+        this.ville = ville;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public int getId() {
@@ -95,5 +104,31 @@ public class Mission {
     public void setPrixHeure(float prixHeure) {
         this.prixHeure = prixHeure;
     }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+   
 
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
+import app.MainApp;
 import app.entity.Mission;
 import app.service.MissionCrud;
 import java.net.URL;
@@ -31,7 +32,7 @@ public class MissionModifierController implements Initializable {
     @FXML
     private Button btnRetour;
     @FXML
-    private TextField inputId;
+    private TextField inputNom;
     @FXML
     private TextField inputnbheure;
     @FXML
@@ -42,25 +43,33 @@ public class MissionModifierController implements Initializable {
     private TextField inputprix;
     @FXML
     private DatePicker Dateid;
+    @FXML
+    private TextField inputVille;
+    @FXML
+    private TextField inputLong;
+    @FXML
+    private TextField inputLat;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Mission mission = MissionAfficherToutController.missionActuelle;
-        inputId.setText(String.valueOf(mission.getNom()));
-        inputnbheure.setText(String.valueOf(mission.getNombreHeures()));
-        inputDescription.setText(String.valueOf(mission.getDescription()));
-        inputprix.setText(String.valueOf(mission.getPrixHeure()));
-        Dateid.setValue(mission.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        inputNom.setText(MissionMesMissionsController.missionActuelle.getNom());
+        inputDescription.setText(MissionMesMissionsController.missionActuelle.getDescription());
+        Dateid.setValue(MissionMesMissionsController.missionActuelle.getDate().toLocalDate());
+        inputnbheure.setText(String.valueOf(MissionMesMissionsController.missionActuelle.getNombreHeures()));
+        inputprix.setText(String.valueOf(MissionMesMissionsController.missionActuelle.getPrixHeure()));
+        inputVille.setText(MissionMesMissionsController.missionActuelle.getVille());
+        inputLong.setText(MissionMesMissionsController.missionActuelle.getLongitude());
+        inputLat.setText(MissionMesMissionsController.missionActuelle.getLatitude());
 
     }
 
     @FXML
     private void mission(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/mission/afficherMission.fxml")
+                getClass().getResource("/app/gui/back_end/societe/mission/AfficherMesMissions.fxml")
         );
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Félicitation");
@@ -72,12 +81,16 @@ public class MissionModifierController implements Initializable {
     @FXML
     private void modifier(ActionEvent event) {
         Mission m = new Mission(
-                MissionAfficherToutController.missionActuelle.getId(),
-                null,
+                MissionMesMissionsController.missionActuelle.getId(),
+                MainApp.getSession().getSocieteId(),
+                inputNom.getText(),
                 inputDescription.getText(),
                 java.sql.Date.valueOf(Dateid.getValue()),
                 Integer.parseInt(inputnbheure.getText()),
-                Float.parseFloat(inputprix.getText())
+                Float.parseFloat(inputprix.getText()),
+                inputVille.getText(),
+                inputLong.getText(),
+                inputLat.getText()
         );
 
         MissionCrud.getInstance().modifierMission(m);
