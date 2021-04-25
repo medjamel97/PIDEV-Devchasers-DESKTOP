@@ -8,6 +8,7 @@ package app.controller.back_end;
 import app.entity.Candidat;
 import app.service.CandidatCrud;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,12 +39,10 @@ public class CandidatAfficherToutController implements Initializable {
 
     ObservableList<Candidat> candidats = FXCollections.observableArrayList();
     public static Candidat candidatActuel;
-    @FXML
-    private TextField filterField;
-    @FXML
-    private Pagination pagination;
     private final static int rowsPerPage = 2;
 
+    @FXML
+    private TextField filterField;
     @FXML
     private TableView<Candidat> tab;
     @FXML
@@ -53,11 +52,11 @@ public class CandidatAfficherToutController implements Initializable {
     @FXML
     private TableColumn<Candidat, String> tabPrenom;
     @FXML
-    private TableColumn<Candidat, Date> tabDateNaiss;
-    @FXML
     private TableColumn<Candidat, String> tabSexe;
     @FXML
     private TableColumn<Candidat, String> tabTel;
+    @FXML
+    private TableColumn<Candidat, String> age;
     @FXML
     private Text idChoisi;
     @FXML
@@ -73,8 +72,7 @@ public class CandidatAfficherToutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        pagination.setPageFactory(this::createPage);
-
+        //pagination.setPageFactory(this::createPage);
         btnModifier.setDisable(true);
         btnSupprimer.setDisable(true);
 
@@ -82,16 +80,18 @@ public class CandidatAfficherToutController implements Initializable {
 
         if (!listCandidats.isEmpty()) {
             for (int i = 0; i < listCandidats.size(); i++) {
-                candidats.add(listCandidats.get(i));
+                Candidat candidat = listCandidats.get(i);
+                candidat.setAge(getAge(listCandidats.get(i)));
+                candidats.add(candidat);
             }
         }
 
         tabId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tabNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         tabPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        tabDateNaiss.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
         tabSexe.setCellValueFactory(new PropertyValueFactory<>("sexe"));
         tabTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
 
         candidatActuel = null;
 
@@ -134,10 +134,19 @@ public class CandidatAfficherToutController implements Initializable {
         tab.setItems(sortedData);
     }
 
+    public int getAge(Candidat candidat) {
+
+        int age = 0;
+        int dateactuel = LocalDate.now().getYear();
+        age = (dateactuel - (candidat.getDateNaissance().toLocalDate().getYear()));
+
+        return age;
+    }
+
     @FXML
     private void ajoutCandidat(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/AjoutCandidat.fxml")
+                getClass().getResource("/app/gui/back_end/candidat/AjoutCandidat.fxml")
         );
 
     }
@@ -149,7 +158,7 @@ public class CandidatAfficherToutController implements Initializable {
         btnModifier.setDisable(true);
         btnSupprimer.setDisable(true);
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/AfficherToutCandidat.fxml")
+                getClass().getResource("/app/gui/back_end/candidat/AfficherToutCandidat.fxml")
         );
 
     }
@@ -158,7 +167,7 @@ public class CandidatAfficherToutController implements Initializable {
     private void modifierCandidat(ActionEvent event) {
         if (candidatActuel != null) {
             MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/candidat/ModifierCandidat.fxml")
+                    getClass().getResource("/app/gui/back_end/candidat/ModifierCandidat.fxml")
             );
         }
     }
@@ -172,7 +181,7 @@ public class CandidatAfficherToutController implements Initializable {
     }
 
     //method to create page inside pagination view
-    private Node createPage(int pageIndex) {
+    /*private Node createPage(int pageIndex) {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, candidats.size());
         tab.setItems(FXCollections.observableArrayList(candidats.subList(fromIndex, toIndex)));
@@ -182,6 +191,5 @@ public class CandidatAfficherToutController implements Initializable {
             pagination.setPageCount(candidats.size() / rowsPerPage + 1);
         }
         return tab;
-    }
-
+    }*/
 }

@@ -45,7 +45,7 @@ public class SideBarController implements Initializable {
             buttonsContainer.getChildren().addAll(adminButtons);
         } else if (MainApp.getSession().getRoles().equals("ROLE_SOCIETE")) {
             societeButtons = new Button[]{
-                makeButton("Candidats", "/app/gui/back_end/candidat/AfficherToutCandidat.fxml"),
+                makeButton("Mes candidats", "/app/gui/back_end/candidat/AfficherMesCandidats.fxml"),
                 makeButton("Mes offres", "/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml"),
                 makeButton("Mes missions", "/app/gui/back_end/societe/mission/AfficherMesMissions.fxml"),
                 makeButton("Mes evenements", "/app/gui/back_end/societe/evenement/AfficherMesEvenements.fxml"),

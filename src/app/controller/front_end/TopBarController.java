@@ -240,7 +240,7 @@ public class TopBarController implements Initializable {
 
     @FXML
     private void profil(ActionEvent event) {
-        goToLink("/app/gui/front_end/candidat/AfficherToutCandidat.fxml");
+        goToLink("/app/gui/front_end/candidat/profile.fxml");
 
         btnProfil.setTextFill(blue);
         Animations.animateButton(btnProfil, gray, blue, blue, 0, false);

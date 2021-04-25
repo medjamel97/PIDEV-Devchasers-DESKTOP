@@ -8,8 +8,10 @@ package app.controller.front_end;
 import app.entity.Candidat;
 import app.service.CandidatCrud;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
@@ -40,7 +44,6 @@ public class CandidatAfficherToutController implements Initializable {
     public static Candidat candidatActuel;
     @FXML
     private TextField filterField;
-    @FXML
     private Pagination pagination;
     private final static int rowsPerPage = 2;
 
@@ -53,8 +56,6 @@ public class CandidatAfficherToutController implements Initializable {
     @FXML
     private TableColumn<Candidat, String> tabPrenom;
     @FXML
-    private TableColumn<Candidat, Date> tabDateNaiss;
-    @FXML
     private TableColumn<Candidat, String> tabSexe;
     @FXML
     private TableColumn<Candidat, String> tabTel;
@@ -65,15 +66,24 @@ public class CandidatAfficherToutController implements Initializable {
     @FXML
     private Button btnSupprimer;
     @FXML
+    private Button Education;
+    @FXML
+    private TableColumn<?, ?> tabDateNaiss;
+    @FXML
+    private Button exptravail;
+    @FXML
+    private Button competence;
+    @FXML
     private Label label;
-
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
 
-        pagination.setPageFactory(this::createPage);
+        //pagination.setPageFactory(this::createPage);
 
         btnModifier.setDisable(true);
         btnSupprimer.setDisable(true);
@@ -89,13 +99,13 @@ public class CandidatAfficherToutController implements Initializable {
         tabId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tabNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         tabPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        tabDateNaiss.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
         tabSexe.setCellValueFactory(new PropertyValueFactory<>("sexe"));
         tabTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
 
         candidatActuel = null;
 
         tab.setItems(candidats);
+
 
         //// Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Candidat> filteredData = new FilteredList<>(candidats, c -> true);
@@ -144,6 +154,12 @@ public class CandidatAfficherToutController implements Initializable {
 
     @FXML
     private void supprimerCandidat(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("vous voulez vraiment supprimer ce candidat ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
         CandidatCrud.getInstance().supprimerCandidat(candidatActuel);
         candidatActuel = null;
         btnModifier.setDisable(true);
@@ -152,7 +168,7 @@ public class CandidatAfficherToutController implements Initializable {
                 getClass().getResource("/app/gui/front_end/candidat/AfficherToutCandidat.fxml")
         );
 
-    }
+    }}
 
     @FXML
     private void modifierCandidat(ActionEvent event) {
@@ -171,17 +187,53 @@ public class CandidatAfficherToutController implements Initializable {
         btnSupprimer.setDisable(false);
     }
 
-    //method to create page inside pagination view
-    private Node createPage(int pageIndex) {
-        int fromIndex = pageIndex * rowsPerPage;
-        int toIndex = Math.min(fromIndex + rowsPerPage, candidats.size());
-        tab.setItems(FXCollections.observableArrayList(candidats.subList(fromIndex, toIndex)));
-        if ((candidats.size() % 2) == 0) {
-            pagination.setPageCount(candidats.size() / rowsPerPage);
-        } else {
-            pagination.setPageCount(candidats.size() / rowsPerPage + 1);
+//    //method to create page inside pagination view
+//    private Node createPage(int pageIndex) {
+//        int fromIndex = pageIndex * rowsPerPage;
+//        int toIndex = Math.min(fromIndex + rowsPerPage, candidats.size());
+//        tab.setItems(FXCollections.observableArrayList(candidats.subList(fromIndex, toIndex)));
+//        if ((candidats.size() % 2) == 0) {
+//            pagination.setPageCount(candidats.size() / rowsPerPage);
+//        } else {
+//            pagination.setPageCount(candidats.size() / rowsPerPage + 1);
+//        }
+//        return tab;
+//    }
+    
+        public int getAge(Candidat candidat) {
+    
+
+            int age = 0;
+            int dateactuel = LocalDate.now().getYear();
+            age=(dateactuel-(candidat.getDateNaissance().toLocalDate().getYear()));  
+        
+            return age;
         }
-        return tab;
+
+    @FXML
+    private void Education(ActionEvent event) {
+        
+         MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/AjouterEducation.fxml")
+        );
     }
+
+   
+
+    @FXML
+    private void Competence(ActionEvent event) {
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/AjoutCompetence.fxml")
+        );
+    }
+
+    @FXML
+    private void Experiencedetravail(ActionEvent event) {
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/AjouterExperienceDeTravail.fxml")
+        );
+        
+    }
+    
 
 }

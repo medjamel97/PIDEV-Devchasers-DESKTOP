@@ -20,6 +20,7 @@ public class Candidat {
     private String sexe;
     private String tel;
     private String idPhoto;
+    private int age;
 
     public Candidat(int id, String nom, String prenom, Date dateNaissance, String sexe, String tel, String idPhoto) {
         this.id = id;
@@ -94,6 +95,14 @@ public class Candidat {
 
     public void setIdPhoto(String idPhoto) {
         this.idPhoto = idPhoto;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
