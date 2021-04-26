@@ -73,8 +73,8 @@ public class MainWindowController implements Initializable {
             AnchorPane.setRightAnchor(parent, 0.0);
             AnchorPane.setLeftAnchor(parent, 0.0);
             staticContent.getChildren().add(parent);
-        } catch (IOException e) {
-            System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+        } catch (IOException e) {  System.out.print("Erreur d'affichage : " + e.getMessage() + " Erreur dans le controlleur");
+                e.printStackTrace();
         }
     }
 

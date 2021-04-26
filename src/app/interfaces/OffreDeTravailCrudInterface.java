@@ -22,6 +22,8 @@ public interface OffreDeTravailCrudInterface {
 
     public List<OffreDeTravail> displayOffre();
 
+    public List<OffreDeTravail> getOffreDeTravailByCategorieId(int idCat);
+
     public List<OffreDeTravail> rechercheOffre(String recherche);
 
     public OffreDeTravail getOffreDeTravailById(int idOffre);
@@ -31,4 +33,5 @@ public interface OffreDeTravailCrudInterface {
     public void ModifierOffre(OffreDeTravail o);
 
     public void SupprimerOffre(int id);
+
 }

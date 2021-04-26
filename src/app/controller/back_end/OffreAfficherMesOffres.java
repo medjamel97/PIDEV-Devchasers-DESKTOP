@@ -35,8 +35,6 @@ public class OffreAfficherMesOffres implements Initializable {
     public static OffreDeTravail offreActuelle = null;
 
     @FXML
-    private Button btnRetour;
-    @FXML
     private Button btnAjout;
     @FXML
     private AnchorPane anchorPane;
@@ -67,7 +65,7 @@ public class OffreAfficherMesOffres implements Initializable {
         btnM.setDisable(true);
         btns.setDisable(true);
 
-        List<OffreDeTravail> liste = OffreDeTravailCrud.getInstance().displayOffre();
+        List<OffreDeTravail> liste = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(app.MainApp.getSession().getSocieteId());
         if (!liste.isEmpty()) {
             for (int i = 0; i < liste.size(); i++) {
                 listOffre.add(liste.get(i));
@@ -83,16 +81,9 @@ public class OffreAfficherMesOffres implements Initializable {
     }
 
     @FXML
-    private void accueil(ActionEvent event) {
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
-        );
-    }
-
-    @FXML
     private void ajouterOffre(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/Ajouter.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/Ajouter.fxml")
         );
     }
 
@@ -111,7 +102,7 @@ public class OffreAfficherMesOffres implements Initializable {
         btnM.setDisable(true);
         btns.setDisable(true);
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/AfficherTout.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherTout.fxml")
         );
     }
 
@@ -119,7 +110,7 @@ public class OffreAfficherMesOffres implements Initializable {
     private void modifierOffre(ActionEvent event) {
         if (offreActuelle != null) {
             MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/societe/offre_de_travail/Modifier.fxml")
+                    getClass().getResource("/app/gui/back_end/societe/offre_de_travail/Modifier.fxml")
             );
         }
     }
@@ -136,4 +127,16 @@ public class OffreAfficherMesOffres implements Initializable {
         T.setItems(listOffre);
     }
 
+     @FXML
+    private void afficherparsociete(ActionEvent event) {
+          List<OffreDeTravail> offre = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(app.MainApp.getSession().getSocieteId());
+          
+          offre.forEach(offreDeTravail -> {
+            listOffre.add(offreDeTravail);
+        });
+
+        T.setItems(listOffre);
+    }
+    
+    
 }

@@ -121,9 +121,10 @@ public class CandidatCrud implements CandidatCrudInterface {
     public Candidat getCandidatById(int idCandidat) {
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM candidat WHERE id = ?");
+            preparedStatement.setInt(1, idCandidat);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 return new Candidat(
                         resultSet.getInt("id"),
                         resultSet.getString("nom"),
@@ -135,8 +136,9 @@ public class CandidatCrud implements CandidatCrudInterface {
                 );
             }
         } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) candidat : " + e.getMessage());
+            System.out.println(" d'affichage (tout) candidat : " + e.getMessage());
         }
+        System.out.println("Aucun resultat candidat pour id = " + idCandidat);
         return null;
     }
 

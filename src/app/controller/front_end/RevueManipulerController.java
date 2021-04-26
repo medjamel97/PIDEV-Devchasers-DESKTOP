@@ -107,7 +107,7 @@ public class RevueManipulerController implements Initializable {
         } else {
             CandidatureOffre candidatureOffre;
             if (CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId()) == null) {
-                candidatureOffre = new CandidatureOffre(RevueAfficherToutController.offreDeTravailActuelle.getId(), 2);
+                candidatureOffre = new CandidatureOffre(RevueAfficherToutController.offreDeTravailActuelle.getId(), 2, "accepte");
                 CandidatureOffreCrud.getInstance().ajouterCandidature(candidatureOffre);
             }
 

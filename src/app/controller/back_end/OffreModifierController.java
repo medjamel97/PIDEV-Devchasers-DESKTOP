@@ -5,8 +5,6 @@
  */
 package app.controller.back_end;
 
-import app.controller.front_end.MainWindowController;
-import app.controller.front_end.OffreAfficherToutController;
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
 import java.net.URL;
@@ -45,7 +43,7 @@ public class OffreModifierController implements Initializable {
 
     private void offre(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/AfficherTout.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml")
         );
     }
 

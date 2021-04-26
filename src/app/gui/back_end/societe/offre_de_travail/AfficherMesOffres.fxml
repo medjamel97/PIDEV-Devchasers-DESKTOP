@@ -9,20 +9,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.OffreAfficherMesOffres">
+<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.OffreAfficherMesOffres">
     <children>
         <AnchorPane prefHeight="70.0" style="-fx-background-color: #2F55D4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                     <children>
-                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Offres de travail" textAlignment="JUSTIFY" textOrigin="CENTER">
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes offres de travail" textAlignment="JUSTIFY" textOrigin="CENTER">
                             <font>
                                 <Font name="Arial Bold" size="23.0" />
                             </font>
                         </Text>
                     </children>
                 </StackPane>
-                <Button fx:id="btnRetour" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#accueil" prefHeight="51.0" prefWidth="98.0" styleClass="light-button" text="Retour" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                 <Button fx:id="btnAjout" layoutX="536.0" layoutY="10.0" mnemonicParsing="false" onAction="#ajouterOffre" prefHeight="51.0" prefWidth="116.0" styleClass="light-button" text="Ajouter" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
             </children>
         </AnchorPane>

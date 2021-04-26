@@ -115,13 +115,13 @@ public class TopBarController implements Initializable {
         if (listCategories.isEmpty()) {
             categoriesContainer.getChildren().add(new StackPane(new Text("Pas de categories")));
         }
-        listCategories.forEach(listCategorie -> {
+        listCategories.forEach(Categorie -> {
             try {
                 Parent parentCategorie = FXMLLoader.load(
                         getClass().getResource("/app/gui/front_end/societe/offre_de_travail/categorie/ModeleCategorie.fxml")
                 );
                 ((Text) ((StackPane) ((AnchorPane) parentCategorie).getChildren().get(0)).getChildren().get(0))
-                        .setText(listCategorie.getNom());
+                        .setText(Categorie.getNom());
 
                 ((AnchorPane) parentCategorie)
                         .setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -136,8 +136,9 @@ public class TopBarController implements Initializable {
                 });
 
                 ((AnchorPane) parentCategorie).setPadding(new Insets(10, 0, 10, 0));
-
+                 
                 ((AnchorPane) parentCategorie).setOnMouseClicked(event -> {
+                    OffreAfficherParCategorieController.cats =  Categorie;
                     goToLink("/app/gui/front_end/societe/offre_de_travail/AfficherParCategorie.fxml");
                     panelContainerOffreActions.getChildren().clear();
                     btnOffreExpandable.setTextFill(blue);

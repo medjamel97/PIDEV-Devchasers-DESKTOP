@@ -49,7 +49,9 @@ public class SideBarController implements Initializable {
                 makeButton("Mes offres", "/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml"),
                 makeButton("Mes missions", "/app/gui/back_end/societe/mission/AfficherMesMissions.fxml"),
                 makeButton("Mes evenements", "/app/gui/back_end/societe/evenement/AfficherMesEvenements.fxml"),
-                makeButton("Mes formations", "/app/gui/back_end/societe/formation/AfficherMesFormations.fxml")
+                makeButton("Mes formations", "/app/gui/back_end/societe/formation/AfficherMesFormations.fxml"),
+                makeButton("Mes candidatures", "/app/gui/back_end/societe/candidatureOffre/AffichertoutCandidatures.fxml")
+
             };
             buttonsContainer.getChildren().addAll(societeButtons);
         }
