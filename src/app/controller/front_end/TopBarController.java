@@ -221,6 +221,13 @@ public class TopBarController implements Initializable {
     }
 
     @FXML
+    private void messagerie(ActionEvent event) {
+        goToLink("/app/gui/front_end/candidat/messagerie/Messagerie.fxml");
+        
+        showUserAction(null);
+    }
+
+    @FXML
     private void deconnexion(ActionEvent event) {
         MainApp.getInstance().deconnexion();
     }

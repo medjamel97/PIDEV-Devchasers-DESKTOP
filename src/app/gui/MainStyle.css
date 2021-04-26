@@ -8,14 +8,18 @@
     -fx-background-radius:5;
 }
 
+.border-rounded {
+    -fx-border-radius:5;
+}
 
+/*
 .scroll-pane {
     -fx-background-color: #F8F9FD;
 }
 
 .scroll-pane > .viewport {
     -fx-background-color: #F8F9FD;
-}
+}*/
 
 /* ------------------ BUTTONS ------------------ */
 .link-button {
@@ -84,6 +88,14 @@
     -fx-border-radius: 10px;
 }
 
+.white-button {
+    -fx-background-color: white;
+}
+
+.white-button:hover {
+    -fx-background-color: #F3F3F3;
+}
+
 .signup-button{
     -fx-background-color: transparent;
 }
@@ -93,6 +105,7 @@
 }
 
 .link-panel {
+    -fx-background-color: #FFFFFF;
 }
 
 .link-panel:hover {

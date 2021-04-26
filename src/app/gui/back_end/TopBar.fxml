@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -139,6 +140,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Button fx:id="btnMaximize" layoutX="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#maximize" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
@@ -151,6 +155,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Button fx:id="btnClose" layoutX="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#close" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
@@ -163,6 +170,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
             </children>
         </AnchorPane>

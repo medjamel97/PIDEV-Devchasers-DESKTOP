@@ -22,11 +22,11 @@ public interface RevueCrudInterface {
 
     public boolean controleBadWords(String texte);
 
-    public void ajouterRevue(Revue v);
+    public void ajouterRevue(Revue r);
 
-    public void modifierRevue(Revue v);
+    public void modifierRevue(Revue r);
 
-    public void supprimerRevue(Revue v);
+    public void supprimerRevue(Revue r);
 
     public ObservableList<Revue> getRevuesParOffre(int idOffreDeTravail);
 

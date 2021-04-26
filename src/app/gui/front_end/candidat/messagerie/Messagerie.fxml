@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainParent" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MessagerieController">
+   <children>
+      <AnchorPane fx:id="forEffectAnchorPane" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minWidth="340.0" prefWidth="340.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <StackPane>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Messagerie">
+                           <font>
+                              <Font name="Segoe UI Light" size="42.0" />
+                           </font>
+                           <effect>
+                              <Glow level="0.24" />
+                           </effect>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <AnchorPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="background-white" />
+                        <String fx:value="window-rounded" />
+                        <String fx:value="border-gray" />
+                        <String fx:value="border-rounded" />
+                     </styleClass>
+                     <effect>
+                        <DropShadow color="#00000043" height="41.22" radius="22.83" width="52.1" />
+                     </effect>
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <TextField fx:id="inputConversation" onKeyReleased="#rechercheConversations" promptText="Rechercher conversation" style="-fx-border-radius: 10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <styleClass>
+                                          <String fx:value="search-bar" />
+                                          <String fx:value="border-gray" />
+                                       </styleClass>
+                                    </TextField>
+                                 </children>
+                              </AnchorPane>
+                              <ScrollPane fitToWidth="true" style="-fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@stylesheet.css" VBox.vgrow="ALWAYS">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <VBox fx:id="conversationContainer" styleClass="background-white" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="background-light" />
+                                    <String fx:value="border-gray" />
+                                 </styleClass>
+                              </ScrollPane>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#toggleAjoutModal" styleClass="background-blue" text="+ Nouvelle conversation" textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox fx:id="chatContainer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" minWidth="250.0" prefWidth="250.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <AnchorPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="background-white" />
+                        <String fx:value="window-rounded" />
+                        <String fx:value="border-gray" />
+                        <String fx:value="border-rounded" />
+                     </styleClass>
+                     <effect>
+                        <DropShadow color="#00000043" height="41.22" radius="22.83" width="52.1" />
+                     </effect>
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <ImageView fx:id="imageCandidat" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../images/default.jpg" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                       <effect>
+                                          <DropShadow color="#0000005a" />
+                                       </effect>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Text fx:id="chatNomCandidat" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom candidat" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="15.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fx:id="chatDernierMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Date dernier message" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <ScrollPane fitToWidth="true" style="-fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@stylesheet.css" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <VBox fx:id="messagesContainer" alignment="TOP_CENTER" spacing="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <effect>
+                                                <DropShadow color="#00000063" height="40.0" radius="19.5" spread="0.21" width="40.0" />
+                                             </effect>
+                                             <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                             </padding></VBox>
+                                       </children></AnchorPane>
+                                 </content>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="background-white" />
+                                    <String fx:value="border-gray" />
+                                 </styleClass>
+                                 <effect>
+                                    <InnerShadow color="#00000010" height="106.51" radius="53.144999999999996" width="108.07" />
+                                 </effect>
+                              </ScrollPane>
+                              <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                                 <children>
+                                    <TextField fx:id="inputMessage" onAction="#envoyerMessage" promptText="Tapez votre Message" styleClass="form-control" HBox.hgrow="ALWAYS" />
+                                    <Button alignment="CENTER" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#envoyerMessage" styleClass="background-blue" text="Envoyer" textFill="WHITE" HBox.hgrow="NEVER">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../images/mdi/send-light.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="modalBackground" onMouseClicked="#modalBackgroundClick" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox fx:id="modalAjoutConv" alignment="CENTER" maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <AnchorPane>
+               <children>
+                  <TextField fx:id="rechercheCandidats" onKeyPressed="#rechercheCandidats" promptText="Rechercher candidats" style="-fx-border-radius: 10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="search-bar" />
+                        <String fx:value="border-gray" />
+                     </styleClass>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <ScrollPane fitToWidth="true" stylesheets="@stylesheet.css" VBox.vgrow="ALWAYS">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox fx:id="candidatsContainer" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="border-gray" />
+                  <String fx:value="background-light" />
+               </styleClass>
+            </ScrollPane>
+            <StackPane>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#toggleAjoutModal" styleClass="danger-button" text="Fermer" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <StackPane.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </StackPane.margin>
+                  </Button>
+               </children>
+            </StackPane>
+         </children>
+         <effect>
+            <DropShadow color="#00000080" />
+         </effect>
+         <styleClass>
+            <String fx:value="background-white" />
+            <String fx:value="window-rounded" />
+            <String fx:value="border-gray" />
+            <String fx:value="border-rounded" />
+         </styleClass>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -9,6 +9,8 @@ import app.entity.User;
 import app.utils.BadWords;
 import app.utils.ResizeHelper;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,12 +42,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         BadWords.loadConfigs();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         mainStage = primaryStage;
 
         loadConnexion();
+
     }
 
     private void loadScene(String fxmlLink, String title, int width, int height, boolean isAuthentification) {

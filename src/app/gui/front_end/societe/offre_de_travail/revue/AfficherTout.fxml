@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="851.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.RevueAfficherToutController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="800.0" prefHeight="500.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.RevueAfficherToutController">
     <children>
         <AnchorPane style="-fx-background-color: #2F55D4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -78,12 +78,12 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <TextField fx:id="inputRecherche" alignment="CENTER" onKeyReleased="#rechercher" prefHeight="70.0" promptText="Rechercher une revue par nom" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+        <TextField fx:id="inputRecherche" alignment="CENTER" onKeyReleased="#rechercher" prefHeight="70.0" promptText="Rechercher une revue par nom" styleClass="search-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
         </TextField>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#rechercher" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="210.0">
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#rechercher" pannable="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="210.0">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>

@@ -5,6 +5,7 @@
  */
 package app.controller.front_end;
 
+import app.MainApp;
 import app.entity.CandidatureOffre;
 import app.service.RevueCrud;
 import java.net.URL;
@@ -80,7 +81,9 @@ public class RevueManipulerController implements Initializable {
 
     @FXML
     private void revue(ActionEvent event) {
-        MainWindowController.chargerInterface(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml"));
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+        );
     }
 
     @FXML
@@ -92,8 +95,8 @@ public class RevueManipulerController implements Initializable {
         if (RevueAfficherToutController.revueActuelle != null) {
             Revue revue = new Revue(
                     RevueAfficherToutController.revueActuelle.getId(),
-                    nbEtoiles,
                     RevueAfficherToutController.revueActuelle.getCandidatureOffreId(),
+                    nbEtoiles,
                     objet,
                     description
             );
@@ -101,23 +104,36 @@ public class RevueManipulerController implements Initializable {
                 RevueCrud.getInstance().modifierRevue(revue);
                 RevueAfficherToutController.revueActuelle = null;
 
-                MainWindowController.chargerInterface(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                MainWindowController.chargerInterface(
+                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+                );
                 RevueAfficherToutController.information("Revue modifié avec succés");
             }
         } else {
             CandidatureOffre candidatureOffre;
-            if (CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId()) == null) {
-                candidatureOffre = new CandidatureOffre(RevueAfficherToutController.offreDeTravailActuelle.getId(), 2);
+            if (CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(
+                    MainApp.getSession().getCandidatId(),
+                    RevueAfficherToutController.offreDeTravailActuelle.getId()
+            ) == null) {
+                candidatureOffre = new CandidatureOffre(
+                        RevueAfficherToutController.offreDeTravailActuelle.getId(),
+                        MainApp.getSession().getCandidatId()
+                );
                 CandidatureOffreCrud.getInstance().ajouterCandidature(candidatureOffre);
             }
 
             candidatureOffre = CandidatureOffreCrud.getInstance()
-                    .getCandidatureOffreByCandidatOffre(2, RevueAfficherToutController.offreDeTravailActuelle.getId());
+                    .getCandidatureOffreByCandidatOffre(
+                            RevueAfficherToutController.offreDeTravailActuelle.getId(),
+                            MainApp.getSession().getCandidatId()
+                    );
 
             Revue revue = new Revue(candidatureOffre.getId(), nbEtoiles, objet, description);
             if (controleDeSaisie(revue)) {
                 RevueCrud.getInstance().ajouterRevue(revue);
-                MainWindowController.chargerInterface(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml"));
+                MainWindowController.chargerInterface(
+                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+                );
                 RevueAfficherToutController.information("Revue ajouté avec succés");
             }
         }

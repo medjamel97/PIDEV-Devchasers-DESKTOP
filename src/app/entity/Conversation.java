@@ -5,7 +5,7 @@
  */
 package app.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -16,16 +16,16 @@ public class Conversation {
     private int id;
     private int candidatExpediteurId;
     private int candidatDestinataireId;
-    private Date dateDernierMessage;
+    private Timestamp dateDernierMessage;
 
-    public Conversation(int id, int candidatExpediteurId, int candidatDestinataireId, Date dateDernierMessage) {
+    public Conversation(int id, int candidatExpediteurId, int candidatDestinataireId, Timestamp dateDernierMessage) {
         this.id = id;
         this.candidatExpediteurId = candidatExpediteurId;
         this.candidatDestinataireId = candidatDestinataireId;
         this.dateDernierMessage = dateDernierMessage;
     }
 
-    public Conversation(int candidatExpediteurId, int candidatDestinataireId, Date dateDernierMessage) {
+    public Conversation(int candidatExpediteurId, int candidatDestinataireId, Timestamp dateDernierMessage) {
         this.candidatExpediteurId = candidatExpediteurId;
         this.candidatDestinataireId = candidatDestinataireId;
         this.dateDernierMessage = dateDernierMessage;
@@ -55,11 +55,11 @@ public class Conversation {
         this.candidatDestinataireId = candidatDestinataireId;
     }
 
-    public Date getDateDernierMessage() {
+    public Timestamp getDateDernierMessage() {
         return dateDernierMessage;
     }
 
-    public void setDateDernierMessage(Date dateDernierMessage) {
+    public void setDateDernierMessage(Timestamp dateDernierMessage) {
         this.dateDernierMessage = dateDernierMessage;
     }
     

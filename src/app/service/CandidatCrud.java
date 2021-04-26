@@ -42,14 +42,13 @@ public class CandidatCrud implements CandidatCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO candidat(id,nom,prenom,date_naissance,sexe,tel,id_photo)VALUES ( ? , ? , ? , ? , ? , ? , ? )");
+                    "INSERT INTO candidat(id,nom,prenom,date_naissance,sexe,tel)VALUES ( ? , ? , ? , ? , ? , ? )");
             preparedStatement.setInt(1, candidat.getId());
             preparedStatement.setString(2, candidat.getNom());
             preparedStatement.setString(3, candidat.getPrenom());
             preparedStatement.setDate(4, (Date) candidat.getDateNaissance());
             preparedStatement.setString(5, candidat.getSexe());
             preparedStatement.setString(6, candidat.getTel());
-            preparedStatement.setString(7, "empty");
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -108,7 +107,7 @@ public class CandidatCrud implements CandidatCrudInterface {
                         resultSet.getDate("date_naissance"),
                         resultSet.getString("sexe"),
                         resultSet.getString("tel"),
-                        null
+                        resultSet.getString("id_photo")
                 ));
             }
         } catch (SQLException e) {
@@ -118,9 +117,38 @@ public class CandidatCrud implements CandidatCrudInterface {
     }
 
     @Override
+    public ObservableList<Candidat> getCandiadatsByNomPrenom(String recherche) {
+        ObservableList<Candidat> listCandidat = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT * FROM candidat "
+                    + "WHERE nom LIKE ? OR prenom LIKE ?");
+            preparedStatement.setString(1, recherche + "%");
+            preparedStatement.setString(2, recherche + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listCandidat.add(new Candidat(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("prenom"),
+                        resultSet.getDate("date_naissance"),
+                        resultSet.getString("sexe"),
+                        resultSet.getString("tel"),
+                        resultSet.getString("id_photo")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur recherche candidat : " + e.getMessage());
+        }
+        return listCandidat;
+    }
+
+    @Override
     public Candidat getCandidatById(int idCandidat) {
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM candidat WHERE id = ?");
+            preparedStatement.setInt(1, idCandidat);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -131,12 +159,13 @@ public class CandidatCrud implements CandidatCrudInterface {
                         resultSet.getDate("date_naissance"),
                         resultSet.getString("sexe"),
                         resultSet.getString("tel"),
-                        null
+                        resultSet.getString("id_photo")
                 );
             }
         } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) candidat : " + e.getMessage());
+            System.out.println("Erreur d'affichage candidat : " + e.getMessage());
         }
+        System.out.println("aucun resultat pour id : " + idCandidat);
         return null;
     }
 

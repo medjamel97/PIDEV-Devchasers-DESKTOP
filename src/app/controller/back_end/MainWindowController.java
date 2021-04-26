@@ -59,8 +59,6 @@ public class MainWindowController implements Initializable {
             System.out.println(e.getMessage() + "/" + e.getCause());
             e.printStackTrace();
         }
-
-        //chargerInterface(getClass().getResource("/app/gui/back_end/Accueil.fxml"));
     }
 
     public static void chargerInterface(URL location) {

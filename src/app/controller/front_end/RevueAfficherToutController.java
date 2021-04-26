@@ -5,6 +5,9 @@
  */
 package app.controller.front_end;
 
+import app.MainApp;
+import app.entity.Candidat;
+import app.entity.CandidatureOffre;
 import app.entity.OffreDeTravail;
 import java.io.IOException;
 import java.net.URL;
@@ -19,13 +22,16 @@ import javafx.scene.control.Button;
 import app.service.RevueCrud;
 import app.entity.Revue;
 import app.entity.Societe;
+import app.service.CandidatCrud;
+import app.service.CandidatureOffreCrud;
+import com.jafregle.Jafregle;
+import com.jafregle.Language;
 import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -33,6 +39,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -89,6 +97,10 @@ public class RevueAfficherToutController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (MainApp.getSession() == null) {
+            btnAjout.setDisable(true);
+        }
+
         if ((offreDeTravailActuelle != null) && (societeActuelle != null)) {
 
             topText.setText("Revues sur " + offreDeTravailActuelle.getNom() + " de " + societeActuelle.getNom());
@@ -105,17 +117,28 @@ public class RevueAfficherToutController implements Initializable {
                 int i;
                 for (i = 0; i < listRevue.size(); i++) {
                     sommeNote += listRevue.get(i).getNbEtoiles();
+
+                    CandidatureOffre candidatureOffre = CandidatureOffreCrud.getInstance().getCandidaturesOffreById(
+                            listRevue.get(i).getCandidatureOffreId()
+                    );
+                    Candidat candidat = CandidatCrud.getInstance().getCandidatById(candidatureOffre.getCandidatId());
                     containerAllRevue.getChildren().add(creerRevue(
-                            "prenomCandidat",
-                            "nomCandidat",
-                            "app/images/default.jpg",
-                            "offreDeTravail",
-                            "societe",
+                            candidat.getNom(),
+                            candidat.getPrenom(),
+                            candidat.getIdPhoto(),
+                            offreDeTravailActuelle.getNom(),
+                            societeActuelle.getNom(),
                             listRevue.get(i)
                     ));
                 }
-                noteTotale.setText(String.format("%.1f", (sommeNote / i)) + "/5");
-                setStarsFloat(sommeNote / i);
+                float sommeTotale = (sommeNote / i);
+                if (sommeTotale == Math.round(sommeTotale)) {
+                    noteTotale.setText(String.format("%.0f", sommeTotale) + "/5");
+                } else {
+                    noteTotale.setText(String.format("%.1f", sommeTotale) + "/5");
+                }
+                setStarsFloat(sommeTotale);
+
             } else {
                 StackPane stackPane = new StackPane();
                 stackPane.setAlignment(Pos.CENTER);
@@ -145,33 +168,126 @@ public class RevueAfficherToutController implements Initializable {
         Parent parent = null;
         try {
             parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/ModeleRevue.fxml"));
-            AnchorPane leftAnchorPane = ((AnchorPane) ((SplitPane) ((AnchorPane) parent).getChildren().get(0)).getItems().get(0));
-            ((Text) leftAnchorPane.getChildren().get(0)).setText(prenomCandidatText);
-            ((Text) leftAnchorPane.getChildren().get(1)).setText(nomCandidatText);
-            ((ImageView) ((AnchorPane) leftAnchorPane.getChildren().get(2)).getChildren().get(0)).setImage(new Image(idPhotoCandidat));
-            ((Text) leftAnchorPane.getChildren().get(3)).setText(nomOffreDeTravail);
-            ((Text) leftAnchorPane.getChildren().get(4)).setText(nomSociete);
 
-            AnchorPane rightAnchorPane = ((AnchorPane) ((SplitPane) ((AnchorPane) parent).getChildren().get(0)).getItems().get(1));
+            AnchorPane leftAnchorPane = ((AnchorPane) ((HBox) ((AnchorPane) parent).getChildren().get(0)).getChildren().get(0));
+            ((Text) leftAnchorPane.lookup("#prenomCandidat")).setText(prenomCandidatText);
+            ((Text) leftAnchorPane.lookup("#nomCandidat")).setText(nomCandidatText);
+            try {
+                ((ImageView) leftAnchorPane.lookup("#imageCandidat")).setImage(new Image(idPhotoCandidat));
+            } catch (Exception e) {
+                ((ImageView) leftAnchorPane.lookup("#imageCandidat")).setImage(new Image("app/images/default.jpg"));
+            }
+            ((Text) leftAnchorPane.lookup("#nomSociete")).setText(nomOffreDeTravail);
+            ((Text) leftAnchorPane.lookup("#nomOffre")).setText(nomSociete);
+
+            AnchorPane rightAnchorPane = ((AnchorPane) ((HBox) ((AnchorPane) parent).getChildren().get(0)).getChildren().get(2));
             for (int indexEtoile = 0; indexEtoile < 5; indexEtoile++) {
                 if (indexEtoile >= revue.getNbEtoiles()) {
-                    ((ImageView) rightAnchorPane.getChildren().get(indexEtoile)).setImage(new Image("/app/images/mdi/star-outline.png"));
+                    ((ImageView) rightAnchorPane.lookup("#etoile" + indexEtoile)).setImage(new Image("/app/images/mdi/star-outline.png"));
                 } else {
-                    ((ImageView) rightAnchorPane.getChildren().get(indexEtoile)).setImage(new Image("/app/images/mdi/star.png"));
+                    ((ImageView) rightAnchorPane.lookup("#etoile" + indexEtoile)).setImage(new Image("/app/images/mdi/star.png"));
                 }
             }
-            ((Text) rightAnchorPane.getChildren().get(5)).setText(revue.getObjet());
-            ((Label) ((GridPane) rightAnchorPane.getChildren().get(6)).getChildren().get(0)).setText(revue.getDescription());
-            ((Button) rightAnchorPane.getChildren().get(7)).setOnAction((event) -> {
-                modifierRevue(event, revue);
+
+            GridPane contenuContainer = (GridPane) rightAnchorPane.lookup("#contentContainer");
+
+            ((Text) contenuContainer.lookup("#objet")).setText(revue.getObjet());
+            ((Label) contenuContainer.lookup("#description")).setText(revue.getDescription());
+
+            Button btnTraduire = (Button) contenuContainer.lookup("#btnTraduire");
+            Button btnMasquerTraduction = (Button) contenuContainer.lookup("#btnMasquerTraduction");
+            Pane separateur = (Pane) contenuContainer.lookup("#separateur");
+            Text objetTraduit = (Text) (contenuContainer.lookup("#textTraduitLabel"));
+            Label descriptionTraduite = (Label) (contenuContainer.lookup("#translatedDescription"));
+
+            separateur.setVisible(false);
+            objetTraduit.setVisible(false);
+            descriptionTraduite.setVisible(false);
+            btnTraduire.setVisible(true);
+            btnMasquerTraduction.setVisible(false);
+
+            btnTraduire.setOnAction(action -> {
+                try {
+                    Jafregle jafregle = new Jafregle(Language.ENGLISH, Language.FRENCH);
+
+                    objetTraduit.setText(jafregle.translate(revue.getObjet()));
+                    descriptionTraduite.setText(jafregle.translate(revue.getDescription()));
+                } catch (IOException e) {
+                    System.out.println("Erreur de traduction");
+                    System.out.println(e.getMessage());
+                }
+
+                separateur.setVisible(true);
+                objetTraduit.setVisible(true);
+                descriptionTraduite.setVisible(true);
+                btnTraduire.setVisible(false);
+                btnMasquerTraduction.setVisible(true);
             });
-            ((Button) rightAnchorPane.getChildren().get(8)).setOnAction((event) -> {
-                supprimerRevue(event, revue);
+            btnMasquerTraduction.setOnAction(action -> {
+                separateur.setVisible(false);
+                objetTraduit.setVisible(false);
+                descriptionTraduite.setVisible(false);
+                btnTraduire.setVisible(true);
+                btnMasquerTraduction.setVisible(false);
             });
+
+            Button btnModifier = (Button) rightAnchorPane.lookup("#btnModifier");
+            Button btnSupprimer = (Button) rightAnchorPane.lookup("#btnSupprimer");
+
+            if (MainApp.getSession() != null) {
+                CandidatureOffre candidatureAssocie = CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(
+                        offreDeTravailActuelle.getId(),
+                        MainApp.getSession().getCandidatId()
+                );
+                if (candidatureAssocie != null) {
+                    if (revue.getCandidatureOffreId() == candidatureAssocie.getId()) {
+                        btnModifier.setOnAction((event) -> {
+                            modifierRevue(event, revue);
+                        });
+                        btnSupprimer.setOnAction((event) -> {
+                            supprimerRevue(event, revue);
+                        });
+                    } else {
+                        rightAnchorPane.getChildren().remove(btnModifier);
+                        rightAnchorPane.getChildren().remove(btnSupprimer);
+                    }
+                } else {
+                    rightAnchorPane.getChildren().remove(btnModifier);
+                    rightAnchorPane.getChildren().remove(btnSupprimer);
+                }
+            } else {
+                rightAnchorPane.getChildren().remove(btnModifier);
+                rightAnchorPane.getChildren().remove(btnSupprimer);
+            }
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         return parent;
+    }
+
+    private void modifierRevue(ActionEvent event, Revue revue) {
+        revueActuelle = revue;
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/Manipuler.fxml")
+        );
+    }
+
+    private void supprimerRevue(ActionEvent event, Revue revue) {
+        revueActuelle = null;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmer la suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("Etes vous sûr de vouloir supprimer votre revue avec id : " + revue.getId() + "?");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK) {
+            RevueCrud.getInstance().supprimerRevue(revue);
+            MainWindowController.chargerInterface(
+                    getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+            );
+        }
     }
 
     @FXML
@@ -186,29 +302,6 @@ public class RevueAfficherToutController implements Initializable {
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/SelectionnerSociete.fxml")
         );
-    }
-
-    private void modifierRevue(ActionEvent event, Revue revue) {
-        revueActuelle = revue;
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/Manipuler.fxml")
-        );
-    }
-
-    private void supprimerRevue(ActionEvent event, Revue revue) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmer la suppression");
-        alert.setHeaderText(null);
-        alert.setContentText("Etes vous sûr de vouloir supprimer votre revue avec id : " + revue.getId() + "?");
-        Optional<ButtonType> action = alert.showAndWait();
-
-        if (action.get() == ButtonType.OK) {
-            RevueCrud.getInstance().supprimerRevue(revue);
-            MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
-            );
-        }
-
     }
 
     @FXML
@@ -249,7 +342,7 @@ public class RevueAfficherToutController implements Initializable {
     private void setStarsFloat(float nbEtoiles) {
         ImageView[] stars = {star1, star2, star3, star4, star5};
         for (int i = 0; i < 5; i++) {
-            if (nbEtoiles > i + 1) {
+            if (nbEtoiles >= i + 1) {
                 stars[i].setImage(new Image("app/images/mdi/star.png"));
             } else if ((nbEtoiles > i) && (nbEtoiles < i + 1)) {
                 stars[i].setImage(new Image("app/images/mdi/star-half.png"));

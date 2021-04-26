@@ -1,0 +1,41 @@
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.message-expediteur-top {
+    -fx-background-radius: 15 15 2 15 ;
+    -fx-background-color: #2443AD ;
+}
+
+.message-expediteur-middle {
+    -fx-background-radius: 15 2 2 15 ;
+    -fx-background-color: #2443AD ;
+}
+
+.message-expediteur-bottom {
+    -fx-background-radius: 15 2 15 15 ;
+    -fx-background-color: #2443AD ;
+}
+
+.message-destinataire-top {
+    -fx-background-radius: 15 15 15 2 ;
+    -fx-background-color: #202020 ;
+}
+
+.message-destinataire-middle {
+    -fx-background-radius: 2 15 15 2 ;
+    -fx-background-color: #202020 ;
+}
+
+.message-destinataire-bottom {
+    -fx-background-radius: 2 15 15 15 ;
+    -fx-background-color: #202020 ;
+}
+
+.notification-badge{
+    -fx-border-color : black;
+    -fx-border-width : 1;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: #e43f52;
+}

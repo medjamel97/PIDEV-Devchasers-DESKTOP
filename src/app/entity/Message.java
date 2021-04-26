@@ -5,7 +5,7 @@
  */
 package app.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -16,11 +16,11 @@ public class Message {
     private int id;
     private int conversationId;
     private String contenu;
-    private Date dateCreation;
-    private byte estProprietaire;
-    private byte estVu;
+    private Timestamp dateCreation;
+    private boolean estProprietaire;
+    private boolean estVu;
 
-    public Message(int id, int conversationId, String contenu, Date dateCreation, byte estProprietaire, byte estVu) {
+    public Message(int id, int conversationId, String contenu, Timestamp dateCreation, boolean estProprietaire, boolean estVu) {
         this.id = id;
         this.conversationId = conversationId;
         this.contenu = contenu;
@@ -29,7 +29,7 @@ public class Message {
         this.estVu = estVu;
     }
 
-    public Message(int conversationId, String contenu, Date dateCreation, byte estProprietaire, byte estVu) {
+    public Message(int conversationId, String contenu, Timestamp dateCreation, boolean estProprietaire, boolean estVu) {
         this.conversationId = conversationId;
         this.contenu = contenu;
         this.dateCreation = dateCreation;
@@ -61,27 +61,27 @@ public class Message {
         this.contenu = contenu;
     }
 
-    public Date getDateCreation() {
+    public Timestamp getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(Timestamp dateCreation) {
         this.dateCreation = dateCreation;
     }
 
-    public byte getEstProprietaire() {
+    public boolean getEstProprietaire() {
         return estProprietaire;
     }
 
-    public void setEstProprietaire(byte estProprietaire) {
+    public void setEstProprietaire(boolean estProprietaire) {
         this.estProprietaire = estProprietaire;
     }
 
-    public byte getEstVu() {
+    public boolean getEstVu() {
         return estVu;
     }
 
-    public void setEstVu(byte estVu) {
+    public void setEstVu(boolean estVu) {
         this.estVu = estVu;
     }
 

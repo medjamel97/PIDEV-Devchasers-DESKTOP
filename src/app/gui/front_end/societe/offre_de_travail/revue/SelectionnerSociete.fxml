@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="851.0" style="-fx-background-color: #EEEEEE;" stylesheets="@../../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.RevueSelectionnerSocieteController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #EEEEEE;" stylesheets="@../../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.RevueSelectionnerSocieteController">
     <children>
         <AnchorPane style="-fx-background-color: #2F55D4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -31,7 +31,7 @@
                 <Insets />
             </opaqueInsets>
         </TextField>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#rechercher" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#rechercher" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>

@@ -22,6 +22,8 @@ public interface CandidatCrudInterface {
 
     public ObservableList<Candidat> getCandiadats();
 
+    public ObservableList<Candidat> getCandiadatsByNomPrenom(String recherche);
+
     public Candidat getCandidatById(int idCandidat);
 
     public int getLastId();
