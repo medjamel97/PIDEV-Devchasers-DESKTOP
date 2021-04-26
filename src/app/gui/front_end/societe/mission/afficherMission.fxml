@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MissionMesMissionsController">
+<AnchorPane id="AnchorPane" minHeight="555.0" minWidth="700.0" prefHeight="555.0" prefWidth="700.0" style="-fx-background-color: white;" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MissionAfficherToutController">
     <children>
         <AnchorPane minHeight="70.0" style="-fx-background-color: #2F55D4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -34,18 +34,20 @@
             <content>
                 <AnchorPane fx:id="anchorPane">
                     <children>
-                        <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+                        <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" prefHeight="386.0" prefWidth="524.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="156.0" AnchorPane.topAnchor="58.0">
                             <columns>
-                                <TableColumn fx:id="columnId" prefWidth="35.0" text="id" />
-                                <TableColumn fx:id="columnNom" prefWidth="78.0" text="nom" />
-                                <TableColumn fx:id="columnDescription" prefWidth="146.0" text="description" />
-                                <TableColumn fx:id="columnNbHeure" prefWidth="62.0" text="nbHeure" />
-                                <TableColumn fx:id="columnPrixHeure" prefWidth="78.0" text="prixHeure" />
-                                <TableColumn fx:id="columnDate" prefWidth="70.0" text="date" />
-                                <TableColumn fx:id="columnSociete" prefWidth="56.0" text="societe" />
+                                <TableColumn fx:id="columnId" prefWidth="85.0" text="Nom" />
+                                <TableColumn fx:id="columnNom" prefWidth="122.0" text="Description" />
+                                <TableColumn fx:id="columnDescription" prefWidth="58.0" text="NbHeure" />
+                                <TableColumn fx:id="columnNbHeure" prefWidth="61.0" text="PrixHeure" />
+                                <TableColumn fx:id="columnPrixHeure" prefWidth="73.0" text="Date" />
+                                <TableColumn fx:id="columnDate" prefWidth="77.0" text="Ville" />
+                                <TableColumn fx:id="columnSociete" prefWidth="49.0" text="societe" />
                             </columns>
                         </TableView>
                         <TextField fx:id="txrecherche" layoutX="13.0" layoutY="14.0" onAction="#recherche" prefHeight="27.0" prefWidth="180.0" promptText=" Rechercher une mission" styleClass="search-bar" />
+                  <Button fx:id="btnexcel" layoutX="608.0" layoutY="414.0" mnemonicParsing="false" onAction="#excel" prefHeight="27.0" prefWidth="63.0" text="Excel" AnchorPane.rightAnchor="10.0" />
+                  <Text fx:id="textMissionIdActuelle" layoutX="635.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="10.0" />
                     </children>
                 </AnchorPane>
             </content>

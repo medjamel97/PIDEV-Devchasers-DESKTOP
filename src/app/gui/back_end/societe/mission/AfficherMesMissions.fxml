@@ -37,13 +37,13 @@
                <children>
                   <TableView fx:id="idTableau" layoutX="6.0" layoutY="58.0" onMouseClicked="#changerMissionActuelle" prefHeight="388.0" prefWidth="527.0" AnchorPane.topAnchor="58.0">
                     <columns>
-                      <TableColumn fx:id="columnId" prefWidth="35.0" text="id" />
-                      <TableColumn fx:id="columnNom" prefWidth="78.0" text="nom" />
-                        <TableColumn fx:id="columnDescription" prefWidth="146.0" text="description" />
-                        <TableColumn fx:id="columnNbHeure" prefWidth="62.0" text="nbHeure" />
-                        <TableColumn fx:id="columnPrixHeure" prefWidth="78.0" text="prixHeure" />
-                        <TableColumn fx:id="columnDate" prefWidth="70.0" text="date" />
-                        <TableColumn fx:id="columnSociete" prefWidth="56.0" text="societe" />
+                      <TableColumn fx:id="columnId" prefWidth="95.0" text="Nom" />
+                      <TableColumn fx:id="columnNom" prefWidth="96.0" text="Description" />
+                        <TableColumn fx:id="columnDescription" prefWidth="56.0" text="NbHeure" />
+                        <TableColumn fx:id="columnNbHeure" prefWidth="63.0" text="PrixHeure" />
+                        <TableColumn fx:id="columnPrixHeure" prefWidth="81.0" text="Date" />
+                        <TableColumn fx:id="columnDate" prefWidth="87.0" text="Ville" />
+                        <TableColumn fx:id="columnSociete" prefWidth="47.0" text="societe" />
                     </columns>
                   </TableView>
                   <TextField fx:id="txrecherche" layoutX="13.0" layoutY="14.0" onAction="#recherche" prefHeight="27.0" prefWidth="152.0" promptText=" Recherche du mission" />
@@ -55,7 +55,8 @@
          <children>
             <Button fx:id="btnModifier" mnemonicParsing="false" onAction="#modifier" prefHeight="51.0" prefWidth="98.0" text="Modifier" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
             <Button fx:id="btnSupprimer" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="51.0" prefWidth="98.0" text="Supprimer" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <Text fx:id="textMissionIdActuelle" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+            <Text fx:id="textMissionIdActuelle" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="btnexcel" layoutX="139.0" layoutY="295.0" mnemonicParsing="false" onAction="#excel" prefHeight="27.0" prefWidth="64.0" text="Excel" textAlignment="CENTER" wrapText="true" />
          </children>
       </AnchorPane>
    </children>

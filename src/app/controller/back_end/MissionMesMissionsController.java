@@ -7,7 +7,16 @@ package app.controller.back_end;
 
 import app.entity.Mission;
 import app.service.MissionCrud;
+import app.utils.ConnecteurBD;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,7 +39,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import  app.service.MissionCrud;
+import app.utils.ConnecteurBD;
 
 /**
  * FXML Controller class
@@ -77,6 +94,11 @@ public class MissionMesMissionsController implements Initializable {
     private Text textMissionIdActuelle;
     @FXML
     private TextField txrecherche;
+    @FXML
+    private Button btnexcel;
+   
+  
+
 
 
     /**
@@ -110,12 +132,12 @@ public class MissionMesMissionsController implements Initializable {
         observableListMission.addAll(listFed);
         idTableau.setItems(observableListMission);
 
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
-        columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
-        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnId.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        columnNom.setCellValueFactory(new PropertyValueFactory<>("description"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
+        columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
+        columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("ville"));
         columnSociete.setCellValueFactory(new PropertyValueFactory<>("societeId"));
         idTableau.setItems(observableListMission);
         Recherche();
@@ -162,7 +184,7 @@ public class MissionMesMissionsController implements Initializable {
         missionActuelle = idTableau.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2) {
             missionClicked = idTableau.getSelectionModel().getSelectedItem();
-            textMissionIdActuelle.setText("id choisi : " + missionClicked.getId());
+            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
 //                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //                     alert.setTitle("erreur");
 //                     alert.setHeaderText(null);
@@ -171,7 +193,8 @@ public class MissionMesMissionsController implements Initializable {
 
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
-            webEngine.load("http://127.0.0.1:8000/map/36.900366/10.18663");
+            System.out.println(missionClicked.getLatitude());
+            webEngine.load("http://127.0.0.1:8000/map/"+missionClicked.getLatitude()+"/"+missionClicked.getLongitude());
 
             Scene scene = new Scene(webView, 600, 600);
             Stage primaryStage = new Stage();
@@ -182,7 +205,7 @@ public class MissionMesMissionsController implements Initializable {
 
         }
 
-        textMissionIdActuelle.setText("id choisi : " + missionActuelle.getId());
+        textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
     }
 
 
@@ -238,6 +261,21 @@ public class MissionMesMissionsController implements Initializable {
 
     @FXML
     private void recherche(ActionEvent event) {
+    }
+    
+    @FXML
+    private void excel(ActionEvent event) throws IOException {
+        FileChooser chooser = new FileChooser();
+        // Set extension filter
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel Files(.xls)", ".xls");
+        chooser.getExtensionFilters().add(filter);
+        // Show save dialog
+        File file = chooser.showSaveDialog(btnexcel.getScene().getWindow());
+        MissionCrud m = new MissionCrud();
+        if (file != null) {
+           m.Excel(file);
+        }
+        
     }
 
 }
