@@ -10,15 +10,15 @@
     <children>
         <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <children>
-            <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
+                <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
                         <ImageView fitHeight="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="app/images/logo-light.png" />
                             </image>
                         </ImageView>
-               </children>
-            </StackPane>
+                    </children>
+                </StackPane>
             </children>
         </AnchorPane>
         <VBox fx:id="buttonsContainer" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">

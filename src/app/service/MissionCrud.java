@@ -149,7 +149,8 @@ public class MissionCrud implements MissionCrudInterface {
             // ... user chose CANCEL or closed the dialog
         }
     }
-     public void Excel(File file) throws FileNotFoundException, IOException {
+
+    public void Excel(File file) throws FileNotFoundException, IOException {
 
         try {
             //System.out.println("Clicked,waiting to export....");

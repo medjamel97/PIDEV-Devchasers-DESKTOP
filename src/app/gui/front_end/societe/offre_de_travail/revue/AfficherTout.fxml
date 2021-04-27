@@ -29,13 +29,15 @@
                     </children>
                 </StackPane>
                 <Button fx:id="btnRetour" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectionnerSociete" prefHeight="51.0" prefWidth="98.0" styleClass="top-button" text="Retour" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
                 <Button fx:id="btnAjout" layoutX="536.0" layoutY="10.0" mnemonicParsing="false" onAction="#ajouterRevue" prefHeight="51.0" prefWidth="116.0" styleClass="top-button" text="Ajouter revue" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="10.0" layoutY="10.0" style="-fx-background-color: #EEEEFF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
@@ -103,8 +105,8 @@
             </content>
         </ScrollPane>
     </children>
-   <stylesheets>
-      <URL value="@stylesheet.css" />
-      <URL value="@../../../../MainStyle.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@stylesheet.css" />
+        <URL value="@../../../../MainStyle.css" />
+    </stylesheets>
 </AnchorPane>

@@ -52,15 +52,35 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO offre_de_travail (nom,description) VALUES ( ? , ? )");
-
-            preparedStatement.setString(1, o.getNom());
-            preparedStatement.setString(2, o.getDescription());
+                    "INSERT INTO offre_de_travail (categorie_id,societe_id,nom,description) VALUES ( ? , ? , ? , ? )");
+            preparedStatement.setInt(1, o.getCategorieId());
+            preparedStatement.setInt(2, o.getSocieteId());
+            preparedStatement.setString(3, o.getNom());
+            preparedStatement.setString(4, o.getDescription());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
             System.out.println("Offre ajouté");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void ajouterOffreSansCategorie(OffreDeTravail o) {
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connexion.prepareStatement(
+                    "INSERT INTO offre_de_travail (societe_id,nom,description) VALUES ( ? , ? , ? )");
+            preparedStatement.setInt(1, o.getSocieteId());
+            preparedStatement.setString(2, o.getNom());
+            preparedStatement.setString(3, o.getDescription());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            System.out.println("Offre sans categorie ajouté");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -74,9 +94,32 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
 
             try {
                 preparedStatement = connexion.prepareStatement(
-                        "UPDATE `offre_de_travail` "
-                        + "SET `nom` = ?, `description` = ?"
-                        + "WHERE `id` = ?");
+                        "UPDATE offre_de_travail "
+                        + "SET categorie_id =  ?, nom = ?, description = ? "
+                        + "WHERE id = ?");
+                preparedStatement.setInt(1, o.getCategorieId());
+                preparedStatement.setString(2, o.getNom());
+                preparedStatement.setString(3, o.getDescription());
+                preparedStatement.setInt(4, o.getId());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+
+            } catch (SQLException e) {
+                System.out.println("Erreur de modification offre : " + e.getMessage());
+            }
+
+        }
+    }
+
+    @Override
+    public void ModifierOffreSansCategorie(OffreDeTravail o) {
+        {
+            PreparedStatement preparedStatement;
+            try {
+                preparedStatement = connexion.prepareStatement(
+                        "UPDATE offre_de_travail "
+                        + "SET categorie_id = NULL, nom = ?, description = ? "
+                        + "WHERE id = ?");
                 preparedStatement.setString(1, o.getNom());
                 preparedStatement.setString(2, o.getDescription());
                 preparedStatement.setInt(3, o.getId());
@@ -84,9 +127,8 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
                 preparedStatement.close();
 
             } catch (SQLException e) {
-                System.out.println("Erreur de modification candidat : " + e.getMessage());
+                System.out.println("Erreur de modification offre : " + e.getMessage());
             }
-
         }
     }
 
@@ -94,7 +136,7 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
     public void SupprimerOffre(int id) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connexion.prepareStatement("DELETE FROM `offre_de_travail` WHERE `id`=?");
+            preparedStatement = connexion.prepareStatement("DELETE FROM offre_de_travail WHERE id=?");
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();

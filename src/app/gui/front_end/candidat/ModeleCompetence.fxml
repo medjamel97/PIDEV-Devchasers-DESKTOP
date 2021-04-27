@@ -7,13 +7,14 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="95.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text fx:id="CompName" layoutX="149.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="competence">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Text>
-      <ProgressBar fx:id="level" layoutX="147.0" layoutY="41.0" prefWidth="200.0" progress="1.0" />
-      <Button fx:id="modifier" layoutX="391.0" layoutY="13.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="Modifier" />
-      <Button fx:id="supprimer" layoutX="391.0" layoutY="49.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="supprimer" />
-   </children>
+    <children>
+        <Text fx:id="CompName" layoutX="149.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="competence">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Text>
+        <ProgressBar fx:id="level" layoutX="147.0" layoutY="41.0" prefWidth="200.0" progress="1.0" />
+        <Button fx:id="modifier" layoutX="391.0" layoutY="13.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="Modifier" />
+        <Button fx:id="supprimer" layoutX="391.0" layoutY="49.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="supprimer" />
+    </children>
 </AnchorPane>

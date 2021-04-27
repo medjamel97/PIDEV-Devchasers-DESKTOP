@@ -17,37 +17,37 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1050.0" prefWidth="1300.0" style="-fx-background-color: transparent;" stylesheets="@../../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-         <children>
+        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="280.0">
                     <children>
-                  <StackPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                              <Text fx:id="nomCandidat" text="Prenom candidat" textAlignment="CENTER" wrappingWidth="120.0" />
-                     </children>
-                  </StackPane>
-                  <StackPane layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                              <Text fx:id="prenomCandidat" text="Nom candidat" textAlignment="CENTER" wrappingWidth="111.0" />
-                     </children>
-                  </StackPane>
-                  <StackPane layoutY="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
+                        <StackPane layoutY="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                            <children>
+                                <Text fx:id="nomCandidat" text="Prenom candidat" textAlignment="CENTER" wrappingWidth="120.0" />
+                            </children>
+                        </StackPane>
+                        <StackPane layoutY="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                            <children>
+                                <Text fx:id="prenomCandidat" text="Nom candidat" textAlignment="CENTER" wrappingWidth="111.0" />
+                            </children>
+                        </StackPane>
+                        <StackPane layoutY="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                            <children>
                                 <ImageView fx:id="imageCandidat" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="window-rounded">
                                     <image>
                                         <Image url="@../../../../../images/default.jpg" />
                                     </image>
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" color="#00000033" height="67.65" radius="35.6575" spread="0.3" width="76.98" />
-                           </effect>
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="#00000033" height="67.65" radius="35.6575" spread="0.3" width="76.98" />
+                                    </effect>
                                 </ImageView>
-                     </children>
-                  </StackPane>
+                            </children>
+                        </StackPane>
                         <HBox alignment="CENTER" layoutY="220.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                             <children>
                                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../images/mdi/office-building-dark.png" />
+                                        <Image url="@../../../../../images/mdi/briefcase-dark.png" />
                                     </image>
                                 </ImageView>
                                 <Text fx:id="nomSociete" text="Societe" textAlignment="CENTER" wrappingWidth="111.0" />
@@ -57,151 +57,152 @@
                             <children>
                                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../images/mdi/briefcase-dark.png" />
+                                        <Image url="@../../../../../images/mdi/office-building-dark.png" />
                                     </image>
                                 </ImageView>
                                 <Text fx:id="nomOffre" text="Offre" textAlignment="CENTER" wrappingWidth="111.0" />
                             </children>
                         </HBox>
                     </children>
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="20.0" />
+                    </padding>
                 </AnchorPane>
-            <Pane minHeight="-Infinity" minWidth="-Infinity" prefWidth="2.0" styleClass="background-gray">
-               <HBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </HBox.margin>
-            </Pane>
+                <Pane minHeight="-Infinity" minWidth="-Infinity" prefWidth="2.0" styleClass="background-gray">
+                    <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                    </HBox.margin>
+                </Pane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="800.0" HBox.hgrow="ALWAYS">
                     <children>
-                  <HBox fx:id="hboxDifficulte" alignment="CENTER" layoutX="80.0" layoutY="38.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulté :">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </Text>
-                        <Rectangle fx:id="rectangleDifficulte0" arcWidth="5.0" fill="#217eff" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-                        <Rectangle fx:id="rectangleDifficulte1" arcWidth="5.0" fill="#2fff21" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-                        <Rectangle fx:id="rectangleDifficulte2" arcWidth="5.0" fill="YELLOW" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-                        <Rectangle fx:id="rectangleDifficulte3" arcWidth="5.0" fill="#ffb400" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-                        <Rectangle fx:id="rectangleDifficulte4" arcWidth="5.0" fill="#ff2121" height="10.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-                        <Text fx:id="textDifficulte" strokeType="OUTSIDE" strokeWidth="0.0" text="difficulté">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <HBox fx:id="hboxContenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
-                     <children>
-                        <VBox fx:id="contenuContainer" fillWidth="false" minWidth="400.0" HBox.hgrow="ALWAYS">
-                           <children>
-                                    <Text fx:id="objet" text="Objet interview" wrappingWidth="212.982421875">
-                                        <font>
-                                            <Font name="System Bold" size="15.0" />
-                                        </font>
-                                    </Text>
-                              <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="400.0">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Text>
-                                    <Button fx:id="btnTraduire" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="success-button" text="Afficher la traduction en français" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="11.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <Pane fx:id="separateur" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="2.0" styleClass="background-gray">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Pane>
-                        <VBox fx:id="traductionContainer" minWidth="400.0" HBox.hgrow="ALWAYS">
-                           <children>
-                                      <Text fx:id="textTraduitLabel" text="Traduction :" wrappingWidth="212.982421875">
-                                          <font>
-                                              <Font name="System Bold" size="15.0" />
-                                          </font>
-                                      </Text>
-                              <Text fx:id="translatedDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur de traduction" wrappingWidth="400.0">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <Button fx:id="btnMasquerTraduction" alignment="CENTER" mnemonicParsing="false" styleClass="success-button" text="Masquer la traduction" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="11.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox fx:id="hboxActionsDate" alignment="CENTER" layoutX="766.0" layoutY="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                     <children>
-                        <Text fx:id="texteDateCreation" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin></Text>
-                              <Button fx:id="btnModifier" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="white-button">
-                                  <graphic>
-                                      <ImageView pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
-                                          <image>
-                                              <Image url="@../../../../../images/mdi/pencil-dark.png" />
-                                          </image>
-                                      </ImageView>
-                                  </graphic>
-                                  <font>
-                                      <Font size="1.0" />
-                                  </font>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                              </Button>
-                              <Button fx:id="btnSupprimer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="white-button">
-                                  <font>
-                                      <Font size="1.0" />
-                                  </font>
-                                  <graphic>
-                                      <ImageView pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
-                                          <image>
-                                              <Image url="@../../../../../images/mdi/trash-dark.png" />
-                                          </image>
-                                      </ImageView>
-                                  </graphic>
-                              </Button>
-                     </children>
-                  </HBox>
+                        <HBox fx:id="hboxDifficulte" alignment="CENTER" layoutX="80.0" layoutY="38.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulté :">
+                                    <HBox.margin>
+                                        <Insets right="20.0" />
+                                    </HBox.margin>
+                                </Text>
+                                <Rectangle fx:id="rectangleDifficulte0" arcWidth="5.0" fill="#217eff" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+                                <Rectangle fx:id="rectangleDifficulte1" arcWidth="5.0" fill="#2fff21" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+                                <Rectangle fx:id="rectangleDifficulte2" arcWidth="5.0" fill="YELLOW" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+                                <Rectangle fx:id="rectangleDifficulte3" arcWidth="5.0" fill="#ffb400" height="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+                                <Rectangle fx:id="rectangleDifficulte4" arcWidth="5.0" fill="#ff2121" height="10.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+                                <Text fx:id="textDifficulte" strokeType="OUTSIDE" strokeWidth="0.0" text="difficulté">
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hboxContenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+                            <children>
+                                <VBox fx:id="contenuContainer" fillWidth="false" minWidth="400.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Text fx:id="objet" text="Objet interview" wrappingWidth="212.982421875">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="description" wrappingWidth="400.0">
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <Button fx:id="btnTraduire" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="success-button" text="Afficher la traduction en français" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="11.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </Button>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </HBox.margin>
+                                </VBox>
+                                <Pane fx:id="separateur" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="2.0" styleClass="background-gray">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Pane>
+                                <VBox fx:id="traductionContainer" minWidth="400.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Text fx:id="textTraduitLabel" text="Traduction :" wrappingWidth="212.982421875">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="translatedDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur de traduction" wrappingWidth="400.0">
+                                            <VBox.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                        <Button fx:id="btnMasquerTraduction" alignment="CENTER" mnemonicParsing="false" styleClass="success-button" text="Masquer la traduction" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="11.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </Button>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </HBox.margin>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hboxActionsDate" alignment="CENTER" layoutX="766.0" layoutY="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                            <children>
+                                <Text fx:id="texteDateCreation" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                    <HBox.margin>
+                                        <Insets right="20.0" />
+                                    </HBox.margin>
+                                </Text>
+                                <Button fx:id="btnModifier" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="white-button">
+                                    <graphic>
+                                        <ImageView pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
+                                            <image>
+                                                <Image url="@../../../../../images/mdi/pencil-dark.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <Button fx:id="btnSupprimer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" styleClass="white-button">
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView pickOnBounds="true" preserveRatio="true" scaleX="0.5" scaleY="0.5">
+                                            <image>
+                                                <Image url="@../../../../../images/mdi/trash-dark.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
                  
-                                </children>
-               <HBox.margin>
-                  <Insets left="40.0" />
-               </HBox.margin>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="40.0" />
+                    </HBox.margin>
                 </AnchorPane>
-         </children>
-         <styleClass>
-            <String fx:value="background-white" />
-            <String fx:value="window-rounded" />
-         </styleClass>
-      </HBox>
+            </children>
+            <styleClass>
+                <String fx:value="background-white" />
+                <String fx:value="window-rounded" />
+            </styleClass>
+        </HBox>
     </children>
-   <effect>
-      <DropShadow blurType="GAUSSIAN" color="#00000033" height="60.0" radius="29.5" width="60.0" />
-   </effect>
+    <effect>
+        <DropShadow blurType="GAUSSIAN" color="#00000033" height="60.0" radius="29.5" width="60.0" />
+    </effect>
 </AnchorPane>

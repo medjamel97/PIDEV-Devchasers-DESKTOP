@@ -126,6 +126,8 @@ public class MessagerieController implements Initializable {
 
                 if (action.get() == ButtonType.OK) {
                     ConversationCrud.getInstance().supprimerConversation(conversation);
+                    chatContainer.setVisible(false);
+                    conversationActuelle = null;
                     refreshConversations();
                 }
 
@@ -219,8 +221,10 @@ public class MessagerieController implements Initializable {
             parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/messagerie/ModeleCandidat.fxml"));
 
             parent.setOnMouseClicked(event -> {
+                Conversation conversation = new Conversation(MainApp.getSession().getCandidatId(), candidat.getId(), null);
+                conversationActuelle = conversation;
                 ConversationCrud.getInstance().ajouterConversation(
-                        new Conversation(MainApp.getSession().getCandidatId(), candidat.getId(), null)
+                        conversation
                 );
 
                 conversationActuelle = ConversationCrud.getInstance().getConversationByCandidats(
@@ -341,6 +345,7 @@ public class MessagerieController implements Initializable {
         refreshMessages(conversationActuelle.getId(), MESSAGE_LIMIT);
 
         inputMessage.setText("");
+        refreshConversations();
     }
 
     private void refreshConversations() {
@@ -353,36 +358,38 @@ public class MessagerieController implements Initializable {
 
     private void refreshMessages(int idConversation, int messageParPage) {
         messagesContainer.getChildren().clear();
-        List<Message> listMessages = MessageCrud.getInstance().getMessagesByConversation(idConversation, messageParPage);
-        Collections.reverse(listMessages);
+        if (idConversation != 0) {
+            List<Message> listMessages = MessageCrud.getInstance().getMessagesByConversation(idConversation, messageParPage);
+            Collections.reverse(listMessages);
 
-        for (int i = 0; i < listMessages.size(); i++) {
+            for (int i = 0; i < listMessages.size(); i++) {
 
-            boolean previous;
-            boolean next;
-            try {
-                listMessages.get(i - 1);
-                previous = true;
-            } catch (Exception e) {
-                previous = false;
-            }
-            try {
-                listMessages.get(i + 1);
-                next = true;
-            } catch (Exception e) {
-                next = false;
-            }
+                boolean previous;
+                boolean next;
+                try {
+                    listMessages.get(i - 1);
+                    previous = true;
+                } catch (Exception e) {
+                    previous = false;
+                }
+                try {
+                    listMessages.get(i + 1);
+                    next = true;
+                } catch (Exception e) {
+                    next = false;
+                }
 
-            if (listMessages.get(i).getEstProprietaire()) {
-                messagesContainer.getChildren().add(creerMessage(listMessages.get(i), true, getPosition(
-                        previous && listMessages.get(i - 1).getEstProprietaire(),
-                        next && listMessages.get(i + 1).getEstProprietaire()
-                )));
-            } else {
-                messagesContainer.getChildren().add(creerMessage(listMessages.get(i), false, getPosition(
-                        previous && !listMessages.get(i - 1).getEstProprietaire(),
-                        next && !listMessages.get(i + 1).getEstProprietaire()
-                )));
+                if (listMessages.get(i).getEstProprietaire()) {
+                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i), true, getPosition(
+                            previous && listMessages.get(i - 1).getEstProprietaire(),
+                            next && listMessages.get(i + 1).getEstProprietaire()
+                    )));
+                } else {
+                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i), false, getPosition(
+                            previous && !listMessages.get(i - 1).getEstProprietaire(),
+                            next && !listMessages.get(i + 1).getEstProprietaire()
+                    )));
+                }
             }
         }
     }

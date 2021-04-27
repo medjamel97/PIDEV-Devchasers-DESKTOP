@@ -99,8 +99,8 @@ public class PublicationCrud implements PublicationCrudInterface {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT * FROM publication WHERE titre LIKE ? order by date desc");
             preparedStatement.setString(1, titre + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();       
-            while (resultSet.next()) { 
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 listPublication.add(new Publication(
                         resultSet.getInt("id"),
                         resultSet.getInt("candidat_id"),
@@ -110,7 +110,7 @@ public class PublicationCrud implements PublicationCrudInterface {
                         resultSet.getInt("pourcentage_like")
                 ));
             }
-          
+
         } catch (SQLException e) {
             System.out.println("Erreur recherche publication : " + e.getMessage());
         }
@@ -186,7 +186,7 @@ public class PublicationCrud implements PublicationCrudInterface {
         // ... user chose CANCEL or closed the dialog
         PreparedStatement preparedStatement;
         try {
-             System.out.println("bdet 2 ");
+            System.out.println("bdet 2 ");
             preparedStatement = connexion.prepareStatement("DELETE FROM `publication` WHERE `id`=?");
             System.out.println(publication.getId());
             preparedStatement.setInt(1, publication.getId());

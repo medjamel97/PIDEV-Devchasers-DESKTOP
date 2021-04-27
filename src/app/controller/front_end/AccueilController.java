@@ -101,7 +101,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-
     DropShadow shadow = new DropShadow();
 
     @FXML
@@ -125,21 +124,21 @@ public class AccueilController implements Initializable {
     @FXML
     private void hover_on2(MouseEvent event) {
         btn2.setCursor(Cursor.HAND);
-            shadow.setColor(Color.FUCHSIA);
+        shadow.setColor(Color.FUCHSIA);
         btn2.setEffect(shadow);
     }
 
     @FXML
     private void music(ActionEvent event) throws IOException {
-         InputStream music;
+        InputStream music;
         try {
             music = new FileInputStream("party.wav");
-            AudioStream audios= new AudioStream(music);
+            AudioStream audios = new AudioStream(music);
             AudioPlayer.player.start(audios);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
-             JOptionPane.showMessageDialog(null, " n'existe pas");
+            JOptionPane.showMessageDialog(null, " n'existe pas");
         }
     }
 

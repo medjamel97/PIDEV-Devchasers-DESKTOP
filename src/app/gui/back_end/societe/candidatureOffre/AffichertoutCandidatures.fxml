@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.AffichertoutCandidaturesController">
-   <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.AffichertoutCandidaturesController">
+    <children>
+      <AnchorPane layoutX="30.0" layoutY="30.0" minHeight="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane prefHeight="70.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox fx:id="canditsContainer" layoutX="123.0" layoutY="85.0" spacing="20.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="-128.0" />
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes candidatures aux offres" textAlignment="JUSTIFY" textOrigin="CENTER">
+                     <font>
+                        <Font name="Arial Bold" size="23.0" />
+                     </font>
+                  </Text>
                </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
+            </StackPane>
+         </children>
+         <styleClass>
+            <String fx:value="background-light" />
+            <String fx:value="border-gray" />
+         </styleClass>
+      </AnchorPane>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <VBox fx:id="canditsContainer" alignment="CENTER" layoutX="123.0" layoutY="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
 </AnchorPane>

@@ -22,6 +22,7 @@ import app.interfaces.CompetenceCrudInterface;
  * @author Faten
  */
 public class CompetenceCrud implements CompetenceCrudInterface {
+
     private static CompetenceCrud instance;
     private final Connection connexion;
 
@@ -52,8 +53,7 @@ public class CompetenceCrud implements CompetenceCrudInterface {
             System.out.println("Erreur d'ajout competence : " + e.getMessage());
         }
     }
-    
-    
+
     @Override
     public ObservableList<Competence> getCompetenceByCandidat(int idCandidat) {
         ObservableList<Competence> listCompetence = FXCollections.observableArrayList();
@@ -74,7 +74,6 @@ public class CompetenceCrud implements CompetenceCrudInterface {
         }
         return listCompetence;
     }
-
 
     @Override
     public void modifierCompetence(Competence competence) {
@@ -109,7 +108,7 @@ public class CompetenceCrud implements CompetenceCrudInterface {
 
     @Override
     public ObservableList<Competence> getCompetence() {
-        ObservableList<Competence> listCompetence= FXCollections.observableArrayList();
+        ObservableList<Competence> listCompetence = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM competence");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -162,5 +161,5 @@ public class CompetenceCrud implements CompetenceCrudInterface {
         }
         return lastId;
     }
-    
+
 }

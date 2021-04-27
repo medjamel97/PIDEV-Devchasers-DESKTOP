@@ -35,21 +35,21 @@ public class ModifierCompetenceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    Competence competence = ProfileController. competenceActuelle;
-     Inputname.setText(competence.getName());
-     InputLevel.setText(String.valueOf( competence.getLevel()));
+        Competence competence = ProfileController.competenceActuelle;
+        Inputname.setText(competence.getName());
+        InputLevel.setText(String.valueOf(competence.getLevel()));
 
-    }    
+    }
 
     @FXML
     private void ModifierCompetence(ActionEvent event) {
-        Competence competence = new Competence(ProfileController.competenceActuelle.getId(),ProfileController.competenceActuelle.getCandidatId(),
-                    Inputname.getText(), Integer.parseInt(InputLevel.getText()));
-                CompetenceCrud.getInstance().modifierCompetence(competence);
+        Competence competence = new Competence(ProfileController.competenceActuelle.getId(), ProfileController.competenceActuelle.getCandidatId(),
+                Inputname.getText(), Integer.parseInt(InputLevel.getText()));
+        CompetenceCrud.getInstance().modifierCompetence(competence);
 
-                 MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                    );
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+        );
     }
-    
+
 }

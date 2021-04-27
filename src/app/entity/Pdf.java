@@ -8,7 +8,7 @@ package Entities;
 import app.utils.ConnecteurBD;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
- 
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.List;
@@ -30,36 +30,37 @@ import javax.activation.DataSource;
  * @author asus
  */
 public class Pdf {
-        private Connection con;
-        private Statement ste;
-        private final Connection connexion;
-    public Pdf()  {
-         
-         connexion = ConnecteurBD.driverBD();
-          
-    
-}
-    public void add(String file,String N,String N1) throws FileNotFoundException, SQLException, DocumentException{
-        
+
+    private Connection con;
+    private Statement ste;
+    private final Connection connexion;
+
+    public Pdf() {
+
+        connexion = ConnecteurBD.driverBD();
+
+    }
+
+    public void add(String file, String N, String N1) throws FileNotFoundException, SQLException, DocumentException {
+
         /* Create Connection objects */
 //                con = DataBase.getInstance().getConnection();
-                Document my_pdf_report = new Document();
-                PdfWriter.getInstance(my_pdf_report, new FileOutputStream(file));
-                my_pdf_report.open();            
-                //we have four columns in our table
-                PdfPTable my_report_table = new PdfPTable(2);
-                //create a cell object
-                PdfPCell table_cell;
-                                
-                              
-                                table_cell=new PdfPCell(new Phrase("titre"));
-                                my_report_table.addCell(table_cell);
-                                table_cell=new PdfPCell(new Phrase(N));
-                                my_report_table.addCell(table_cell);
-                                table_cell=new PdfPCell(new Phrase("description"));
-                                my_report_table.addCell(table_cell);
-                                table_cell=new PdfPCell(new Phrase(N1));
-                                my_report_table.addCell(table_cell);
+        Document my_pdf_report = new Document();
+        PdfWriter.getInstance(my_pdf_report, new FileOutputStream(file));
+        my_pdf_report.open();
+        //we have four columns in our table
+        PdfPTable my_report_table = new PdfPTable(2);
+        //create a cell object
+        PdfPCell table_cell;
+
+        table_cell = new PdfPCell(new Phrase("titre"));
+        my_report_table.addCell(table_cell);
+        table_cell = new PdfPCell(new Phrase(N));
+        my_report_table.addCell(table_cell);
+        table_cell = new PdfPCell(new Phrase("description"));
+        my_report_table.addCell(table_cell);
+        table_cell = new PdfPCell(new Phrase(N1));
+        my_report_table.addCell(table_cell);
 //                                    table_cell=new PdfPCell(new Phrase("Date"));
 //                                my_report_table.addCell(table_cell);
 //                                table_cell=new PdfPCell(new Phrase(N2));
@@ -72,15 +73,12 @@ public class Pdf {
 //                                my_report_table.addCell(table_cell);
 //                                table_cell=new PdfPCell(new Phrase(N4));
 //                                my_report_table.addCell(table_cell);
-                               
-                                
-                /* Attach report table to PDF */
-                my_pdf_report.add(my_report_table);                       
-                my_pdf_report.close();
-                
-               /* Close all DB related objects */
 
-        
+        /* Attach report table to PDF */
+        my_pdf_report.add(my_report_table);
+        my_pdf_report.close();
+
+        /* Close all DB related objects */
     }
-     
+
 }

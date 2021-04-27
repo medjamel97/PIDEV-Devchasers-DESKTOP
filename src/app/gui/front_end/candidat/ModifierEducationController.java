@@ -53,18 +53,18 @@ public class ModifierEducationController implements Initializable {
         InputEtabli.setText(education.getEtablissement());
         InputVille.setText(education.getVille());
         InputDuree.setText(education.getDuree());
-    }    
+    }
 
     @FXML
     private void ModifierEducation(ActionEvent event) {
-        
-                Education education = new Education(ProfileController.educationActuelle.getId(),ProfileController.educationActuelle.getCandidatId(),
-                    InputDescription.getText(), InputniveauEdu.getText(), InputFiliere.getText(), InputEtabli.getText(), InputVille.getText(), InputDuree.getText());
-                EducationCrud.getInstance().modifierEducation(education);
 
-                 MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                    );
+        Education education = new Education(ProfileController.educationActuelle.getId(), ProfileController.educationActuelle.getCandidatId(),
+                InputDescription.getText(), InputniveauEdu.getText(), InputFiliere.getText(), InputEtabli.getText(), InputVille.getText(), InputDuree.getText());
+        EducationCrud.getInstance().modifierEducation(education);
+
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+        );
     }
 
     @FXML
@@ -74,5 +74,5 @@ public class ModifierEducationController implements Initializable {
     @FXML
     private void startDrag(MouseEvent event) {
     }
-    
+
 }

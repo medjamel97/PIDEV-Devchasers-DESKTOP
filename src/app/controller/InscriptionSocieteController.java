@@ -121,7 +121,6 @@ public class InscriptionSocieteController implements Initializable {
         System.out.println();
         System.out.println("SOCIETE : " + societe.toString());
 
-
         MainApp.getInstance().loadConnexion();
     }
 

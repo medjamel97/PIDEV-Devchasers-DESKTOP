@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
  * @author Faten
  */
 public interface ExperienceDeTravailCrudInterface {
+
     public void ajouterExperienceDeTravail(ExperienceDeTravail experience_de_travail);
 
     public void modifierExperienceDeTravail(ExperienceDeTravail experience_de_travail);
@@ -22,8 +23,7 @@ public interface ExperienceDeTravailCrudInterface {
     public ObservableList<ExperienceDeTravail> getExperienceDeTravail();
 
     public ExperienceDeTravail getExperienceDeTravailById(int idExperienceDeTravail);
-   
+
     public ObservableList<ExperienceDeTravail> getExperienceDeTravailByCandidat(int idCandidat);
 
-    
 }

@@ -76,14 +76,14 @@ public class RevueCrud implements RevueCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE `revue` "
-                    + "SET `nb_etoiles` = ?, `objet` = ?, `description` = ?, date_creation = ? "
-                    + "WHERE `id` = ?");
+                    "UPDATE revue "
+                    + "SET nb_etoiles = ?, objet = ?, description = ?, date_creation = ? "
+                    + "WHERE id = ?");
             preparedStatement.setInt(1, revue.getNbEtoiles());
             preparedStatement.setString(2, revue.getObjet());
             preparedStatement.setString(3, revue.getDescription());
-            preparedStatement.setTimestamp(5, revue.getDateCreation());
-            preparedStatement.setInt(4, revue.getId());
+            preparedStatement.setTimestamp(4, revue.getDateCreation());
+            preparedStatement.setInt(5, revue.getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -97,7 +97,7 @@ public class RevueCrud implements RevueCrudInterface {
     public void supprimerRevue(Revue revue) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connexion.prepareStatement("DELETE FROM `revue` WHERE `id`=?");
+            preparedStatement = connexion.prepareStatement("DELETE FROM revue WHERE id=?");
             preparedStatement.setInt(1, revue.getId());
 
             preparedStatement.executeUpdate();
@@ -116,7 +116,7 @@ public class RevueCrud implements RevueCrudInterface {
                     "SELECT *"
                     + "FROM revue r join candidature_offre c on r.candidature_offre_id = c.id "
                     + "WHERE c.offre_de_travail_id = ? "
-                    + "ORDER BY r.date_creation ");
+                    + "ORDER BY r.date_creation DESC ");
             preparedStatement.setInt(1, idOffreDeTravail);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -143,8 +143,8 @@ public class RevueCrud implements RevueCrudInterface {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
                     + "FROM revue r join candidature_offre c on r.candidature_offre_id = c.id "
-                    + "WHERE c.offre_de_travail_id = ? AND r.objet LIKE ?"
-                    + "ORDER BY r.date_creation ");
+                    + "WHERE c.offre_de_travail_id = ? AND r.objet LIKE ? "
+                    + "ORDER BY r.date_creation DESC ");
             preparedStatement.setInt(1, idOffreDeTravail);
             preparedStatement.setString(2, objet + "%");
 

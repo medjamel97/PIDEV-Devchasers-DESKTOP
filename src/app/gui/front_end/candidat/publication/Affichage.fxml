@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="402.0" style="-fx-background-color: #18191a;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.PublicationAfficherToutController">
+<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="402.0" style="-fx-background-color: #18191a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.PublicationAfficherToutController">
     <children>
         <Button fx:id="btnAjout" layoutX="258.0" layoutY="37.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #2d88ff;" text="Rechercher" textFill="WHITE">
             <font>
@@ -20,7 +20,7 @@
                 <Font size="13.0" />
             </font>
         </TextField>
-        <ScrollPane fitToWidth="true" layoutX="97.0" layoutY="90.0" prefHeight="400.0" style="-fx-background-color: #3a3b3c;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+        <ScrollPane fitToWidth="true" layoutX="97.0" layoutY="90.0" prefHeight="400.0" style="-fx-background-color: transparent;" stylesheets="@../../../TransparentScrollView.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
             <content>
                 <AnchorPane style="-fx-background-color: #3a3b3c;">
                     <children>

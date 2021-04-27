@@ -28,34 +28,37 @@
                     </children>
                 </StackPane>
                 <Button fx:id="btnRetour" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectionnerSociete" prefHeight="51.0" prefWidth="98.0" styleClass="top-button" text="Retour" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
                 <Button fx:id="btnAjout" layoutX="536.0" layoutY="10.0" mnemonicParsing="false" onAction="#ajouterInterview" prefHeight="51.0" prefWidth="140.0" styleClass="top-button" text="Ajouter interview" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" styleClass="background-light" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher par candidat :">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <TextField fx:id="inputRecherche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#rechercheParNomPrenom" prefWidth="300.0" promptText="Tapez le nom ou prenom du candidat" styleClass="form-control-white" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tri par difficulté :">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </Text>
-                  <ComboBox fx:id="comboBoxTri" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" promptText="Choisir difficulté" styleClass="form-control-white" />
-               </children>
-            </HBox>
-         </children></AnchorPane>
+            <children>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher par candidat :">
+                            <HBox.margin>
+                                <Insets right="20.0" />
+                            </HBox.margin>
+                        </Text>
+                        <TextField fx:id="inputRecherche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#rechercheParNomPrenom" prefWidth="300.0" promptText="Tapez le nom ou prenom du candidat" styleClass="form-control-white" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tri par difficulté :">
+                            <HBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </HBox.margin>
+                        </Text>
+                        <ComboBox fx:id="comboBoxTri" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" promptText="Choisir difficulté" styleClass="form-control-white" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" pannable="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
             <opaqueInsets>
                 <Insets />

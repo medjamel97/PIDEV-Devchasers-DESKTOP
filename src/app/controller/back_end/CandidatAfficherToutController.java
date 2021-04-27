@@ -7,48 +7,28 @@ package app.controller.back_end;
 
 import app.entity.Candidat;
 import app.service.CandidatCrud;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
 
 /**
  * FXML Controller class
  *
- * @author 
+ * @author
  */
-
 public class CandidatAfficherToutController implements Initializable {
 
     ObservableList<Candidat> candidats = FXCollections.observableArrayList();
@@ -72,12 +52,6 @@ public class CandidatAfficherToutController implements Initializable {
     @FXML
     private TableColumn<Candidat, String> age;
     @FXML
-    private Text idChoisi;
-    @FXML
-    private Button btnModifier;
-    @FXML
-    private Button btnSupprimer;
-    @FXML
     private Label label;
 
     /**
@@ -87,9 +61,6 @@ public class CandidatAfficherToutController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         //pagination.setPageFactory(this::createPage);
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
-
         List<Candidat> listCandidats = CandidatCrud.getInstance().getCandiadats();
 
         if (!listCandidats.isEmpty()) {
@@ -158,40 +129,8 @@ public class CandidatAfficherToutController implements Initializable {
     }
 
     @FXML
-    private void ajoutCandidat(ActionEvent event) {
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/back_end/candidat/AjoutCandidat.fxml")
-        );
-
-    }
-
-    @FXML
-    private void supprimerCandidat(ActionEvent event) {
-        CandidatCrud.getInstance().supprimerCandidat(candidatActuel);
-        candidatActuel = null;
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/back_end/candidat/AfficherToutCandidat.fxml")
-        );
-
-    }
-
-    @FXML
-    private void modifierCandidat(ActionEvent event) {
-        if (candidatActuel != null) {
-            MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/back_end/candidat/ModifierCandidat.fxml")
-            );
-        }
-    }
-
-    @FXML
     private void selectCandidat(MouseEvent event) {
         candidatActuel = tab.getSelectionModel().getSelectedItem();
-        idChoisi.setText("id choisi : " + candidatActuel.getId());
-        btnModifier.setDisable(false);
-        btnSupprimer.setDisable(false);
     }
 
     //method to create page inside pagination view
@@ -206,7 +145,6 @@ public class CandidatAfficherToutController implements Initializable {
         }
         return tab;
     }*/
-
 //    @FXML
 //    private void excel(ActionEvent event) throws IOException {
 //              FileChooser chooser = new FileChooser();
@@ -218,5 +156,4 @@ public class CandidatAfficherToutController implements Initializable {
 //        CandidatCrud m = new CandidatCrud();
 //       if (file != null) {
 //           m.Excel(file) ; }    
-  
 }

@@ -88,20 +88,20 @@ public class ProfileController implements Initializable {
         listCompetence.forEach((competence) -> {
             educationContainer.getChildren().add(creeCompetence(competence));
         });
-        
-ObservableList<PieChart.Data> data =
-         FXCollections.observableArrayList();
-      data.addAll(new PieChart.Data("Asia", 30.0),
-         new PieChart.Data("Africa", 20.3),
-         new PieChart.Data("North America", 16.3),
-         new PieChart.Data("South America", 12.0),
-         new PieChart.Data("Antartica", 8.9),
-         new PieChart.Data("Europe", 6.7),
-         new PieChart.Data("Australia", 5.2));
 
-      pieChart.setData(data);
-      pieChart.setTitle("The Continents: Land Area");
-      
+        ObservableList<PieChart.Data> data
+                = FXCollections.observableArrayList();
+        data.addAll(new PieChart.Data("Asia", 30.0),
+                new PieChart.Data("Africa", 20.3),
+                new PieChart.Data("North America", 16.3),
+                new PieChart.Data("South America", 12.0),
+                new PieChart.Data("Antartica", 8.9),
+                new PieChart.Data("Europe", 6.7),
+                new PieChart.Data("Australia", 5.2));
+
+        pieChart.setData(data);
+        pieChart.setTitle("The Continents: Land Area");
+
     }
 
     private Parent creeEducation(Education e) {
@@ -127,13 +127,13 @@ ObservableList<PieChart.Data> data =
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                EducationCrud.getInstance().supprimerEducation(e);
-                                MainWindowController.chargerInterface(
-                                getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                );
-            
-        }
-               
+                    EducationCrud.getInstance().supprimerEducation(e);
+                    MainWindowController.chargerInterface(
+                            getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+                    );
+
+                }
+
             });
 
             return parent;
@@ -149,30 +149,29 @@ ObservableList<PieChart.Data> data =
 
             ((Text) parent.lookup("#CompName")).setText(c.getName());
             ((ProgressBar) parent.lookup("#level")).setProgress((double) (Double.valueOf(c.getLevel()) / 100));
-             ((Button) parent.lookup("#modifier")).setOnAction(value -> {
+            ((Button) parent.lookup("#modifier")).setOnAction(value -> {
                 competenceActuelle = c;
                 MainWindowController.chargerInterface(
                         getClass().getResource("/app/gui/front_end/candidat/ModifierCompetence.fxml")
                 );
             });
             ((Button) parent.lookup("#supprimer")).setOnAction(value -> {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Suppression");
                 alert.setHeaderText(null);
                 alert.setContentText("vous voulez vraiment supprimer cette Competence ?");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                 CompetenceCrud.getInstance().supprimerCompetence(c);
-                                MainWindowController.chargerInterface(
-                        getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                );
-            
-        }
-          
+                    CompetenceCrud.getInstance().supprimerCompetence(c);
+                    MainWindowController.chargerInterface(
+                            getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+                    );
+
+                }
+
             });
-            
-            
+
             return parent;
         } catch (IOException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,21 +195,21 @@ ObservableList<PieChart.Data> data =
                 );
             });
             ((Button) parent.lookup("#supprimer")).setOnAction(value -> {
-                
-                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Suppression");
                 alert.setHeaderText(null);
                 alert.setContentText("vous voulez vraiment supprimer cette experience de travail ?");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-               ExperienceDeTravailCrud.getInstance().supprimerExperienceDeTravail(exp);
-                MainWindowController.chargerInterface(
-                        getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                );
-            
-        }
-                
+                    ExperienceDeTravailCrud.getInstance().supprimerExperienceDeTravail(exp);
+                    MainWindowController.chargerInterface(
+                            getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+                    );
+
+                }
+
             });
 
             return parent;
@@ -240,22 +239,21 @@ ObservableList<PieChart.Data> data =
                 getClass().getResource("/app/gui/front_end/candidat/AjouterExperienceDeTravail.fxml")
         );
     }
+
     @FXML
-    public   PieChart createPieChart() {
-      ObservableList<PieChart.Data> data =
-         FXCollections.observableArrayList();
-      data.addAll(new PieChart.Data("Asia", 30.0),
-         new PieChart.Data("Africa", 20.3),
-         new PieChart.Data("North America", 16.3),
-         new PieChart.Data("South America", 12.0),
-         new PieChart.Data("Antartica", 8.9),
-         new PieChart.Data("Europe", 6.7),
-         new PieChart.Data("Australia", 5.2));
+    public PieChart createPieChart() {
+        ObservableList<PieChart.Data> data
+                = FXCollections.observableArrayList();
+        data.addAll(new PieChart.Data("Asia", 30.0),
+                new PieChart.Data("Africa", 20.3),
+                new PieChart.Data("North America", 16.3),
+                new PieChart.Data("South America", 12.0),
+                new PieChart.Data("Antartica", 8.9),
+                new PieChart.Data("Europe", 6.7),
+                new PieChart.Data("Australia", 5.2));
 
-      pieChart.setData(data);
-      pieChart.setTitle("The Continents: Land Area");
-      return pieChart;
-   }
+        pieChart.setData(data);
+        pieChart.setTitle("The Continents: Land Area");
+        return pieChart;
+    }
 }
-
-

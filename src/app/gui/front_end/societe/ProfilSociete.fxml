@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="1000.0" styleClass="background-white" stylesheets="@../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.SocieteProfilController">
+   <children>
+      <AnchorPane layoutY="22.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane layoutY="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <ImageView fx:id="photoSociete" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#000000a6" />
+                     </effect>
+                     <image>
+                        <Image url="@../../../images/default.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane layoutY="128.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Text fx:id="nomSociete" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom societe" />
+               </children>
+            </StackPane>
+            <StackPane layoutY="158.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Text fx:id="dateCreation" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+               </children>
+            </StackPane>
+            <StackPane layoutY="188.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Text fx:id="tel" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel" />
+               </children>
+            </StackPane>
+         </children>
+         <styleClass>
+            <String fx:value="background-white" />
+            <String fx:value="border-gray" />
+         </styleClass>
+      </AnchorPane>
+      <ScrollPane fitToWidth="true" layoutY="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0">
+         <content>
+            <VBox fx:id="listeOffre" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Offres de travails">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+   <effect>
+      <DropShadow color="#00000033" />
+   </effect>
+</AnchorPane>

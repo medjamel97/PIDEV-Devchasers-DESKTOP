@@ -6,17 +6,9 @@
 package app.controller.back_end;
 
 import app.entity.Mission;
-import app.service.MissionCrud;
-import app.utils.ConnecteurBD;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,13 +32,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import  app.service.MissionCrud;
-import app.utils.ConnecteurBD;
+import app.service.MissionCrud;
 
 /**
  * FXML Controller class
@@ -56,18 +41,13 @@ import app.utils.ConnecteurBD;
  */
 public class MissionMesMissionsController implements Initializable {
 
-   
     MissionCrud missionCrud = new MissionCrud();
     ObservableList<Mission> observableListMission = FXCollections.observableArrayList();
     public static Mission missionActuelle;
     public static Mission missionClicked;
 
     @FXML
-    private Button btnRetour;
-    @FXML
     private Button btnAjout;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -96,10 +76,6 @@ public class MissionMesMissionsController implements Initializable {
     private TextField txrecherche;
     @FXML
     private Button btnexcel;
-   
-  
-
-
 
     /**
      * Initializes the controller class.
@@ -143,7 +119,6 @@ public class MissionMesMissionsController implements Initializable {
         Recherche();
     }
 
-    @FXML
     private void accueil(ActionEvent event) {
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/back_end/candidat/publication/Accueil.fxml")
@@ -184,7 +159,7 @@ public class MissionMesMissionsController implements Initializable {
         missionActuelle = idTableau.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2) {
             missionClicked = idTableau.getSelectionModel().getSelectedItem();
-            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
+            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures() * missionActuelle.getPrixHeure());
 //                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //                     alert.setTitle("erreur");
 //                     alert.setHeaderText(null);
@@ -194,7 +169,7 @@ public class MissionMesMissionsController implements Initializable {
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
             System.out.println(missionClicked.getLatitude());
-            webEngine.load("http://127.0.0.1:8000/map/"+missionClicked.getLatitude()+"/"+missionClicked.getLongitude());
+            webEngine.load("http://127.0.0.1:8000/map/" + missionClicked.getLatitude() + "/" + missionClicked.getLongitude());
 
             Scene scene = new Scene(webView, 600, 600);
             Stage primaryStage = new Stage();
@@ -205,9 +180,8 @@ public class MissionMesMissionsController implements Initializable {
 
         }
 
-        textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
+        textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures() * missionActuelle.getPrixHeure());
     }
-
 
     public void Recherche() {
         // Wrap the ObservableList in a FilteredList (initially display all data).
@@ -262,7 +236,7 @@ public class MissionMesMissionsController implements Initializable {
     @FXML
     private void recherche(ActionEvent event) {
     }
-    
+
     @FXML
     private void excel(ActionEvent event) throws IOException {
         FileChooser chooser = new FileChooser();
@@ -273,9 +247,9 @@ public class MissionMesMissionsController implements Initializable {
         File file = chooser.showSaveDialog(btnexcel.getScene().getWindow());
         MissionCrud m = new MissionCrud();
         if (file != null) {
-           m.Excel(file);
+            m.Excel(file);
         }
-        
+
     }
 
 }

@@ -21,10 +21,11 @@
         <HBox layoutX="20.0" layoutY="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
             <children>
                 <TextField maxHeight="1.7976931348623157E308" prefWidth="250.0" promptText="Search ...">
-               <styleClass>
-                  <String fx:value="search-bar" />
-                  <String fx:value="border-gray" />
-               </styleClass></TextField>
+                    <styleClass>
+                        <String fx:value="search-bar" />
+                        <String fx:value="border-gray" />
+                    </styleClass>
+                </TextField>
                 <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" styleClass="search-button">
                     <font>
                         <Font size="1.0" />
@@ -45,8 +46,8 @@
                 </Button>
             </children>
         </HBox>
-      <HBox alignment="CENTER" onMouseClicked="#showUserAction" styleClass="light-button" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="15.0">
-         <children>
+        <HBox alignment="CENTER" onMouseClicked="#showUserAction" styleClass="light-button" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="15.0">
+            <children>
                 <BorderPane>
                     <center>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -68,18 +69,18 @@
                         <Pane prefHeight="2.0" prefWidth="2.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
                     </bottom>
                 </BorderPane>
-            <Text fx:id="userEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
-               <HBox.margin>
-                  <Insets left="20.0" right="10.0" />
-               </HBox.margin>
-            </Text>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="/app/images/mdi/menu-down.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
+                <Text fx:id="userEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
+                    <HBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </HBox.margin>
+                </Text>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="/app/images/mdi/menu-down.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
         <AnchorPane fx:id="panelContainerUserActions" layoutY="70.0" AnchorPane.rightAnchor="150.0">
             <children>
                 <VBox fx:id="panelUserActions" alignment="TOP_CENTER" prefWidth="140.0">
@@ -144,9 +145,9 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
                 <Button fx:id="btnMaximize" layoutX="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#maximize" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
@@ -159,9 +160,9 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
                 <Button fx:id="btnClose" layoutX="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#close" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
@@ -174,9 +175,9 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
             </children>
         </AnchorPane>

@@ -89,7 +89,11 @@ public class InterviewSelectionnerSocieteController implements Initializable {
         try {
             parentSociete = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/ModeleSociete.fxml"));
             ((Text) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(0)).getChildren().get(0)).setText(societe.getNom());
-            ((ImageView) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(1)).getChildren().get(1)).setImage(new Image("/app/images/default.jpg"));
+            try {
+                ((ImageView) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(1)).getChildren().get(0)).setImage(new Image(societe.getIdPhoto()));
+            } catch (Exception e) {
+                System.out.println("Erreur affichage photo");
+            }
             ((Text) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(2)).getChildren().get(0)).setText("Tel :" + societe.getTel());
             GridPane.setColumnIndex(parentSociete, i);
             GridPane.setRowIndex(parentSociete, j);
@@ -142,7 +146,7 @@ public class InterviewSelectionnerSocieteController implements Initializable {
                     stageDialogOffres.setY((Screen.getPrimary().getBounds().getHeight() / 2) - (400 / 2));
                     stageDialogOffres.setScene(new Scene(dialogParent, 400, 400));
                     ResizeHelper resizeHelper = new ResizeHelper(stageDialogOffres, 40, 0);
-                    
+
                     stageDialogOffres.showAndWait();
                 } catch (IOException ex) {
                     Logger.getLogger(InterviewSelectionnerSocieteController.class.getName()).log(Level.SEVERE, null, ex);

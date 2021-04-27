@@ -62,6 +62,5 @@ public class Conversation {
     public void setDateDernierMessage(Timestamp dateDernierMessage) {
         this.dateDernierMessage = dateDernierMessage;
     }
-    
-    
+
 }

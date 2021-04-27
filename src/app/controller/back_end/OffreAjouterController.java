@@ -5,21 +5,23 @@
  */
 package app.controller.back_end;
 
+import app.MainApp;
+import app.entity.Categorie;
 import app.entity.OffreDeTravail;
+import app.service.CategorieCrud;
 import app.service.OffreDeTravailCrud;
 import java.net.URL;
 import java.sql.Types;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -33,9 +35,17 @@ public class OffreAjouterController implements Initializable {
     private TextField tfJob;
     @FXML
     private TextArea tfDesc;
+    @FXML
+    private ComboBox<Categorie> tfCategorie;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Categorie defaultCategorie = new Categorie(0, "Aucune categorie");
+        tfCategorie.getItems().add(defaultCategorie);
+        tfCategorie.setValue(defaultCategorie);
+        
+        List<Categorie> listCategories = CategorieCrud.getInstance().DisplayCat();
+        tfCategorie.getItems().addAll(listCategories);
     }
 
     private void offre(ActionEvent event) {
@@ -49,25 +59,45 @@ public class OffreAjouterController implements Initializable {
 
         String nom = tfJob.getText();
         String desc = tfDesc.getText();
+        int idCat;
+        OffreDeTravail offreDeTravail;
+        if (tfCategorie.getValue().getId() != 0) {
+            idCat = tfCategorie.getValue().getId();
+            offreDeTravail = new OffreDeTravail(idCat, MainApp.getSession().getSocieteId(), nom, desc);
 
-        OffreDeTravail offreDeTravail = new OffreDeTravail(Types.NULL, Types.NULL, nom, desc);
-        if (controleDeSaisie(offreDeTravail)) {
-            OffreDeTravailCrud.getInstance().ajouterOffre(offreDeTravail);
+            if (controleDeSaisie(offreDeTravail)) {
+                OffreDeTravailCrud.getInstance().ajouterOffre(offreDeTravail);
 
-              Notifications notificationBuilder = Notifications.create()
-                .title("Alerte").text("Offre ajouté avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
-                .position(Pos.CENTER_LEFT)
-                .onAction(new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event) {
-                        System.out.println("clicked ON ");
-                    }
-                });
-        notificationBuilder.darkStyle();
-        notificationBuilder.show(); 
-           // offre(event);
-            
-            
+                Notifications notificationBuilder = Notifications.create()
+                        .title("Alerte").text("Offre ajouté avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                        .position(Pos.CENTER_LEFT)
+                        .onAction((ActionEvent event1) -> {
+                            System.out.println("clicked ON ");
+                        });
+                notificationBuilder.darkStyle();
+                notificationBuilder.show();
+
+                offre(event);
+            }
+        } else {
+            offreDeTravail = new OffreDeTravail(MainApp.getSession().getSocieteId(), nom, desc);
+
+            if (controleDeSaisie(offreDeTravail)) {
+                OffreDeTravailCrud.getInstance().ajouterOffreSansCategorie(offreDeTravail);
+
+                Notifications notificationBuilder = Notifications.create()
+                        .title("Alerte").text("Offre ajouté avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                        .position(Pos.CENTER_LEFT)
+                        .onAction((ActionEvent event1) -> {
+                            System.out.println("clicked ON ");
+                        });
+                notificationBuilder.darkStyle();
+                notificationBuilder.show();
+
+                offre(event);
+            }
         }
+
     }
 
     boolean controleDeSaisie(OffreDeTravail offre) {
@@ -93,6 +123,5 @@ public class OffreAjouterController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
 
 }

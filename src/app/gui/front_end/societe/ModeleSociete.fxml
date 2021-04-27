@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="700.0" prefHeight="180.0" styleClass="background-white" stylesheets="@../../MainStyle.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <ImageView fx:id="photoSociete" fitHeight="100.0" fitWidth="100.0" layoutX="28.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+               <effect>
+                  <DropShadow color="#000000a6" />
+               </effect>
+               <image>
+                  <Image url="@../../../images/default.jpg" />
+               </image>
+            </ImageView>
+            <Text fx:id="nomSociete" layoutX="176.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom societe" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="30.0" />
+            <Text fx:id="tel" layoutX="170.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="103.0" />
+            <Button fx:id="buttonAfficherSociete" layoutX="536.0" layoutY="75.0" minWidth="100.0" mnemonicParsing="false" styleClass="light-button" text="Afficher Societe" AnchorPane.rightAnchor="20.0" />
+            <Text fx:id="dateCreation" layoutX="170.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+         </children>
+         <effect>
+            <DropShadow color="#00000033" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

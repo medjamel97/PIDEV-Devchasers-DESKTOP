@@ -4,36 +4,41 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="607.0" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.MissionModifierController">
+<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="607.0" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.MissionAjouterController">
    <children>
-      <Text fx:id="topText" layoutX="215.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier votre Mission">
-         <font>
-            <Font name="Arial Bold" size="23.0" />
-         </font>
-      </Text>
-      <Button fx:id="btnRetour" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#mission" prefHeight="51.0" prefWidth="125.0" styleClass="light-button" text="Retour" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btnRetour" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#mission" prefHeight="51.0" prefWidth="125.0" styleClass="white-button" text="Retour" textAlignment="CENTER" wrapText="true" />
+      <StackPane layoutX="215.0" layoutY="27.1787109375" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier votre Mission">
+               <font>
+                  <Font name="Arial Bold" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
       <Text layoutX="26.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputNom" layoutX="161.0" layoutY="134.0" prefHeight="31.0" prefWidth="170.0" promptText="nom de la mission" styleClass="form-control" AnchorPane.leftAnchor="110.0" />
+      <TextField fx:id="inputNom" layoutX="161.0" layoutY="134.0" prefHeight="31.0" prefWidth="170.0" promptText="nom de la mission" styleClass="form-control-white" AnchorPane.leftAnchor="110.0" />
       <Text layoutX="313.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NB Heure">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputnbheure" layoutX="425.0" layoutY="134.0" prefHeight="31.0" prefWidth="140.0" promptText="nombre d'heure" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="inputnbheure" layoutX="425.0" layoutY="134.0" prefHeight="31.0" prefWidth="140.0" promptText="nombre d'heure" styleClass="form-control-white" AnchorPane.leftAnchor="427.0" AnchorPane.rightAnchor="40.0" />
       <Text layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputDescription" alignment="TOP_LEFT" layoutY="360.0" prefHeight="123.0" prefWidth="364.0" promptText="Décrivez votre mission" styleClass="form-control" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="40.0" />
-      <Button fx:id="btnModif" layoutY="500.0" mnemonicParsing="false" onAction="#modifier" prefHeight="51.0" prefWidth="196.0" styleClass="success-button" text="Modifier" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="500.0" />
+      <TextField fx:id="inputDescription" alignment="TOP_LEFT" layoutY="360.0" prefHeight="123.0" prefWidth="364.0" promptText="Décrivez votre mission" styleClass="form-control-white" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="btnAjout" layoutY="500.0" mnemonicParsing="false" onAction="#ajout" prefHeight="51.0" prefWidth="196.0" styleClass="success-button" text="Modifier" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <Text layoutX="77.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
@@ -44,21 +49,21 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputprix" layoutX="425.0" layoutY="212.0" prefHeight="31.0" prefWidth="140.0" promptText="prix d'heure" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="inputprix" layoutX="425.0" layoutY="212.0" prefHeight="31.0" prefWidth="140.0" promptText="prix d'heure" styleClass="form-control-white" AnchorPane.leftAnchor="427.0" AnchorPane.rightAnchor="40.0" />
       <DatePicker fx:id="Dateid" layoutX="151.0" layoutY="216.0" prefHeight="25.0" prefWidth="170.0" AnchorPane.leftAnchor="110.0" />
-      <TextField fx:id="inputVille" layoutY="280.0" prefHeight="31.0" prefWidth="100.0" promptText="ville" styleClass="form-control" AnchorPane.leftAnchor="110.0" />
+      <TextField fx:id="inputVille" layoutY="280.0" prefHeight="31.0" prefWidth="100.0" promptText="ville" styleClass="form-control-white" AnchorPane.leftAnchor="110.0" />
       <Text layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" AnchorPane.leftAnchor="50.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputLong" layoutY="280.0" prefHeight="31.0" prefWidth="80.0" promptText="longitude" styleClass="form-control" AnchorPane.rightAnchor="200.0" />
+      <TextField fx:id="inputLong" layoutY="280.0" prefHeight="31.0" prefWidth="80.0" promptText="longitude" styleClass="form-control-white" AnchorPane.rightAnchor="200.0" />
       <Text layoutX="10.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Long" AnchorPane.rightAnchor="300.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="inputLat" layoutY="280.0" prefHeight="31.0" prefWidth="80.0" promptText="latitude" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="inputLat" layoutY="280.0" prefHeight="31.0" prefWidth="80.0" promptText="latitude" styleClass="form-control-white" AnchorPane.rightAnchor="40.0" />
       <Text layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lat" AnchorPane.rightAnchor="140.0">
          <font>
             <Font name="Arial" size="18.0" />

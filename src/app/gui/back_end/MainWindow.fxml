@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane styleClass="window-shadow" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.MainWindowController">
-   <children>
-      <AnchorPane id="AnchorPane" minHeight="555.0" minWidth="1000.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-          <children>
-              <AnchorPane fx:id="sideBar" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-              <AnchorPane fx:id="content" styleClass="background-light" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
-            <AnchorPane fx:id="topBar" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-          </children>
-      </AnchorPane>
-   </children>
-   <stylesheets>
-      <URL value="@style.css" />
-      <URL value="@../MainStyle.css" />
-   </stylesheets>
+    <children>
+        <AnchorPane id="AnchorPane" minHeight="555.0" minWidth="1000.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
+                <AnchorPane fx:id="sideBar" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <AnchorPane fx:id="content" styleClass="background-light" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                <AnchorPane fx:id="topBar" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+    </children>
+    <stylesheets>
+        <URL value="@style.css" />
+        <URL value="@../MainStyle.css" />
+    </stylesheets>
 </AnchorPane>

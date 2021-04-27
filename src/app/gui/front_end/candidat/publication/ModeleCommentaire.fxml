@@ -14,41 +14,41 @@
     <children>
         <StackPane style="-fx-background-color: #3a3b3c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <HBox alignment="CENTER" style="-fx-border-color: #2d88ff;">
-               <children>
-                      <Text fill="#c5e4f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu commentaire" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
-                     <graphic>
-                        <ImageView fitHeight="13.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/mdi/pencil-dark.png" />
-                           </image>
-                           <effect>
-                              <ColorAdjust brightness="1.0" />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font size="3.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
-                     <font>
-                        <Font size="3.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="13.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/mdi/trash-dark.png" />
-                           </image>
-                           <effect>
-                              <ColorAdjust brightness="1.0" />
-                           </effect>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
+                <HBox alignment="CENTER" style="-fx-border-color: #2d88ff;">
+                    <children>
+                        <Text fill="#c5e4f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Contenu commentaire" />
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                            <graphic>
+                                <ImageView fitHeight="13.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../images/mdi/pencil-dark.png" />
+                                    </image>
+                                    <effect>
+                                        <ColorAdjust brightness="1.0" />
+                                    </effect>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font size="3.0" />
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                            <font>
+                                <Font size="3.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="13.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../images/mdi/trash-dark.png" />
+                                    </image>
+                                    <effect>
+                                        <ColorAdjust brightness="1.0" />
+                                    </effect>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
             </children>
         </StackPane>
     </children>

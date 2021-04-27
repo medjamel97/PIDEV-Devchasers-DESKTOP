@@ -12,75 +12,75 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="629.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.front_end.candidat.AjouterEducationController">
-   <children>
-      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="629.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane layoutX="14.0" layoutY="5.0" onMouseDragged="#drag" onMousePressed="#startDrag" prefHeight="629.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <HBox layoutX="50.0" layoutY="409.0" prefHeight="20.0" prefWidth="94.0">
-                     <children>
-                        <Label text="Description " />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <TextArea fx:id="InputDescription" layoutX="40.0" layoutY="430.0" prefHeight="80.0" prefWidth="280.0" promptText="autre information consernant vos etudes" stylesheets="@candidat.css">
-                     <styleClass>
-                        <String fx:value="form-control" />
-                        <String fx:value="form-control" />
-                     </styleClass>
-                  </TextArea>
-                  <HBox layoutX="370.0" layoutY="197.0">
-                     <children>
-                        <Label text="Etablissement d'etude" />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <TextField fx:id="InputEtabli" layoutX="370.0" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="etablissement" styleClass="form-control" stylesheets="@candidat.css" />
-                  <HBox layoutX="40.0" layoutY="97.0" prefHeight="21.0" prefWidth="84.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau d'education" />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <TextField fx:id="InputniveauEdu" layoutX="40.0" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="niveau d'education" styleClass="form-control" stylesheets="@candidat.css" />
-                  <TextField fx:id="InputFiliere" layoutX="370.0" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="filiere" styleClass="form-control" stylesheets="@candidat.css" />
-                  <TextField fx:id="InputVille" layoutX="40.0" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="ville" styleClass="form-control" stylesheets="@candidat.css" />
-                  <HBox layoutX="40.0" layoutY="197.0">
-                     <children>
-                        <Label text="Ville" />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <TextField fx:id="InputDuree" layoutX="40.0" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="BAC+3, ...etc" styleClass="form-control" stylesheets="@candidat.css" />
-                  <HBox layoutX="40.0" layoutY="300.0">
-                     <children>
-                        <Label text="Duree d'etudes en année" />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <HBox layoutX="370.0" layoutY="98.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filiére" />
-                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="252.0" layoutY="551.0">
-                     <children>
-                        <Button fx:id="ajouterEdu" mnemonicParsing="false" onAction="#AjouterEducation" prefHeight="51.0" prefWidth="194.0" styleClass="success-button" stylesheets="@candidat.css" text="ajouter" textFill="#f8f7f7" />
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Education" textAlignment="CENTER" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="20.0">
-               <font>
-                  <Font name="Segoe UI" size="30.0" />
-               </font>
-            </Text>
-         </children>
-         <styleClass>
-            <String fx:value="window-rounded" />
-            <String fx:value="background-white" />
-         </styleClass>
-      </AnchorPane>
-   </children>
+    <children>
+        <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="629.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Pane layoutX="14.0" layoutY="5.0" onMouseDragged="#drag" onMousePressed="#startDrag" prefHeight="629.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <HBox layoutX="50.0" layoutY="409.0" prefHeight="20.0" prefWidth="94.0">
+                            <children>
+                                <Label text="Description " />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <TextArea fx:id="InputDescription" layoutX="40.0" layoutY="430.0" prefHeight="80.0" prefWidth="280.0" promptText="autre information consernant vos etudes" stylesheets="@candidat.css">
+                            <styleClass>
+                                <String fx:value="form-control" />
+                                <String fx:value="form-control" />
+                            </styleClass>
+                        </TextArea>
+                        <HBox layoutX="370.0" layoutY="197.0">
+                            <children>
+                                <Label text="Etablissement d'etude" />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <TextField fx:id="InputEtabli" layoutX="370.0" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="etablissement" styleClass="form-control" stylesheets="@candidat.css" />
+                        <HBox layoutX="40.0" layoutY="97.0" prefHeight="21.0" prefWidth="84.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau d'education" />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <TextField fx:id="InputniveauEdu" layoutX="40.0" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="niveau d'education" styleClass="form-control" stylesheets="@candidat.css" />
+                        <TextField fx:id="InputFiliere" layoutX="370.0" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="filiere" styleClass="form-control" stylesheets="@candidat.css" />
+                        <TextField fx:id="InputVille" layoutX="40.0" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="ville" styleClass="form-control" stylesheets="@candidat.css" />
+                        <HBox layoutX="40.0" layoutY="197.0">
+                            <children>
+                                <Label text="Ville" />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <TextField fx:id="InputDuree" layoutX="40.0" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="BAC+3, ...etc" styleClass="form-control" stylesheets="@candidat.css" />
+                        <HBox layoutX="40.0" layoutY="300.0">
+                            <children>
+                                <Label text="Duree d'etudes en année" />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <HBox layoutX="370.0" layoutY="98.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filiére" />
+                                <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="252.0" layoutY="551.0">
+                            <children>
+                                <Button fx:id="ajouterEdu" mnemonicParsing="false" onAction="#AjouterEducation" prefHeight="51.0" prefWidth="194.0" styleClass="success-button" stylesheets="@candidat.css" text="ajouter" textFill="#f8f7f7" />
+                            </children>
+                        </HBox>
+                    </children>
+                </Pane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Education" textAlignment="CENTER" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="20.0">
+                    <font>
+                        <Font name="Segoe UI" size="30.0" />
+                    </font>
+                </Text>
+            </children>
+            <styleClass>
+                <String fx:value="window-rounded" />
+                <String fx:value="background-white" />
+            </styleClass>
+        </AnchorPane>
+    </children>
 </AnchorPane>

@@ -136,9 +136,9 @@ public class TopBarController implements Initializable {
                 });
 
                 ((AnchorPane) parentCategorie).setPadding(new Insets(10, 0, 10, 0));
-                 
+
                 ((AnchorPane) parentCategorie).setOnMouseClicked(event -> {
-                    OffreAfficherParCategorieController.cats =  Categorie;
+                    OffreAfficherParCategorieController.cats = Categorie;
                     goToLink("/app/gui/front_end/societe/offre_de_travail/AfficherParCategorie.fxml");
                     panelContainerOffreActions.getChildren().clear();
                     btnOffreExpandable.setTextFill(blue);
@@ -224,7 +224,7 @@ public class TopBarController implements Initializable {
     @FXML
     private void messagerie(ActionEvent event) {
         goToLink("/app/gui/front_end/candidat/messagerie/Messagerie.fxml");
-        
+
         showUserAction(null);
     }
 

@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
  * @author Faten
  */
 public interface CompetenceCrudInterface {
+
     public void ajouterCompetence(Competence competence);
 
     public void modifierCompetence(Competence competence);
@@ -22,8 +23,8 @@ public interface CompetenceCrudInterface {
     public ObservableList<Competence> getCompetence();
 
     public Competence getCompetenceById(int idCompetence);
-    
-        public ObservableList<Competence> getCompetenceByCandidat(int idCandidat);
+
+    public ObservableList<Competence> getCompetenceByCandidat(int idCandidat);
 
     public int getLastId();
 }

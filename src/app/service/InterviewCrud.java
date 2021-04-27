@@ -57,7 +57,7 @@ public class InterviewCrud implements InterviewCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO interview (candidature_offre_id, difficulte, description, objet, date_creation ) VALUES ( ? , ? , ? , ? , ?)");
+                    "INSERT INTO interview (candidature_offre_id, difficulte, objet, description, date_creation ) VALUES ( ? , ? , ? , ? , ?)");
             preparedStatement.setInt(1, interview.getCandidatureOffreId());
             preparedStatement.setInt(2, interview.getDifficulte());
             preparedStatement.setString(3, interview.getObjet());
@@ -139,7 +139,7 @@ public class InterviewCrud implements InterviewCrudInterface {
                     "SELECT *"
                     + "FROM interview i join candidature_offre c on i.candidature_offre_id = c.id "
                     + "WHERE c.offre_de_travail_id = ? "
-                    + "ORDER BY i.date_creation ");
+                    + "ORDER BY i.date_creation DESC ");
             preparedStatement.setInt(1, idOffreDeTravail);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -167,7 +167,7 @@ public class InterviewCrud implements InterviewCrudInterface {
                     "SELECT *"
                     + "FROM interview i join candidature_offre c on i.candidature_offre_id = c.id "
                     + "WHERE c.offre_de_travail_id = ? AND i.difficulte = ? "
-                    + "ORDER BY i.date_creation ");
+                    + "ORDER BY i.date_creation DESC ");
             preparedStatement.setInt(1, idOffreDeTravail);
             preparedStatement.setInt(2, difficulte);
 
@@ -198,7 +198,7 @@ public class InterviewCrud implements InterviewCrudInterface {
                     + "join candidature_offre c on i.candidature_offre_id = c.id "
                     + "join candidat can on c.candidat_id = can.id "
                     + "WHERE c.offre_de_travail_id = ? AND (can.nom LIKE ? OR can.prenom LIKE ?) "
-                    + "ORDER BY i.date_creation ");
+                    + "ORDER BY i.date_creation DESC ");
             preparedStatement.setInt(1, idOffreDeTravail);
             preparedStatement.setString(2, nomPrenom + "%");
             preparedStatement.setString(3, nomPrenom + "%");

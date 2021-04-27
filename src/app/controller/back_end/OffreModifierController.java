@@ -5,14 +5,17 @@
  */
 package app.controller.back_end;
 
+import app.entity.Categorie;
 import app.entity.OffreDeTravail;
+import app.service.CategorieCrud;
 import app.service.OffreDeTravailCrud;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -23,12 +26,14 @@ import javafx.scene.control.TextField;
  */
 public class OffreModifierController implements Initializable {
 
+    Categorie defaultCategorie;
+
     @FXML
-    private TextField textJob;
+    private TextField tfJob;
     @FXML
-    private TextArea textDesc;
+    private TextArea tfDesc;
     @FXML
-    private Button modifieroffre;
+    private ComboBox<Categorie> tfCategorie;
 
     /**
      * Initializes the controller class.
@@ -36,8 +41,20 @@ public class OffreModifierController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
-        textJob.setText(c.getNom());
-        textDesc.setText(c.getDescription());
+
+        defaultCategorie = new Categorie(0, "Aucune categorie");
+        tfCategorie.getItems().add(defaultCategorie);
+        if (CategorieCrud.getInstance().getCatById(c.getCategorieId()) != null) {
+            tfCategorie.setValue(CategorieCrud.getInstance().getCatById(c.getCategorieId()));
+        } else {
+            tfCategorie.setValue(defaultCategorie);
+        }
+
+        List<Categorie> listCategories = CategorieCrud.getInstance().DisplayCat();
+        tfCategorie.getItems().addAll(listCategories);
+
+        tfJob.setText(c.getNom());
+        tfDesc.setText(c.getDescription());
 
     }
 
@@ -48,15 +65,19 @@ public class OffreModifierController implements Initializable {
     }
 
     @FXML
-    private void ModiferOffre(ActionEvent event) {
+    private void ModifierOffre(ActionEvent event) {
         OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
-        c.setNom(textJob.getText());
-        c.setDescription(textDesc.getText());
+        c.setNom(tfJob.getText());
+        c.setDescription(tfDesc.getText());
 
-        OffreDeTravailCrud.getInstance().ModifierOffre(c);
-
-        offre(event);
-
+        if (tfCategorie.getValue() != defaultCategorie) {
+            Categorie categorie = tfCategorie.getValue();
+            c.setCategorieId(categorie.getId());
+            OffreDeTravailCrud.getInstance().ModifierOffre(c);
+            offre(event);
+        } else {
+            OffreDeTravailCrud.getInstance().ModifierOffreSansCategorie(c);
+            offre(event);
+        }
     }
-
 }

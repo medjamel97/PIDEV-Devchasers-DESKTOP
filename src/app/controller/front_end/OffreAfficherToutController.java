@@ -7,7 +7,6 @@ package app.controller.front_end;
 
 import app.MainApp;
 import app.entity.CandidatureOffre;
-import app.entity.Categorie;
 import app.entity.OffreDeTravail;
 import app.service.CandidatureOffreCrud;
 import app.service.OffreDeTravailCrud;
@@ -17,34 +16,24 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import static javafx.application.Application.launch;
-import javafx.event.Event;
 
 /**
  * FXML Controller class
@@ -73,7 +62,8 @@ public class OffreAfficherToutController implements Initializable {
     public static void main(String[] args) {
         launch(args);
     }
-  public void createQR(String Event) {
+
+    public void createQR(String Event) {
         // GENERATE QR CODE
         ByteArrayOutputStream out = QRCode.from(Event).to(ImageType.PNG).withSize(200, 200).stream();
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
@@ -86,13 +76,14 @@ public class OffreAfficherToutController implements Initializable {
         view.setStyle("-fx-stroke-width: 2; -fx-stroke: blue");
         root.setCenter(view);
         Scene scene = new Scene(root, 200, 200);
-        
+
     }
 
-    private Parent creerOffreModele(OffreDeTravail offreDeTravail) {
+    public Parent creerOffreModele(OffreDeTravail offreDeTravail) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/ModeleOffre.fxml"));
             ((Text) parent.lookup("#nomOffre")).setText(offreDeTravail.getNom());
+            ((Text) parent.lookup("#description")).setText(offreDeTravail.getDescription());
             Button buttonPostuler = (Button) parent.lookup("#btnpost");
 
             if (MainApp.getSession() != null) {

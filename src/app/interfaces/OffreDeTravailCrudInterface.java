@@ -30,7 +30,11 @@ public interface OffreDeTravailCrudInterface {
 
     public void ajouterOffre(OffreDeTravail o);
 
+    public void ajouterOffreSansCategorie(OffreDeTravail o);
+
     public void ModifierOffre(OffreDeTravail o);
+
+    public void ModifierOffreSansCategorie(OffreDeTravail o);
 
     public void SupprimerOffre(int id);
 

@@ -14,85 +14,85 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane styleClass="window-shadow" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.InscriptionCandidatController">
-   <children>
-      <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <Pane onMouseDragged="#drag" onMousePressed="#startDrag" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inscription candidat" textAlignment="CENTER" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="20.0">
-               <font>
-                  <Font name="Segoe UI" size="30.0" />
-               </font>
-            </Text>
-            <HBox layoutX="40.0" layoutY="100.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <TextField fx:id="inputEmail" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="Exemple@email.com" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
-            <HBox layoutX="380.0" layoutY="100.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <PasswordField fx:id="inputPassword" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre mot de passe" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
-            <HBox layoutX="40.0" layoutY="200.0">
-               <children>
-                  <Label text="Prenom" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <TextField fx:id="inputPrenom" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre prenom" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
-            <HBox layoutX="380.0" layoutY="200.0">
-               <children>
-                  <Label text="Nom" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <TextField fx:id="inputNom" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre nom" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
-            <HBox layoutX="40.0" layoutY="300.0">
-               <children>
-                  <Label text="Sex" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <ComboBox fx:id="inputSexe" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="choisir" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
-            <HBox layoutX="380.0" layoutY="300.0">
-               <children>
-                  <Label text="Telephone" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <TextField fx:id="inputTelephone" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre numero" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
-            <HBox layoutX="40.0" layoutY="400.0">
-               <children>
-                  <Label text="Date de Naissance" />
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-               </children>
-            </HBox>
-            <DatePicker fx:id="inputDate" layoutY="430.0" prefHeight="50.0" promptText="choisir la date de naissance" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
-            <Button layoutY="520.0" mnemonicParsing="false" onAction="#inscription" prefHeight="50.0" styleClass="success-button" text="Inscription" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
-            <HBox alignment="CENTER" layoutY="600.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
-               <children>
-                  <Text fill="#343a40" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous avez deja un compte ?" />
-                  <Button fx:id="btnPageConnexion" mnemonicParsing="false" onAction="#pageConnexion" styleClass="signup-button" text="Se connecter" textFill="#343a40">
-                     <font>
+    <children>
+        <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
+                <Pane onMouseDragged="#drag" onMousePressed="#startDrag" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inscription candidat" textAlignment="CENTER" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="20.0">
+                    <font>
+                        <Font name="Segoe UI" size="30.0" />
+                    </font>
+                </Text>
+                <HBox layoutX="40.0" layoutY="100.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <TextField fx:id="inputEmail" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="Exemple@email.com" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
+                <HBox layoutX="380.0" layoutY="100.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <PasswordField fx:id="inputPassword" layoutY="130.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre mot de passe" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+                <HBox layoutX="40.0" layoutY="200.0">
+                    <children>
+                        <Label text="Prenom" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <TextField fx:id="inputPrenom" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre prenom" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
+                <HBox layoutX="380.0" layoutY="200.0">
+                    <children>
+                        <Label text="Nom" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <TextField fx:id="inputNom" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre nom" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+                <HBox layoutX="40.0" layoutY="300.0">
+                    <children>
+                        <Label text="Sex" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <ComboBox fx:id="inputSexe" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="choisir" styleClass="form-control" AnchorPane.leftAnchor="40.0" />
+                <HBox layoutX="380.0" layoutY="300.0">
+                    <children>
+                        <Label text="Telephone" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <TextField fx:id="inputTelephone" layoutY="330.0" prefHeight="50.0" prefWidth="280.0" promptText="Tapez votre numero" styleClass="form-control" AnchorPane.rightAnchor="40.0" />
+                <HBox layoutX="40.0" layoutY="400.0">
+                    <children>
+                        <Label text="Date de Naissance" />
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                    </children>
+                </HBox>
+                <DatePicker fx:id="inputDate" layoutY="430.0" prefHeight="50.0" promptText="choisir la date de naissance" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+                <Button layoutY="520.0" mnemonicParsing="false" onAction="#inscription" prefHeight="50.0" styleClass="success-button" text="Inscription" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+                <HBox alignment="CENTER" layoutY="600.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                    <children>
+                        <Text fill="#343a40" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous avez deja un compte ?" />
+                        <Button fx:id="btnPageConnexion" mnemonicParsing="false" onAction="#pageConnexion" styleClass="signup-button" text="Se connecter" textFill="#343a40">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <Button fx:id="btnEspaceSociete" layoutY="650.0" mnemonicParsing="false" onAction="#espaceSociete" styleClass="signup-button" text="Espace societe" textFill="#343a40" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
+                    <font>
                         <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <Button fx:id="btnEspaceSociete" layoutY="650.0" mnemonicParsing="false" onAction="#espaceSociete" styleClass="signup-button" text="Espace societe" textFill="#343a40" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-         </children>
-         <styleClass>
-            <String fx:value="window-rounded" />
-            <String fx:value="background-white" />
-         </styleClass>
-      </AnchorPane>
-   </children>
+                    </font>
+                </Button>
+            </children>
+            <styleClass>
+                <String fx:value="window-rounded" />
+                <String fx:value="background-white" />
+            </styleClass>
+        </AnchorPane>
+    </children>
 </AnchorPane>

@@ -37,7 +37,6 @@ public class CandidatAjoutController implements Initializable {
     private DatePicker inputDate;
     @FXML
     private ComboBox<String> inputSexe;
-    
 
     /**
      * Initializes the controller class.
@@ -64,7 +63,7 @@ public class CandidatAjoutController implements Initializable {
                 inputTelephone.getText(),
                 null
         );
-        
+
         CandidatCrud.getInstance().ajouterCandidat(candidat);
 
         candidat(event);

@@ -19,7 +19,7 @@ public interface SocieteCrudInterface {
     public ObservableList<Societe> getSociete();
 
     public ObservableList<Societe> getSocieteParNom(String nom);
-    
+
     public Societe getSocieteById(int idSociete);
 
     public int getLastId();

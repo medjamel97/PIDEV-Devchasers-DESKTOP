@@ -194,11 +194,5 @@ public class CandidatCrud implements CandidatCrudInterface {
         }
         return lastId;
     }
-    
- 
-    }
 
-
-
-
-
+}

@@ -98,9 +98,8 @@ public class InscriptionCandidatController implements Initializable {
 
     @FXML
     private void inscription(ActionEvent event) {
-      
+
         int idCandidat = CandidatCrud.getInstance().getLastId() + 1;
-    
 
         Candidat candidat = new Candidat(
                 idCandidat,
@@ -121,8 +120,8 @@ public class InscriptionCandidatController implements Initializable {
                 true,
                 true
         );
-  if (inputNom.getText().isEmpty() 
-			|inputPrenom.getText().isEmpty() | inputSexe.getValue().isEmpty() | inputTelephone.getText().isEmpty()) {
+        if (inputNom.getText().isEmpty()
+                | inputPrenom.getText().isEmpty() | inputSexe.getValue().isEmpty() | inputTelephone.getText().isEmpty()) {
             Notifications notificationBuilder = Notifications.create()
                     .title("Erreur").text("veillez remplir les champs vides ").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
                     .position(Pos.CENTER_LEFT)
@@ -134,10 +133,8 @@ public class InscriptionCandidatController implements Initializable {
             notificationBuilder.show();
 
             Parent root;
-        } 
- 
-  
-  
+        }
+
         CandidatCrud.getInstance().ajouterCandidat(candidat);
         UserCrud.getInstance().ajouterUtilisateur(user);
 

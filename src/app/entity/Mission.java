@@ -129,6 +129,4 @@ public class Mission {
         this.latitude = latitude;
     }
 
-   
-
 }

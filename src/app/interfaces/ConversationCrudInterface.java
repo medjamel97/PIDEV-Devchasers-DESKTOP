@@ -19,9 +19,9 @@ public interface ConversationCrudInterface {
     public ObservableList<Conversation> rechercheConversationByCandidatNomPrenom(int idCandidat, String nomPrenom);
 
     public Conversation getConversationByCandidats(int idCandidatExpediteur, int idCandidatDestinataire);
-    
+
     public int recupererMessagesNonLus(int idConversation);
-    
+
     public void markAllAsRead(int idConversation);
 
     public void ajouterConversation(Conversation c);

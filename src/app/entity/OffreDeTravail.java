@@ -17,6 +17,9 @@ public class OffreDeTravail {
     private String nom;
     private String description;
 
+    private String nomSociete;
+    private String nomCategorie;
+
     public OffreDeTravail(int id, int categorieId, int societeId, String nom, String description) {
         this.id = id;
         this.categorieId = categorieId;
@@ -27,6 +30,12 @@ public class OffreDeTravail {
 
     public OffreDeTravail(int categorieId, int societeId, String nom, String description) {
         this.categorieId = categorieId;
+        this.societeId = societeId;
+        this.nom = nom;
+        this.description = description;
+    }
+
+    public OffreDeTravail(int societeId, String nom, String description) {
         this.societeId = societeId;
         this.nom = nom;
         this.description = description;
@@ -70,6 +79,22 @@ public class OffreDeTravail {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getNomCategorie() {
+        return nomCategorie;
+    }
+
+    public void setNomCategorie(String nomCategorie) {
+        this.nomCategorie = nomCategorie;
+    }
+
+    public String getNomSociete() {
+        return nomSociete;
+    }
+
+    public void setNomSociete(String nomSociete) {
+        this.nomSociete = nomSociete;
     }
 
 }

@@ -66,8 +66,7 @@ public class PublicationAjouterController implements Initializable {
     @FXML
     private ImageView cap;
 
-    
-     public Captcha setCaptcha() {
+    public Captcha setCaptcha() {
         Captcha captcha = new Captcha.Builder(250, 200)
                 .addText()
                 .addBackground()
@@ -86,9 +85,9 @@ public class PublicationAjouterController implements Initializable {
     Captcha captcha;
 
     public void initialize(URL url, ResourceBundle rb) {
-        
-        captcha =  setCaptcha();
-    
+
+        captcha = setCaptcha();
+
     }
 
     @FXML
@@ -96,9 +95,9 @@ public class PublicationAjouterController implements Initializable {
 
         if (BadWords.filterText(description.getText()) || BadWords.filterText(titre.getText())) {
 
-           String tilte = "Alerte";
+            String tilte = "Alerte";
             String message = "Cette application n'autorise pas ces termes";
-           
+
             TrayNotification tray = new TrayNotification();
             AnimationType type = AnimationType.POPUP;
 
@@ -123,9 +122,9 @@ public class PublicationAjouterController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir la description");
             alert.showAndWait();
-        } else   if (!captcha.isCorrect(code.getText())) {
+        } else if (!captcha.isCorrect(code.getText())) {
 
-             String tilte = "Captcha";
+            String tilte = "Captcha";
             String message = "Non valide";
             TrayNotification tray = new TrayNotification();
             AnimationType type = AnimationType.POPUP;
@@ -135,25 +134,24 @@ public class PublicationAjouterController implements Initializable {
             tray.setMessage(message);
             tray.setNotificationType(NotificationType.ERROR);
             tray.showAndDismiss(Duration.millis(3000));
-            
-            captcha =  setCaptcha();
+
+            captcha = setCaptcha();
             code.setText("");
-            
-        }
-        else{
+
+        } else {
             if (captcha.isCorrect(code.getText())) {
 
-            String tilte = "Alerte";
-            String message = "Votre publication est ajoutée avec succès";
-            TrayNotification tray = new TrayNotification();
-            AnimationType type = AnimationType.POPUP;
+                String tilte = "Alerte";
+                String message = "Votre publication est ajoutée avec succès";
+                TrayNotification tray = new TrayNotification();
+                AnimationType type = AnimationType.POPUP;
 
-            tray.setAnimationType(type);
-            tray.setTitle(tilte);
-            tray.setMessage(message);
-            tray.setNotificationType(NotificationType.SUCCESS);
-            tray.showAndDismiss(Duration.millis(3000));
-        
+                tray.setAnimationType(type);
+                tray.setTitle(tilte);
+                tray.setMessage(message);
+                tray.setNotificationType(NotificationType.SUCCESS);
+                tray.showAndDismiss(Duration.millis(3000));
+
 //            Notifications notificationBuilder = Notifications.create()
 //                    .title("Succes").text("Votre publication est ajoutée avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
 //                    .position(Pos.CENTER_LEFT)
@@ -162,22 +160,20 @@ public class PublicationAjouterController implements Initializable {
 //                    });
 //            notificationBuilder.darkStyle();
 //            notificationBuilder.show();
+                Publication publication = new Publication(Types.NULL, titre.getText(), description.getText(), Timestamp.valueOf(LocalDateTime.now()), 0);
+                PublicationCrud.getInstance().AjouterPublication(publication);
 
-            Publication publication = new Publication(Types.NULL, titre.getText(), description.getText(), Timestamp.valueOf(LocalDateTime.now()), 0);
-            PublicationCrud.getInstance().AjouterPublication(publication);
-
-            MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
-            );
-        }
+                MainWindowController.chargerInterface(
+                        getClass().getResource("/app/gui/front_end/candidat/publication/Accueil.fxml")
+                );
+            }
         }
     }
-    
 
     @FXML
     private void reseting(ActionEvent event) {
-        captcha =  setCaptcha();
-             code.setText("");
+        captcha = setCaptcha();
+        code.setText("");
     }
 
 }

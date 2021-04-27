@@ -120,4 +120,23 @@ public class CategorieCrud implements CategorieCrudInterface {
         }
     }
 
+    @Override
+    public Categorie getCatById(int idCat) {
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM categorie WHERE id = ? ");
+            preparedStatement.setInt(1, idCat);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new Categorie(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) categories : " + e.getMessage());
+        }
+        return null;
+    }
+
 }

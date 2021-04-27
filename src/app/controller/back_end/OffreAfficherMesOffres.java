@@ -6,7 +6,9 @@
 package app.controller.back_end;
 
 import app.entity.OffreDeTravail;
+import app.service.CategorieCrud;
 import app.service.OffreDeTravailCrud;
+import app.service.SocieteCrud;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,10 +41,6 @@ public class OffreAfficherMesOffres implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private TableColumn<OffreDeTravail, Integer> c1;
-    @FXML
-    private TableColumn<OffreDeTravail, Integer> c2;
-    @FXML
     private TableColumn<OffreDeTravail, String> c3;
     @FXML
     private TableColumn<OffreDeTravail, String> c4;
@@ -66,18 +64,19 @@ public class OffreAfficherMesOffres implements Initializable {
         btns.setDisable(true);
 
         List<OffreDeTravail> liste = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(app.MainApp.getSession().getSocieteId());
-        if (!liste.isEmpty()) {
-            for (int i = 0; i < liste.size(); i++) {
-                listOffre.add(liste.get(i));
+
+        liste.forEach((offreDeTravail) -> {
+            try {
+                offreDeTravail.setNomCategorie(CategorieCrud.getInstance().getCatById(offreDeTravail.getCategorieId()).getNom());
+            } catch (Exception e) {
             }
-        }
-        c1.setCellValueFactory(new PropertyValueFactory<>("id"));
-        c2.setCellValueFactory(new PropertyValueFactory<>("societeId"));
+            listOffre.add(offreDeTravail);
+        });
+
         c3.setCellValueFactory(new PropertyValueFactory<>("nom"));
         c4.setCellValueFactory(new PropertyValueFactory<>("description"));
-        c5.setCellValueFactory(new PropertyValueFactory<>("categorieId"));
+        c5.setCellValueFactory(new PropertyValueFactory<>("nomCategorie"));
         T.setItems(listOffre);
-
     }
 
     @FXML
@@ -92,7 +91,6 @@ public class OffreAfficherMesOffres implements Initializable {
         offreActuelle = T.getSelectionModel().getSelectedItem();
         btnM.setDisable(false);
         btns.setDisable(false);
-
     }
 
     @FXML
@@ -101,8 +99,9 @@ public class OffreAfficherMesOffres implements Initializable {
         offreActuelle = null;
         btnM.setDisable(true);
         btns.setDisable(true);
+        T.refresh();
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherTout.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml")
         );
     }
 
@@ -127,16 +126,14 @@ public class OffreAfficherMesOffres implements Initializable {
         T.setItems(listOffre);
     }
 
-     @FXML
     private void afficherparsociete(ActionEvent event) {
-          List<OffreDeTravail> offre = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(app.MainApp.getSession().getSocieteId());
-          
-          offre.forEach(offreDeTravail -> {
+        List<OffreDeTravail> offre = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(app.MainApp.getSession().getSocieteId());
+
+        offre.forEach(offreDeTravail -> {
             listOffre.add(offreDeTravail);
         });
 
         T.setItems(listOffre);
     }
-    
-    
+
 }

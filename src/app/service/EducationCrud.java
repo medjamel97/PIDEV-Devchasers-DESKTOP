@@ -139,7 +139,7 @@ public class EducationCrud implements EducationCrudInterface {
         try {
             preparedStatement = connexion.prepareStatement(
                     "UPDATE `education` "
-                    + "SET `description` = ?, `niveau_education` = ?, `filiere` = ?, `etablissement` = ?, `ville` = ?,`duree` = ?" 
+                    + "SET `description` = ?, `niveau_education` = ?, `filiere` = ?, `etablissement` = ?, `ville` = ?,`duree` = ?"
                     + "WHERE `id` = ?");
             preparedStatement.setString(1, education.getDescription());
             preparedStatement.setString(2, education.getNiveauEducation());

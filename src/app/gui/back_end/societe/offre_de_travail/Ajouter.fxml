@@ -2,20 +2,36 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.OffreAjouterController">
-    <stylesheets>
-        <URL value="@offre.css" />
-    </stylesheets>
-    <children>
-        <Button layoutX="288.0" layoutY="316.0" mnemonicParsing="false" onAction="#manipulerOffre" text="Ajouter" />
-        <TextField fx:id="tfJob" layoutX="188.0" layoutY="34.0" promptText="Job" />
-        <TextArea fx:id="tfDesc" layoutX="188.0" layoutY="69.0" prefHeight="200.0" prefWidth="200.0" promptText="Description" />
-        <Label layoutX="91.0" layoutY="38.0" text="Job" />
-        <Label layoutX="91.0" layoutY="127.0" text="Description" />
-    </children>
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.back_end.OffreAjouterController">
+   <stylesheets>
+      <URL value="@offre.css" />
+      <URL value="@../../../MainStyle.css" />
+   </stylesheets>
+   <children>
+      <Button layoutY="320.0" mnemonicParsing="false" onAction="#manipulerOffre" styleClass="success-button" text="Ajouter" textFill="WHITE" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
+      <TextField fx:id="tfJob" layoutY="80.0" prefWidth="320.0" promptText="Job" styleClass="form-control-white" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="80.0" />
+      <TextArea fx:id="tfDesc" layoutY="130.0" prefHeight="100.0" prefWidth="320.0" promptText="Description" styleClass="form-control-white" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="80.0" />
+      <Label layoutY="85.0" text="Job" AnchorPane.leftAnchor="90.0" />
+      <Label layoutX="70.0" layoutY="130.0" text="Description" AnchorPane.leftAnchor="70.0" />
+      <StackPane layoutX="210.0" layoutY="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter offre de travail">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <ComboBox fx:id="tfCategorie" layoutY="250.0" prefWidth="320.0" styleClass="form-control-white" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="80.0" />
+      <Label layoutX="80.0" layoutY="257.0" text="Categorie" AnchorPane.leftAnchor="75.0" />
+   </children>
 </AnchorPane>

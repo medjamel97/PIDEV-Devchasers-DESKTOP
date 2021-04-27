@@ -42,7 +42,7 @@ public class CandidatAfficherToutController implements Initializable {
 
     ObservableList<Candidat> candidats = FXCollections.observableArrayList();
     public static Candidat candidatActuel;
-    
+
     @FXML
     private TextField filterField;
     private Pagination pagination;
@@ -76,16 +76,14 @@ public class CandidatAfficherToutController implements Initializable {
     private Button competence;
     @FXML
     private Label label;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
         //pagination.setPageFactory(this::createPage);
-
         btnModifier.setDisable(true);
         btnSupprimer.setDisable(true);
 
@@ -106,7 +104,6 @@ public class CandidatAfficherToutController implements Initializable {
         candidatActuel = null;
 
         tab.setItems(candidats);
-
 
         //// Wrap the ObservableList in a FilteredList (initially display all data).
         FilteredList<Candidat> filteredData = new FilteredList<>(candidats, c -> true);
@@ -161,15 +158,16 @@ public class CandidatAfficherToutController implements Initializable {
         alert.setContentText("vous voulez vraiment supprimer ce candidat ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-        CandidatCrud.getInstance().supprimerCandidat(candidatActuel);
-        candidatActuel = null;
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/AfficherToutCandidat.fxml")
-        );
+            CandidatCrud.getInstance().supprimerCandidat(candidatActuel);
+            candidatActuel = null;
+            btnModifier.setDisable(true);
+            btnSupprimer.setDisable(true);
+            MainWindowController.chargerInterface(
+                    getClass().getResource("/app/gui/front_end/candidat/AfficherToutCandidat.fxml")
+            );
 
-    }}
+        }
+    }
 
     @FXML
     private void modifierCandidat(ActionEvent event) {
@@ -200,26 +198,22 @@ public class CandidatAfficherToutController implements Initializable {
 //        }
 //        return tab;
 //    }
-    
-        public int getAge(Candidat candidat) {
-    
+    public int getAge(Candidat candidat) {
 
-            int age = 0;
-            int dateactuel = LocalDate.now().getYear();
-            age=(dateactuel-(candidat.getDateNaissance().toLocalDate().getYear()));  
-        
-            return age;
-        }
+        int age = 0;
+        int dateactuel = LocalDate.now().getYear();
+        age = (dateactuel - (candidat.getDateNaissance().toLocalDate().getYear()));
+
+        return age;
+    }
 
     @FXML
     private void Education(ActionEvent event) {
-        
-         MainWindowController.chargerInterface(
+
+        MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/candidat/AjouterEducation.fxml")
         );
     }
-
-   
 
     @FXML
     private void Competence(ActionEvent event) {
@@ -233,8 +227,7 @@ public class CandidatAfficherToutController implements Initializable {
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/candidat/AjouterExperienceDeTravail.fxml")
         );
-        
+
     }
-    
 
 }

@@ -32,14 +32,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -121,6 +119,11 @@ public class InterviewAfficherToutController implements Initializable {
                 List<Interview> listInterview = InterviewCrud.getInstance().getInterviewsParOffreParDifficulte(
                         offreDeTravailActuelle.getId(),
                         comboBoxTri.getValue().value
+                );
+                afficherInterviews(listInterview);
+            } else {
+                List<Interview> listInterview = InterviewCrud.getInstance().getInterviewsParOffre(
+                        offreDeTravailActuelle.getId()
                 );
                 afficherInterviews(listInterview);
             }

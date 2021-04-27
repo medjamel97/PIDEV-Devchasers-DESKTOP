@@ -8,43 +8,43 @@
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane styleClass="window-shadow" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MainWindowController">
-   <children>
-      <AnchorPane id="AnchorPane" minHeight="555.0" minWidth="1000.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-          <children>
-            <BorderPane layoutX="11.0" layoutY="81.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0">
-               <center>
-                    <AnchorPane fx:id="content" styleClass="background-light" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
-                  </AnchorPane>
-               </center>
-               <top>
-                  <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
-               </top>
-               <bottom>
-                  <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
-               </bottom>
-               <left>
-                  <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
-               </left>
-               <right>
-                  <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
-               </right>
-            </BorderPane>
-              <AnchorPane fx:id="topBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <styleClass>
-            <String fx:value="border-gray" />
-            <String fx:value="background-white" />
-         </styleClass>
-      </AnchorPane>
-   </children>
-   <stylesheets>
-      <URL value="@style.css" />
-      <URL value="@../MainStyle.css" />
-   </stylesheets>
+    <children>
+        <AnchorPane id="AnchorPane" minHeight="555.0" minWidth="1000.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
+                <BorderPane layoutX="11.0" layoutY="81.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0">
+                    <center>
+                        <AnchorPane fx:id="content" styleClass="background-light" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets />
+                            </BorderPane.margin>
+                        </AnchorPane>
+                    </center>
+                    <top>
+                        <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
+                    </top>
+                    <bottom>
+                        <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
+                    </bottom>
+                    <left>
+                        <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
+                    </left>
+                    <right>
+                        <Pane prefHeight="1.0" prefWidth="1.0" styleClass="background-gray" BorderPane.alignment="CENTER" />
+                    </right>
+                </BorderPane>
+                <AnchorPane fx:id="topBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <styleClass>
+                <String fx:value="border-gray" />
+                <String fx:value="background-white" />
+            </styleClass>
+        </AnchorPane>
+    </children>
+    <stylesheets>
+        <URL value="@style.css" />
+        <URL value="@../MainStyle.css" />
+    </stylesheets>
 </AnchorPane>

@@ -46,30 +46,30 @@ public class ModifierExperienceDeTravailController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ExperienceDeTravail experience_de_travail= ProfileController.experience_de_travailActuelle;
-                InputDescription.setText(experience_de_travail.getDescription());
+        ExperienceDeTravail experience_de_travail = ProfileController.experience_de_travailActuelle;
+        InputDescription.setText(experience_de_travail.getDescription());
 
-                InputTitreEmp.setText(experience_de_travail.getTitreEmploi());
-                InputDureeExp.setText(experience_de_travail.getDuree());
-                InputNomEntreprise.setText(experience_de_travail.getNomEntreprise());
-                InputVille.setText(experience_de_travail.getVille());
-    }    
+        InputTitreEmp.setText(experience_de_travail.getTitreEmploi());
+        InputDureeExp.setText(experience_de_travail.getDuree());
+        InputNomEntreprise.setText(experience_de_travail.getNomEntreprise());
+        InputVille.setText(experience_de_travail.getVille());
+    }
 
     @FXML
     private void ExperienceDeTravail(ActionEvent event) {
-        ExperienceDeTravail experience_de_travail = new ExperienceDeTravail (ProfileController.experience_de_travailActuelle.getId(),ProfileController.experience_de_travailActuelle.getCandidatId(),
-InputDescription.getText(), InputTitreEmp.getText(), InputDureeExp.getText(), InputNomEntreprise.getText(), InputVille.getText());
-            Notifications notificationBuilder = Notifications.create()
-                    .title("Succes").text("Votre experience de travail a été modifié avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
-                    .position(Pos.CENTER_LEFT)
-                    .onAction((eventAjoutPub) -> {
-                        System.out.println("clicked ON ");
-                    });
-            notificationBuilder.show();
-            ExperienceDeTravailCrud.getInstance().modifierExperienceDeTravail(experience_de_travail);
-                 MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-                    );
+        ExperienceDeTravail experience_de_travail = new ExperienceDeTravail(ProfileController.experience_de_travailActuelle.getId(), ProfileController.experience_de_travailActuelle.getCandidatId(),
+                InputDescription.getText(), InputTitreEmp.getText(), InputDureeExp.getText(), InputNomEntreprise.getText(), InputVille.getText());
+        Notifications notificationBuilder = Notifications.create()
+                .title("Succes").text("Votre experience de travail a été modifié avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                .position(Pos.CENTER_LEFT)
+                .onAction((eventAjoutPub) -> {
+                    System.out.println("clicked ON ");
+                });
+        notificationBuilder.show();
+        ExperienceDeTravailCrud.getInstance().modifierExperienceDeTravail(experience_de_travail);
+        MainWindowController.chargerInterface(
+                getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+        );
     }
 
     @FXML
@@ -79,5 +79,5 @@ InputDescription.getText(), InputTitreEmp.getText(), InputDureeExp.getText(), In
     @FXML
     private void startDrag(MouseEvent event) {
     }
-    
+
 }

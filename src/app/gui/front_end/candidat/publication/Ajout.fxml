@@ -21,16 +21,17 @@
         </Button>
         <Label fx:id="res" layoutX="62.0" layoutY="224.0" prefHeight="17.0" prefWidth="69.0" textFill="WHITE" />
         <Label fx:id="label" layoutX="14.0" layoutY="241.0" prefHeight="25.0" prefWidth="207.0" textFill="WHITE" />
-      <AnchorPane id="AnchorPane" layoutX="14.0" layoutY="181.0" prefHeight="139.0" prefWidth="293.0">
-         <children>
-            <Label fx:id="label1" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-            <TextField fx:id="code" layoutX="101.0" layoutY="148.0" promptText="Captcha" />
-            <Button fx:id="reset" layoutX="13.0" layoutY="74.0" mnemonicParsing="false" onAction="#reseting" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #0f91f3;" text="Reset" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
-            <ImageView fx:id="cap" fitHeight="83.0" fitWidth="102.0" layoutX="99.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
+        <AnchorPane id="AnchorPane" layoutX="14.0" layoutY="181.0" prefHeight="139.0" prefWidth="293.0">
+            <children>
+                <Label fx:id="label1" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+                <TextField fx:id="code" layoutX="101.0" layoutY="148.0" promptText="Captcha" />
+                <Button fx:id="reset" layoutX="13.0" layoutY="74.0" mnemonicParsing="false" onAction="#reseting" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #0f91f3;" text="Reset" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <ImageView fx:id="cap" fitHeight="83.0" fitWidth="102.0" layoutX="99.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

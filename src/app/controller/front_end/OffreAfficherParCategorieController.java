@@ -49,10 +49,10 @@ public class OffreAfficherParCategorieController implements Initializable {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/ModeleOffre.fxml"));
             ((Text) parent.lookup("#nomOffre")).setText(offreDeTravail.getNom());
-             if (MainApp.getSession() != null) {
+            if (MainApp.getSession() != null) {
                 CandidatureOffre candidatureOffre = CandidatureOffreCrud.getInstance()
                         .getCandidatureOffreByCandidatOffre(offreDeTravail.getId(), MainApp.getSession().getCandidatId());
-                  Button buttonPostuler = (Button) parent.lookup("#btnpost");
+                Button buttonPostuler = (Button) parent.lookup("#btnpost");
                 if (candidatureOffre != null) {
                     ((AnchorPane) parent).getChildren().remove(buttonPostuler);
                     switch (candidatureOffre.getEtat()) {
@@ -71,7 +71,7 @@ public class OffreAfficherParCategorieController implements Initializable {
             } else {
                 ((Text) parent.lookup("#statusCandidature")).setText("Veuillez vous connecter pour candidater");
             }
- Button buttonPostuler = (Button) parent.lookup("#btnpost");
+            Button buttonPostuler = (Button) parent.lookup("#btnpost");
             if (((AnchorPane) parent).getChildren().contains(buttonPostuler)) {
                 ((Button) parent.lookup("#btnpost")).setOnAction((a) -> {
                     System.out.println("Bouton click postuler");

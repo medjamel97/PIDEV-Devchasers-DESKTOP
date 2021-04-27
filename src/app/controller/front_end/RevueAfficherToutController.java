@@ -160,7 +160,7 @@ public class RevueAfficherToutController implements Initializable {
             });*/
     }
 
-    private Parent creerRevue(
+    public Parent creerRevue(
             String prenomCandidatText,
             String nomCandidatText,
             String idPhotoCandidat,

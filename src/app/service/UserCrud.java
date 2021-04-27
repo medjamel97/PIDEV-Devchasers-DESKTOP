@@ -50,7 +50,7 @@ public class UserCrud implements UserCrudInterface {
             } else {
                 preparedStatement.setInt(1, user.getCandidatId());
             }
-            if (user.getSocieteId()== Types.NULL) {
+            if (user.getSocieteId() == Types.NULL) {
                 preparedStatement.setNull(2, Types.NULL);
             } else {
                 preparedStatement.setInt(2, user.getSocieteId());

@@ -5,8 +5,6 @@
  */
 package app.controller.front_end;
 
-import static app.controller.back_end.MissionMesMissionsController.missionActuelle;
-import static app.controller.back_end.MissionMesMissionsController.missionClicked;
 import app.entity.Mission;
 import app.service.MissionCrud;
 import java.io.File;
@@ -151,17 +149,17 @@ public class MissionAfficherToutController implements Initializable {
         missionActuelle = idTableau.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2) {
             missionClicked = idTableau.getSelectionModel().getSelectedItem();
-            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
+            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures() * missionActuelle.getPrixHeure());
 //                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //                     alert.setTitle("erreur");
 //                     alert.setHeaderText(null);
 //                     alert.setContentText("cette mission deja existe!!! ");    
 //                     alert.showAndWait();
 
-          WebView webView = new WebView();
+            WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
             System.out.println(missionClicked.getLatitude());
-            webEngine.load("http://127.0.0.1:8000/map/"+missionClicked.getLatitude()+"/"+missionClicked.getLongitude());
+            webEngine.load("http://127.0.0.1:8000/map/" + missionClicked.getLatitude() + "/" + missionClicked.getLongitude());
 
             Scene scene = new Scene(webView, 600, 600);
             Stage primaryStage = new Stage();
@@ -170,7 +168,7 @@ public class MissionAfficherToutController implements Initializable {
             primaryStage.show();
             webView.getEngine().executeScript("document.body.innerHTML = '';");
         }
-          textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
+        textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures() * missionActuelle.getPrixHeure());
     }
 
     @FXML
@@ -230,7 +228,7 @@ public class MissionAfficherToutController implements Initializable {
 
     @FXML
     private void excel(ActionEvent event) throws IOException {
-           FileChooser chooser = new FileChooser();
+        FileChooser chooser = new FileChooser();
         // Set extension filter
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel Files(.xls)", ".xls");
         chooser.getExtensionFilters().add(filter);
@@ -238,7 +236,7 @@ public class MissionAfficherToutController implements Initializable {
         File file = chooser.showSaveDialog(btnexcel.getScene().getWindow());
         MissionCrud m = new MissionCrud();
         if (file != null) {
-           m.Excel(file);
+            m.Excel(file);
 
         }
     }

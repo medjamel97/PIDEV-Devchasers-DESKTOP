@@ -52,7 +52,7 @@ public class PublicationAfficherToutController implements Initializable {
     private TextField txrecherche;
     @FXML
     private VBox pubvbox;
-        public  static String numTelephone ;
+    public static String numTelephone;
 
     /**
      * Initializes the controller class.
@@ -72,7 +72,6 @@ public class PublicationAfficherToutController implements Initializable {
     public Parent creepub(Publication publication) {
         Parent modelePub;
         try {
-            
             modelePub = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/publication/ModelePublication.fxml"));
             ((Text) ((AnchorPane) modelePub).getChildren().get(0)).setText(publication.getTitre());
             ((Text) ((AnchorPane) modelePub).getChildren().get(1)).setText(publication.getDescription());
@@ -95,19 +94,15 @@ public class PublicationAfficherToutController implements Initializable {
                 String textComm = ((TextField) ((AnchorPane) modelePub).getChildren().get(5)).getText();
                 Commentaire c = new Commentaire(publication.getId(), MainApp.getSession().getId(), textComm);
                 CommentaireCrud.getInstance().AjouterCommentaire(c);
-                VBox commentaireContainer = ((VBox) ((AnchorPane) modelePub).getChildren().get(4));               
+                VBox commentaireContainer = ((VBox) ((AnchorPane) modelePub).getChildren().get(4));
                 if (!commentaireContainer.getChildren().contains(commentaireContainer)) {
                     commentaireContainer.getChildren().add(creerCommentaire(c, commentaireContainer));
                 }
                 // SMS   
-              numTelephone ="+21623292574";
-              sms s = new sms();
-              s.send("Un commentaire a ètè ajouté",numTelephone);
-                
-                
-                
-                
-                
+                numTelephone = "+21623292574";
+                sms s = new sms();
+                s.send("Un commentaire a ètè ajouté", numTelephone);
+
             });
 
             List<Commentaire> listCommentaire = CommentaireCrud.getInstance().getAllCommentairesByPub(publication.getId());
@@ -120,7 +115,7 @@ public class PublicationAfficherToutController implements Initializable {
                     commentaireContainer.getChildren().add(creerCommentaire(commentaire, commentaireContainer));
                 }
             }
-            
+
             return modelePub;
 
         } catch (IOException ex) {
@@ -210,23 +205,23 @@ public class PublicationAfficherToutController implements Initializable {
 
     @FXML
     private void recherche(KeyEvent event) {
-             System.out.println("test 1");
+        System.out.println("test 1");
         pubvbox.getChildren().clear();
-         System.out.println("test 2");
-        List <Publication> listpublication = PublicationCrud.getInstance().findpubBytitre(txrecherche.getText());
+        System.out.println("test 2");
+        List<Publication> listpublication = PublicationCrud.getInstance().findpubBytitre(txrecherche.getText());
         System.out.println("test 3");
         if (!listpublication.isEmpty()) {
             for (int i = 0; i < listpublication.size(); i++) {
-                 pubvbox.getChildren().add(creepub(listpublication.get(i)));
+                pubvbox.getChildren().add(creepub(listpublication.get(i)));
             }
             System.out.println("test 4");
         }
     }
 
     private void pdf_fnct(ActionEvent event) {
-        
-    Pdf p = new Pdf();
-  //  p.add("Mes",.getReclamtion(), tab_Recselected.getType(),tab_Recselected.getDate().toString(),tab_Recselected.getStatRec(),tab_Recselected.getSujet());
-  
+
+        Pdf p = new Pdf();
+        //  p.add("Mes",.getReclamtion(), tab_Recselected.getType(),tab_Recselected.getDate().toString(),tab_Recselected.getStatRec(),tab_Recselected.getSujet());
+
     }
 }

@@ -7,19 +7,20 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.OffreAfficherToutController">
-   <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane>
-               <children>
-                  <VBox fx:id="offreContainer" alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <ImageView fx:id="idqr" fitHeight="80.0" fitWidth="87.0" layoutX="668.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-         <viewport>
-            <Rectangle2D />
-         </viewport></ImageView>
-   </children>
+    <children>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <VBox fx:id="offreContainer" alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ImageView fx:id="idqr" fitHeight="80.0" fitWidth="87.0" layoutX="668.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+            <viewport>
+                <Rectangle2D />
+            </viewport>
+        </ImageView>
+    </children>
 </AnchorPane>

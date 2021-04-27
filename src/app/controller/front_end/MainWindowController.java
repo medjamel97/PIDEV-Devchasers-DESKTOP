@@ -14,8 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
-
-
 /**
  * FXML Controller class
  *

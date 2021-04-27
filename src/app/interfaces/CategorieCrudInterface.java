@@ -23,4 +23,6 @@ public interface CategorieCrudInterface {
     public void SupprimerCat(int id);
 
     public void ModifierCat(Categorie c);
+
+    public Categorie getCatById(int idCat);
 }

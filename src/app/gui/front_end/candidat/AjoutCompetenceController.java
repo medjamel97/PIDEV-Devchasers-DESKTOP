@@ -36,7 +36,7 @@ public class AjoutCompetenceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     @FXML

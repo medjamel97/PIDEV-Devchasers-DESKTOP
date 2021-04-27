@@ -15,9 +15,10 @@
         <TextArea fx:id="description" layoutX="153.0" layoutY="99.0" prefHeight="113.0" prefWidth="214.0" />
         <TextField fx:id="titre" layoutX="153.0" layoutY="51.0" />
         <Button fx:id="modifier_btn" layoutX="208.0" layoutY="241.0" mnemonicParsing="false" onAction="#modifier" style="-fx-background-color: #2d88ff;" text="Modifier" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Button>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
         <Label fx:id="res" layoutX="62.0" layoutY="224.0" prefHeight="17.0" prefWidth="69.0" />
     </children>
 </AnchorPane>

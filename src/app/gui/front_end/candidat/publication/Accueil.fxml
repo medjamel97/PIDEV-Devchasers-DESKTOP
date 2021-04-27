@@ -20,9 +20,10 @@
                         </Button>
                         <Button fx:id="btn1" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#acc_btn" onMouseEntered="#hover_on" onMouseExited="#hover_off" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #2d88ff;" text="Ajouter" textFill="WHITE" />
                         <Button fx:id="party" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#music" style="-fx-background-color: #bd32b3;" text="Party" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Button>
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Button>
                     </children>
                     <padding>
                         <Insets top="20.0" />
