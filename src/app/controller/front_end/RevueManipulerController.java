@@ -17,6 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import app.entity.Revue;
 import app.service.CandidatureOffreCrud;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -89,16 +92,14 @@ public class RevueManipulerController implements Initializable {
     @FXML
     private void manipuler(ActionEvent event) {
 
-        String objet = inputObjet.getText();
-        String description = inputDescription.getText();
-
         if (RevueAfficherToutController.revueActuelle != null) {
             Revue revue = new Revue(
                     RevueAfficherToutController.revueActuelle.getId(),
                     RevueAfficherToutController.revueActuelle.getCandidatureOffreId(),
                     nbEtoiles,
-                    objet,
-                    description
+                    inputObjet.getText(),
+                    inputDescription.getText(),
+                    Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
             );
             if (controleDeSaisie(revue)) {
                 RevueCrud.getInstance().modifierRevue(revue);
@@ -110,25 +111,19 @@ public class RevueManipulerController implements Initializable {
                 RevueAfficherToutController.information("Revue modifié avec succés");
             }
         } else {
-            CandidatureOffre candidatureOffre;
-            if (CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(
-                    MainApp.getSession().getCandidatId(),
-                    RevueAfficherToutController.offreDeTravailActuelle.getId()
-            ) == null) {
-                candidatureOffre = new CandidatureOffre(
-                        RevueAfficherToutController.offreDeTravailActuelle.getId(),
-                        MainApp.getSession().getCandidatId()
-                );
-                CandidatureOffreCrud.getInstance().ajouterCandidature(candidatureOffre);
-            }
-
-            candidatureOffre = CandidatureOffreCrud.getInstance()
+            CandidatureOffre candidatureOffre = CandidatureOffreCrud.getInstance()
                     .getCandidatureOffreByCandidatOffre(
                             RevueAfficherToutController.offreDeTravailActuelle.getId(),
                             MainApp.getSession().getCandidatId()
                     );
 
-            Revue revue = new Revue(candidatureOffre.getId(), nbEtoiles, objet, description);
+            Revue revue = new Revue(
+                    candidatureOffre.getId(),
+                    nbEtoiles,
+                    inputObjet.getText(),
+                    inputDescription.getText(),
+                    Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+            );
             if (controleDeSaisie(revue)) {
                 RevueCrud.getInstance().ajouterRevue(revue);
                 MainWindowController.chargerInterface(

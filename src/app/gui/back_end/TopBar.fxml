@@ -20,7 +20,11 @@
         <Pane fx:id="dragZone" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
         <HBox layoutX="20.0" layoutY="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
             <children>
-                <TextField maxHeight="1.7976931348623157E308" prefWidth="250.0" promptText="Search ..." styleClass="search-bar" />
+                <TextField maxHeight="1.7976931348623157E308" prefWidth="250.0" promptText="Search ...">
+               <styleClass>
+                  <String fx:value="search-bar" />
+                  <String fx:value="border-gray" />
+               </styleClass></TextField>
                 <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" styleClass="search-button">
                     <font>
                         <Font size="1.0" />

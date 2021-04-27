@@ -42,37 +42,14 @@ public class CandidatureOffreCrud implements CandidatureOffreCrudInterface {
                 listCandidatureOffre.add(new CandidatureOffre(
                         resultSet.getInt("id"),
                         resultSet.getInt("offre_de_travail_id"),
-                        resultSet.getInt("candidat_id")
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("etat")
                 ));
             }
         } catch (SQLException e) {
             System.out.println("Erreur d'affichage candidatureOffre : " + e.getMessage());
         }
         return listCandidatureOffre;
-    }
-
-    @Override
-    public CandidatureOffre getCandidaturesOffreById(int idCandidature) {
-        try {
-            PreparedStatement preparedStatement = connexion.prepareStatement(
-                    "SELECT *"
-                    + "FROM candidature_offre "
-                    + "WHERE id = ?");
-            preparedStatement.setInt(1, idCandidature);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return new CandidatureOffre(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("offre_de_travail_id"),
-                        resultSet.getInt("candidat_id")
-                );
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) Candidature offre : " + e.getMessage());
-        }
-        System.out.println("aucun resultat candidature offre by id");
-        return null;
     }
 
     @Override
@@ -89,8 +66,11 @@ public class CandidatureOffreCrud implements CandidatureOffreCrudInterface {
                 return new CandidatureOffre(
                         resultSet.getInt("id"),
                         resultSet.getInt("offre_de_travail_id"),
-                        resultSet.getInt("candidat_id")
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("etat")
                 );
+            } else {
+                System.out.println("aucune candidature pour id_offre = " + idOffre + " avec le candidat = " + idCandidat);
             }
 
         } catch (SQLException e) {
@@ -105,9 +85,10 @@ public class CandidatureOffreCrud implements CandidatureOffreCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO candidature_offre ( offre_de_travail_id, candidat_id ) VALUES (? , ? )");
+                    "INSERT INTO candidature_offre ( offre_de_travail_id, candidat_id, etat ) VALUES (? , ? , ? )");
             preparedStatement.setInt(1, candidatureOffre.getOffreDeTravailId());
             preparedStatement.setInt(2, candidatureOffre.getCandidatId());
+            preparedStatement.setString(3, candidatureOffre.getEtat());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -116,4 +97,49 @@ public class CandidatureOffreCrud implements CandidatureOffreCrudInterface {
             System.out.println("Erreur d'ajout candidature : " + e.getMessage());
         }
     }
+
+    @Override
+    public void modifierEtat(CandidatureOffre candidatureOffre) {
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = connexion.prepareStatement(
+                    "UPDATE candidature_offre "
+                    + "SET etat = ? "
+                    + "WHERE id = ?");
+            preparedStatement.setString(1, candidatureOffre.getEtat());
+            preparedStatement.setInt(2, candidatureOffre.getId());
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Erreur de modification etat : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public CandidatureOffre getCandidaturesOffreById(int idCandidature) {
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT *"
+                    + "FROM candidature_offre "
+                    + "WHERE id = ?");
+            preparedStatement.setInt(1, idCandidature);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new CandidatureOffre(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("offre_de_travail_id"),
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("etat")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) Candidature offre : " + e.getMessage());
+        }
+        System.out.println("aucun resultat candidature offre by id");
+        return null;
+    }
+
 }

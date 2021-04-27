@@ -43,7 +43,7 @@ import javafx.stage.StageStyle;
  *
  * @author Grim
  */
-public class RevueSelectionnerSocieteController implements Initializable {
+public class InterviewSelectionnerSocieteController implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
@@ -87,7 +87,7 @@ public class RevueSelectionnerSocieteController implements Initializable {
     private AnchorPane creerSociete(Societe societe, int i, int j) {
         Parent parentSociete = null;
         try {
-            parentSociete = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/ModeleSociete.fxml"));
+            parentSociete = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/ModeleSociete.fxml"));
             ((Text) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(0)).getChildren().get(0)).setText(societe.getNom());
             ((ImageView) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(1)).getChildren().get(1)).setImage(new Image("/app/images/default.jpg"));
             ((Text) ((StackPane) ((AnchorPane) parentSociete).getChildren().get(2)).getChildren().get(0)).setText("Tel :" + societe.getTel());
@@ -96,7 +96,7 @@ public class RevueSelectionnerSocieteController implements Initializable {
 
             parentSociete.setOnMouseClicked((event) -> {
                 try {
-                    Parent dialogParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/DialogChoixOffre.fxml"));
+                    Parent dialogParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/DialogChoixOffre.fxml"));
                     Stage stageDialogOffres = new Stage();
 
                     List<OffreDeTravail> listOffre = OffreDeTravailCrud.getInstance().getOffreDeTravailBySociete(societe.getId());
@@ -105,14 +105,14 @@ public class RevueSelectionnerSocieteController implements Initializable {
                         for (int indexListOffre = 0; indexListOffre < listOffre.size(); indexListOffre++) {
                             OffreDeTravail offreDeTravail = listOffre.get(indexListOffre);
 
-                            Parent offreParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/ModeleOffre.fxml"));
+                            Parent offreParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/ModeleOffre.fxml"));
                             offreParent.setOnMouseClicked((eventClickOffre) -> {
                                 stageDialogOffres.close();
-                                RevueAfficherToutController.offreDeTravailActuelle = offreDeTravail;
-                                RevueAfficherToutController.societeActuelle = societe;
+                                InterviewAfficherToutController.offreDeTravailActuelle = offreDeTravail;
+                                InterviewAfficherToutController.societeActuelle = societe;
 
                                 MainWindowController.chargerInterface(
-                                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+                                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/AfficherTout.fxml")
                                 );
                             });
 
@@ -123,7 +123,7 @@ public class RevueSelectionnerSocieteController implements Initializable {
                             ((VBox) ((ScrollPane) ((AnchorPane) dialogParent).getChildren().get(1)).getContent()).getChildren().add(offreParent);
                         }
                     } else {
-                        Parent offreParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/ModeleOffre.fxml"));
+                        Parent offreParent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/ModeleOffre.fxml"));
                         ((Text) ((StackPane) ((AnchorPane) offreParent).getChildren().get(0)).getChildren().get(0))
                                 .setText("Aucune offre");
                         ((Text) ((StackPane) ((AnchorPane) offreParent).getChildren().get(1)).getChildren().get(0))
@@ -137,13 +137,15 @@ public class RevueSelectionnerSocieteController implements Initializable {
 
                     stageDialogOffres.initStyle(StageStyle.UNDECORATED);
                     stageDialogOffres.initModality(Modality.APPLICATION_MODAL);
+
                     stageDialogOffres.setX((Screen.getPrimary().getBounds().getWidth() / 2) - (400 / 2));
                     stageDialogOffres.setY((Screen.getPrimary().getBounds().getHeight() / 2) - (400 / 2));
                     stageDialogOffres.setScene(new Scene(dialogParent, 400, 400));
                     ResizeHelper resizeHelper = new ResizeHelper(stageDialogOffres, 40, 0);
+                    
                     stageDialogOffres.showAndWait();
                 } catch (IOException ex) {
-                    Logger.getLogger(RevueSelectionnerSocieteController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(InterviewSelectionnerSocieteController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
         } catch (IOException ex) {

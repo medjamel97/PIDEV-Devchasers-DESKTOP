@@ -9,8 +9,6 @@ import app.entity.User;
 import app.utils.BadWords;
 import app.utils.ResizeHelper;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,7 +29,6 @@ public class MainApp extends Application {
 
     private static MainApp instance;
     private static User session;
-    private static final int shadowSize = 25;
 
     public static MainApp getInstance() {
         if (instance == null) {
@@ -42,6 +39,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        System.out.println("Chargements des mots a filtrer ..");
         BadWords.loadConfigs();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         mainStage = primaryStage;
@@ -124,8 +122,8 @@ public class MainApp extends Application {
             loadScene(
                     "/app/gui/back_end/MainWindow.fxml",
                     title,
-                    1000,
-                    700,
+                    1200,
+                    800,
                     false
             );
         } else {

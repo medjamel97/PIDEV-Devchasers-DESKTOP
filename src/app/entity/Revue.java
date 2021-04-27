@@ -5,6 +5,8 @@
  */
 package app.entity;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Grim
@@ -16,20 +18,23 @@ public class Revue {
     private int nbEtoiles;
     private String objet;
     private String description;
+    private Timestamp dateCreation;
 
-    public Revue(int id, int candidatureOffreId, int nbEtoiles, String objet, String description) {
+    public Revue(int id, int candidatureOffreId, int nbEtoiles, String objet, String description, Timestamp dateCreation) {
         this.id = id;
         this.candidatureOffreId = candidatureOffreId;
         this.nbEtoiles = nbEtoiles;
         this.objet = objet;
         this.description = description;
+        this.dateCreation = dateCreation;
     }
 
-    public Revue(int candidatureOffreId, int nbEtoiles, String objet, String description) {
+    public Revue(int candidatureOffreId, int nbEtoiles, String objet, String description, Timestamp dateCreation) {
         this.candidatureOffreId = candidatureOffreId;
         this.nbEtoiles = nbEtoiles;
         this.objet = objet;
         this.description = description;
+        this.dateCreation = dateCreation;
     }
 
     public int getId() {
@@ -70,6 +75,14 @@ public class Revue {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Timestamp dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
 }

@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public interface InterviewCrudInterface {
 
-    public boolean controleEtoiles(int nbEtoiles);
+    public boolean controleDifficulte(int nbDifficulte);
 
     public boolean controleObjet(String objet);
 
@@ -28,10 +28,12 @@ public interface InterviewCrudInterface {
 
     public void supprimerInterview(Interview v);
 
+    public ObservableList<Interview> getAllInterviews();
+
     public ObservableList<Interview> getInterviewsParOffre(int idOffreDeTravail);
 
-    public ObservableList<Interview> getInterviewsParOffreParObjet(int idOffreDeTravail, String objet);
+    public ObservableList<Interview> getInterviewsParOffreParDifficulte(int idOffreDeTravail, int difficulte);
 
-    public String getInterviewById();
+    public ObservableList<Interview> getInterviewsParOffreParCandidat(int idOffreDeTravail, String nomPrenom);
 
 }

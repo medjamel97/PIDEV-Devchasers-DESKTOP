@@ -1,0 +1,17 @@
+.column{
+    -fx-background-color : white;
+    -fx-border-color : #c9c9c9;
+}
+
+.top-column{
+    -fx-background-color : #ecf0fc;
+    -fx-border-color : #c9c9c9;
+}
+
+.delete-button{
+    -fx-background-color : #e4203b
+}
+
+.delete-button:hover{
+    -fx-background-color : #aa1c2f
+}

@@ -73,6 +73,7 @@ public class MainWindowController implements Initializable {
             staticContent.getChildren().add(parent);
         } catch (IOException e) {
             System.out.print("Erreur d'affichage : " + e.getMessage() + " " + e.getCause());
+            e.printStackTrace();
         }
     }
 

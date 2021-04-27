@@ -126,6 +126,19 @@
     -fx-border-color : #2F55D4 ;
 }
 
+.form-control-white{
+    -fx-background-radius: 8,8,8;
+    -fx-background-insets: 1, 1, 1;
+    -fx-background-color: white;
+    -fx-border-color : #DDDDDD ;
+    -fx-border-radius : 10 ;
+    -fx-text-box-border: white;
+}
+
+.form-control-white:focused {
+    -fx-border-color : #2F55D4 ;
+}
+
 .search-bar{
     -fx-text-box-border: #BDBFBF;
     -fx-background-insets: 2, 2, 2;

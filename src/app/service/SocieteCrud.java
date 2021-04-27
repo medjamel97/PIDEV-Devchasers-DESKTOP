@@ -111,4 +111,27 @@ public class SocieteCrud implements SocieteCrudInterface {
         }
         return lastId;
     }
+
+    @Override
+    public Societe getSocieteById(int idSociete) {
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT * FROM societe WHERE id = ?");
+            preparedStatement.setInt(1, idSociete);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new Societe(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom"),
+                        resultSet.getDate("date_creation"),
+                        resultSet.getString("tel"),
+                        resultSet.getString("id_photo")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur recherche societe : " + e.getMessage());
+        }
+        return null;
+    }
 }

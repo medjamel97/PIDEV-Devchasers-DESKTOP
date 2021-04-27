@@ -33,8 +33,8 @@ public class InterviewCrud implements InterviewCrudInterface {
     }
 
     @Override
-    public boolean controleEtoiles(int nbEtoiles) {
-        return ((nbEtoiles >= 1) && (nbEtoiles <= 5));
+    public boolean controleDifficulte(int difficulte) {
+        return ((difficulte >= 0) && (difficulte <= 4));
     }
 
     @Override
@@ -57,11 +57,12 @@ public class InterviewCrud implements InterviewCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO interview (candidature_offre_id, nb_etoiles, objet, description) VALUES ( ? , ? , ? , ? )");
-            preparedStatement.setString(1, interview.getObjet());
-            preparedStatement.setString(2, interview.getDescription());
-            preparedStatement.setString(3, interview.getDifficulte());
-            preparedStatement.setInt(4, interview.getCandidatureOffreId());
+                    "INSERT INTO interview (candidature_offre_id, difficulte, description, objet, date_creation ) VALUES ( ? , ? , ? , ? , ?)");
+            preparedStatement.setInt(1, interview.getCandidatureOffreId());
+            preparedStatement.setInt(2, interview.getDifficulte());
+            preparedStatement.setString(3, interview.getObjet());
+            preparedStatement.setString(4, interview.getDescription());
+            preparedStatement.setTimestamp(5, interview.getDateCreation());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -76,13 +77,13 @@ public class InterviewCrud implements InterviewCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE `interview` "
-                    + "SET `objet` = ?, `description` = ?, `difficulte` = ?,`candidature_offre` = ? "
-                    + "WHERE `id` = ?");
-            preparedStatement.setString(1, interview.getObjet());
-            preparedStatement.setString(2, interview.getDescription());
-            preparedStatement.setString(3, interview.getDifficulte());
-            preparedStatement.setInt(4, interview.getCandidatureOffreId());
+                    "UPDATE interview "
+                    + "SET difficulte = ?, objet = ?, description = ?, date_creation = ? "
+                    + "WHERE id = ?");
+            preparedStatement.setInt(1, interview.getDifficulte());
+            preparedStatement.setString(2, interview.getObjet());
+            preparedStatement.setString(3, interview.getDescription());
+            preparedStatement.setTimestamp(4, interview.getDateCreation());
             preparedStatement.setInt(5, interview.getId());
 
             preparedStatement.executeUpdate();
@@ -97,7 +98,7 @@ public class InterviewCrud implements InterviewCrudInterface {
     public void supprimerInterview(Interview interview) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = connexion.prepareStatement("DELETE FROM `interview` WHERE `id`=?");
+            preparedStatement = connexion.prepareStatement("DELETE FROM interview WHERE id=?");
             preparedStatement.setInt(1, interview.getId());
 
             preparedStatement.executeUpdate();
@@ -109,60 +110,113 @@ public class InterviewCrud implements InterviewCrudInterface {
     }
 
     @Override
+    public ObservableList<Interview> getAllInterviews() {
+        ObservableList<Interview> listInterview = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM interview");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listInterview.add(new Interview(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("candidature_offre_id"),
+                        resultSet.getInt("difficulte"),
+                        resultSet.getString("objet"),
+                        resultSet.getString("description"),
+                        resultSet.getTimestamp("date_creation")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage (tout) interview : " + e.getMessage());
+        }
+        return listInterview;
+    }
+
+    @Override
     public ObservableList<Interview> getInterviewsParOffre(int idOffreDeTravail) {
         ObservableList<Interview> listInterview = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
                     + "FROM interview i join candidature_offre c on i.candidature_offre_id = c.id "
-                    + "WHERE c.offre_de_travail_id = ?");
+                    + "WHERE c.offre_de_travail_id = ? "
+                    + "ORDER BY i.date_creation ");
             preparedStatement.setInt(1, idOffreDeTravail);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 listInterview.add(new Interview(
                         resultSet.getInt("id"),
-                        resultSet.getInt("candidatureOffre"),
+                        resultSet.getInt("candidature_offre_id"),
+                        resultSet.getInt("difficulte"),
                         resultSet.getString("objet"),
                         resultSet.getString("description"),
-                        resultSet.getString("difficulte")
+                        resultSet.getTimestamp("date_creation")
                 ));
             }
         } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) interview : " + e.getMessage());
+            System.out.println("Erreur d'affichage (par offre) interview : " + e.getMessage());
         }
         return listInterview;
     }
 
     @Override
-    public ObservableList<Interview> getInterviewsParOffreParObjet(int idOffreDeTravail, String objet) {
+    public ObservableList<Interview> getInterviewsParOffreParDifficulte(int idOffreDeTravail, int difficulte) {
         ObservableList<Interview> listInterview = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
                     + "FROM interview i join candidature_offre c on i.candidature_offre_id = c.id "
-                    + "WHERE c.offre_de_travail_id = ? AND i.objet LIKE ?");
+                    + "WHERE c.offre_de_travail_id = ? AND i.difficulte = ? "
+                    + "ORDER BY i.date_creation ");
             preparedStatement.setInt(1, idOffreDeTravail);
-            preparedStatement.setString(2, objet + "%");
+            preparedStatement.setInt(2, difficulte);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 listInterview.add(new Interview(
                         resultSet.getInt("id"),
-                        resultSet.getInt("candidatureOffre"),
+                        resultSet.getInt("candidature_offre_id"),
+                        resultSet.getInt("difficulte"),
                         resultSet.getString("objet"),
                         resultSet.getString("description"),
-                        resultSet.getString("difficulte")
+                        resultSet.getTimestamp("date_creation")
                 ));
             }
         } catch (SQLException e) {
-            System.out.println("Erreur d'affichage (tout) interview : " + e.getMessage());
+            System.out.println("Erreur d'affichage par difficulte interview : " + e.getMessage());
         }
         return listInterview;
     }
 
     @Override
-    public String getInterviewById() {
-        return null;
+    public ObservableList<Interview> getInterviewsParOffreParCandidat(int idOffreDeTravail, String nomPrenom) {
+        ObservableList<Interview> listInterview = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT *"
+                    + "FROM interview i "
+                    + "join candidature_offre c on i.candidature_offre_id = c.id "
+                    + "join candidat can on c.candidat_id = can.id "
+                    + "WHERE c.offre_de_travail_id = ? AND (can.nom LIKE ? OR can.prenom LIKE ?) "
+                    + "ORDER BY i.date_creation ");
+            preparedStatement.setInt(1, idOffreDeTravail);
+            preparedStatement.setString(2, nomPrenom + "%");
+            preparedStatement.setString(3, nomPrenom + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listInterview.add(new Interview(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("candidature_offre_id"),
+                        resultSet.getInt("difficulte"),
+                        resultSet.getString("objet"),
+                        resultSet.getString("description"),
+                        resultSet.getTimestamp("date_creation")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de recherche interviews : " + e.getMessage());
+        }
+        return listInterview;
     }
 }

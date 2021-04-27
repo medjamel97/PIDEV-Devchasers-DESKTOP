@@ -14,16 +14,19 @@ public class CandidatureOffre {
     private int id;
     private int offreDeTravailId;
     private int candidatId;
+    private String etat;
 
-    public CandidatureOffre(int id, int offreDeTravailId, int candidatId) {
+    public CandidatureOffre(int id, int offreDeTravailId, int candidatId, String etat) {
         this.id = id;
         this.offreDeTravailId = offreDeTravailId;
         this.candidatId = candidatId;
+        this.etat = etat;
     }
 
-    public CandidatureOffre(int offreDeTravailId, int candidatId) {
+    public CandidatureOffre(int offreDeTravailId, int candidatId, String etat) {
         this.offreDeTravailId = offreDeTravailId;
         this.candidatId = candidatId;
+        this.etat = etat;
     }
 
     public int getId() {
@@ -48,6 +51,14 @@ public class CandidatureOffre {
 
     public void setCandidatId(int candidatId) {
         this.candidatId = candidatId;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
 }

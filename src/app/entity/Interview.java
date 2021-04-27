@@ -5,6 +5,8 @@
  */
 package app.entity;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Grim
@@ -13,23 +15,26 @@ public class Interview {
 
     private int id;
     private int candidatureOffreId;
+    private int difficulte;
     private String objet;
     private String description;
-    private String difficulte;
+    private Timestamp dateCreation;
 
-    public Interview(int id, int candidatureOffreId, String objet, String description, String difficulte) {
+    public Interview(int id, int candidatureOffreId, int difficulte, String objet, String description, Timestamp dateCreation) {
         this.id = id;
         this.candidatureOffreId = candidatureOffreId;
+        this.difficulte = difficulte;
         this.objet = objet;
         this.description = description;
-        this.difficulte = difficulte;
+        this.dateCreation = dateCreation;
     }
 
-    public Interview(int candidatureOffreId, String objet, String description, String difficulte) {
+    public Interview(int candidatureOffreId, int difficulte, String objet, String description, Timestamp dateCreation) {
         this.candidatureOffreId = candidatureOffreId;
+        this.difficulte = difficulte;
         this.objet = objet;
         this.description = description;
-        this.difficulte = difficulte;
+        this.dateCreation = dateCreation;
     }
 
     public int getId() {
@@ -48,6 +53,14 @@ public class Interview {
         this.candidatureOffreId = candidatureOffreId;
     }
 
+    public int getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(int difficulte) {
+        this.difficulte = difficulte;
+    }
+
     public String getObjet() {
         return objet;
     }
@@ -64,12 +77,12 @@ public class Interview {
         this.description = description;
     }
 
-    public String getDifficulte() {
-        return difficulte;
+    public Timestamp getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDifficulte(String difficulte) {
-        this.difficulte = difficulte;
+    public void setDateCreation(Timestamp dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
 }

@@ -58,7 +58,7 @@ public class MainWindowController implements Initializable {
     public static void chargerInterface(URL location) {
         staticContent.getChildren().clear();
         if (location == null) {
-            System.out.println("Erreur de chargement du contenu (front_end) verifiez l'url du FXML dans votre controller (wala ashal jamel xD)");
+            System.out.println("Erreur de chargement du contenu (front_end) verifiez l'url du FXML dans votre controller");
         } else {
             System.out.println("Chargement du contenu (front_end) : " + location);
             try {

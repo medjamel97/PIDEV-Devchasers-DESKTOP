@@ -16,6 +16,11 @@
     -fx-background-color: #4e73df;
 }
 
+.link-button-blue-clicked {
+    -fx-background-color: #4e73df;
+    -fx-background-radius: 0px;
+}
+
 .link-button-light {
     -fx-background-color: white;
     -fx-background-radius: 0px;
@@ -27,11 +32,13 @@
 
 .light-button {
     -fx-background-color: white;
-    -fx-background-radius: 0px;
+    -fx-background-radius: 5;
+    -fx-border-color: gray;
+    -fx-border-radius: 5;
 }
 
 .light-button:hover {
-    -fx-background-color: #F3F3F3;
+    -fx-background-color: #F0F0F0;
 }
 
 .background-blue{
@@ -48,6 +55,14 @@
 
 .background-light{
     -fx-background-color: #f8f9fc;
+}
+
+.background-light-gray{
+    -fx-background-color: #E9E9E9;
+}
+
+.background-dark{
+    -fx-background-color: #343a40;
 }
 
 .border-gray{

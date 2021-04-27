@@ -281,7 +281,7 @@ public class TopBarController implements Initializable {
 
     @FXML
     private void interview(ActionEvent event) {
-        goToLink("/app/gui/front_end/societe/offre_de_travail/revue/SelectionnerSociete.fxml");
+        goToLink("/app/gui/front_end/societe/offre_de_travail/Interview/SelectionnerSociete.fxml");
 
         panelContainerOffreActions.getChildren().clear();
         btnOffreExpandable.setTextFill(blue);

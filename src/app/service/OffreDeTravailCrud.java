@@ -37,12 +37,10 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
         connexion = ConnecteurBD.driverBD();
     }
 
- 
     @Override
-   public boolean controleJob (String job) {
+    public boolean controleJob(String job) {
         return (job.length() > 0);
     }
-
 
     @Override
     public boolean controleDescription(String description) {
@@ -185,13 +183,15 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
             preparedStatement.setInt(1, idOffre);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return new OffreDeTravail(
-                    resultSet.getInt("id"),
-                    resultSet.getInt("categorie_id"),
-                    resultSet.getInt("societe_id"),
-                    resultSet.getString("nom"),
-                    resultSet.getString("description")
-            );
+            if (resultSet.next()) {
+                return new OffreDeTravail(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("categorie_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("description")
+                );
+            }
         } catch (SQLException e) {
             System.out.println("Erreur getOffreDeTravailById : " + e.getMessage());
         }

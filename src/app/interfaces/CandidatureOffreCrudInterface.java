@@ -16,10 +16,12 @@ public interface CandidatureOffreCrudInterface {
 
     public ObservableList<CandidatureOffre> getCandidaturesOffre();
 
-    public CandidatureOffre getCandidaturesOffreById(int idCandidature);
-
     public CandidatureOffre getCandidatureOffreByCandidatOffre(int idCandidat, int idOffre);
 
     public void ajouterCandidature(CandidatureOffre candidatureOffre);
+
+    public void modifierEtat(CandidatureOffre candidatureOffre);
+
+    public CandidatureOffre getCandidaturesOffreById(int idCandidature);
 
 }

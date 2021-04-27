@@ -38,6 +38,7 @@ public class CandidatAfficherToutController implements Initializable {
 
     ObservableList<Candidat> candidats = FXCollections.observableArrayList();
     public static Candidat candidatActuel;
+    
     @FXML
     private TextField filterField;
     @FXML

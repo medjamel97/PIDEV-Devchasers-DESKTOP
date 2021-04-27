@@ -31,7 +31,7 @@ public interface RevueCrudInterface {
     public ObservableList<Revue> getRevuesParOffre(int idOffreDeTravail);
 
     public ObservableList<Revue> getRevuesParOffreParObjet(int idOffreDeTravail, String objet);
-
-    public String getRevueById();
+    
+        public ObservableList<Revue> getAllRevues();
 
 }

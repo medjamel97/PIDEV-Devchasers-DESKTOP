@@ -8,40 +8,43 @@ package app.controller.front_end;
 import app.MainApp;
 import app.entity.Candidat;
 import app.entity.CandidatureOffre;
+import app.entity.Interview;
 import app.entity.OffreDeTravail;
+import app.entity.Societe;
+import app.service.CandidatCrud;
+import app.service.CandidatureOffreCrud;
+import app.service.InterviewCrud;
+import com.jafregle.Jafregle;
+import com.jafregle.Language;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import app.service.RevueCrud;
-import app.entity.Revue;
-import app.entity.Societe;
-import app.service.CandidatCrud;
-import app.service.CandidatureOffreCrud;
-import com.jafregle.Jafregle;
-import com.jafregle.Language;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -49,45 +52,45 @@ import javafx.scene.text.Text;
  *
  * @author Grim
  */
-public class RevueAfficherToutController implements Initializable {
+public class InterviewAfficherToutController implements Initializable {
 
     public static Societe societeActuelle;
     public static OffreDeTravail offreDeTravailActuelle;
-    public static Revue revueActuelle;
+    public static Interview interviewActuel;
+    private Difficulte defaultDifficulte;
 
     @FXML
-    private VBox containerAllRevue;
-
+    private VBox containerAllInterview;
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private Button btnRetour;
-
     @FXML
     private Button btnAjout;
-
-    @FXML
-    private TextField inputRecherche;
-
     @FXML
     private Text topText;
+    @FXML
+    private TextField inputRecherche;
+    @FXML
+    private ComboBox<Difficulte> comboBoxTri;
 
-    @FXML
-    private Text noteTotale;
-    @FXML
-    private ImageView star1;
-    @FXML
-    private ImageView star2;
-    @FXML
-    private ImageView star3;
-    @FXML
-    private ImageView star4;
-    @FXML
-    private ImageView star5;
+    public class Difficulte {
+
+        String difficulte;
+        int value;
+
+        public Difficulte(String difficulte, int value) {
+            this.difficulte = difficulte;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return difficulte;
+        }
+    }
 
     /**
      *
@@ -100,59 +103,67 @@ public class RevueAfficherToutController implements Initializable {
             btnAjout.setDisable(true);
         }
 
-        topText.setText("Revues sur " + offreDeTravailActuelle.getNom() + " de " + societeActuelle.getNom());
+        defaultDifficulte = new Difficulte("Afficher tout", -1);
+
+        Difficulte[] listDifficulte = {
+            defaultDifficulte,
+            new Difficulte("Trés facile", 0),
+            new Difficulte("Facile", 1),
+            new Difficulte("Moyen", 2),
+            new Difficulte("Difficile", 3),
+            new Difficulte("Trés difficile", 4)
+        };
+
+        comboBoxTri.getItems().addAll(listDifficulte);
+        comboBoxTri.valueProperty().addListener((action) -> {
+            if (comboBoxTri.getValue().value != -1) {
+                inputRecherche.setText("");
+                List<Interview> listInterview = InterviewCrud.getInstance().getInterviewsParOffreParDifficulte(
+                        offreDeTravailActuelle.getId(),
+                        comboBoxTri.getValue().value
+                );
+                afficherInterviews(listInterview);
+            }
+        });
 
         ImageView btnRetourIcon = new ImageView("app/images/mdi/arrow-left-dark.png");
         btnRetourIcon.setFitHeight(20);
         btnRetourIcon.setFitWidth(20);
         btnRetour.setGraphic(btnRetourIcon);
 
-        List<Revue> listRevue = RevueCrud.getInstance().getRevuesParOffre(offreDeTravailActuelle.getId());
+        topText.setText("Interviews sur " + offreDeTravailActuelle.getNom() + " de " + societeActuelle.getNom());
 
-        float sommeNote = 0;
-        int i;
-        for (i = 0; i < listRevue.size(); i++) {
-            sommeNote += listRevue.get(i).getNbEtoiles();
-        }
-        float sommeTotale = (sommeNote / i);
-        if (sommeTotale == Math.round(sommeTotale)) {
-            noteTotale.setText(String.format("%.0f", sommeTotale) + "/5");
-        } else {
-            noteTotale.setText(String.format("%.1f", sommeTotale) + "/5");
-        }
-        setStarsFloat(sommeTotale);
-
-        afficherRevues(listRevue);
+        List<Interview> listInterview = InterviewCrud.getInstance().getInterviewsParOffre(offreDeTravailActuelle.getId());
+        afficherInterviews(listInterview);
     }
 
-    public void afficherRevues(List<Revue> listRevue) {
-
-        if (!listRevue.isEmpty()) {
-            for (int i = 0; i < listRevue.size(); i++) {
+    private void afficherInterviews(List<Interview> listInterview) {
+        containerAllInterview.getChildren().clear();
+        if (!listInterview.isEmpty()) {
+            listInterview.forEach((interview) -> {
                 CandidatureOffre candidatureOffre = CandidatureOffreCrud.getInstance().getCandidaturesOffreById(
-                        listRevue.get(i).getCandidatureOffreId()
+                        interview.getCandidatureOffreId()
                 );
                 Candidat candidat = CandidatCrud.getInstance().getCandidatById(candidatureOffre.getCandidatId());
-                containerAllRevue.getChildren().add(creerRevue(
+                containerAllInterview.getChildren().add(creerInterview(
                         candidat.getNom(),
                         candidat.getPrenom(),
                         candidat.getIdPhoto(),
                         offreDeTravailActuelle.getNom(),
                         societeActuelle.getNom(),
-                        listRevue.get(i)
+                        interview
                 ));
-            }
-
+            });
         } else {
             StackPane stackPane = new StackPane();
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setPrefHeight(200);
-            stackPane.getChildren().add(new Text("Aucune revue"));
-            containerAllRevue.getChildren().add(stackPane);
+            stackPane.getChildren().add(new Text("Aucune interview"));
+            containerAllInterview.getChildren().add(stackPane);
         }
 
         /* makes scrolling faster
-            containerAllRevue.setOnScroll((event) -> {
+            containerAllInterview.setOnScroll((event) -> {
             double deltaY = event.getDeltaY() * 1;
             double width = scrollPane.getContent().getBoundsInLocal().getWidth();
             double vvalue = scrollPane.getVvalue();
@@ -160,17 +171,17 @@ public class RevueAfficherToutController implements Initializable {
             });*/
     }
 
-    private Parent creerRevue(
+    private Parent creerInterview(
             String prenomCandidatText,
             String nomCandidatText,
             String idPhotoCandidat,
             String nomOffreDeTravail,
             String nomSociete,
-            Revue revue
+            Interview interview
     ) {
         Parent parent = null;
         try {
-            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/ModeleRevue.fxml"));
+            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/ModeleInterview.fxml"));
 
             AnchorPane leftAnchorPane = ((AnchorPane) ((HBox) ((AnchorPane) parent).getChildren().get(0)).getChildren().get(0));
             ((Text) leftAnchorPane.lookup("#prenomCandidat")).setText(prenomCandidatText);
@@ -185,22 +196,39 @@ public class RevueAfficherToutController implements Initializable {
 
             AnchorPane rightAnchorPane = ((AnchorPane) ((HBox) ((AnchorPane) parent).getChildren().get(0)).getChildren().get(2));
 
-            HBox hboxEtoiles = (HBox) rightAnchorPane.lookup("#hboxEtoiles");
+            HBox hBoxDifficulte = (HBox) rightAnchorPane.lookup("#hboxDifficulte");
 
-            for (int indexEtoile = 0; indexEtoile < 5; indexEtoile++) {
-                if (indexEtoile >= revue.getNbEtoiles()) {
-                    ((ImageView) hboxEtoiles.lookup("#etoile" + indexEtoile)).setImage(new Image("/app/images/mdi/star-outline.png"));
-                } else {
-                    ((ImageView) hboxEtoiles.lookup("#etoile" + indexEtoile)).setImage(new Image("/app/images/mdi/star.png"));
+            for (int indexDifficulte = 0; indexDifficulte < 5; indexDifficulte++) {
+                if (indexDifficulte > interview.getDifficulte()) {
+                    hBoxDifficulte.getChildren().remove((Rectangle) hBoxDifficulte.lookup("#rectangleDifficulte" + indexDifficulte));
                 }
             }
+
+            switch (interview.getDifficulte()) {
+                case 0:
+                    ((Text) hBoxDifficulte.lookup("#textDifficulte")).setText("Trés facile");
+                    break;
+                case 1:
+                    ((Text) hBoxDifficulte.lookup("#textDifficulte")).setText("Facile");
+                    break;
+                case 2:
+                    ((Text) hBoxDifficulte.lookup("#textDifficulte")).setText("Moyen");
+                    break;
+                case 3:
+                    ((Text) hBoxDifficulte.lookup("#textDifficulte")).setText("Difficile");
+                    break;
+                case 4:
+                    ((Text) hBoxDifficulte.lookup("#textDifficulte")).setText("Trés difficile");
+                    break;
+            }
+
             HBox hBoxContenu = (HBox) rightAnchorPane.lookup("#hboxContenu");
             VBox contenuContainer = (VBox) hBoxContenu.lookup("#contenuContainer");
             Pane separateur = (Pane) hBoxContenu.lookup("#separateur");
             VBox traductionContainer = (VBox) hBoxContenu.lookup("#traductionContainer");
 
-            ((Text) contenuContainer.lookup("#objet")).setText(revue.getObjet());
-            ((Text) contenuContainer.lookup("#description")).setText(revue.getDescription());
+            ((Text) contenuContainer.lookup("#objet")).setText(interview.getObjet());
+            ((Text) contenuContainer.lookup("#description")).setText(interview.getDescription());
             Button btnTraduire = (Button) contenuContainer.lookup("#btnTraduire");
 
             Text objetTraduit = (Text) (traductionContainer.lookup("#textTraduitLabel"));
@@ -217,8 +245,8 @@ public class RevueAfficherToutController implements Initializable {
                 try {
                     Jafregle jafregle = new Jafregle(Language.ENGLISH, Language.FRENCH);
 
-                    objetTraduit.setText(jafregle.translate(revue.getObjet()));
-                    descriptionTraduite.setText(jafregle.translate(revue.getDescription()));
+                    objetTraduit.setText(jafregle.translate(interview.getObjet()));
+                    descriptionTraduite.setText(jafregle.translate(interview.getDescription()));
                 } catch (IOException e) {
                     System.out.println("Erreur de traduction");
                     System.out.println(e.getMessage());
@@ -246,7 +274,7 @@ public class RevueAfficherToutController implements Initializable {
 
             try {
                 ((Text) hBoxActionsDate.lookup("#texteDateCreation"))
-                        .setText(revue.getDateCreation().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                        .setText(interview.getDateCreation().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             } catch (Exception e) {
                 System.out.println("Date nulle");
             }
@@ -259,12 +287,12 @@ public class RevueAfficherToutController implements Initializable {
                         MainApp.getSession().getCandidatId()
                 );
                 if (candidatureAssocie != null) {
-                    if (revue.getCandidatureOffreId() == candidatureAssocie.getId()) {
+                    if (interview.getCandidatureOffreId() == candidatureAssocie.getId()) {
                         btnModifier.setOnAction((event) -> {
-                            modifierRevue(event, revue);
+                            modifierInterview(event, interview);
                         });
                         btnSupprimer.setOnAction((event) -> {
-                            supprimerRevue(event, revue);
+                            supprimerInterview(event, interview);
                         });
                     } else {
                         hBoxActionsDate.getChildren().remove(btnModifier);
@@ -285,35 +313,35 @@ public class RevueAfficherToutController implements Initializable {
         return parent;
     }
 
-    private void modifierRevue(ActionEvent event, Revue revue) {
-        revueActuelle = revue;
+    private void modifierInterview(ActionEvent event, Interview interview) {
+        interviewActuel = interview;
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/Manipuler.fxml")
+                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/Manipuler.fxml")
         );
     }
 
-    private void supprimerRevue(ActionEvent event, Revue revue) {
-        revueActuelle = null;
+    private void supprimerInterview(ActionEvent event, Interview interview) {
+        interviewActuel = null;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmer la suppression");
         alert.setHeaderText(null);
-        alert.setContentText("Etes vous sûr de vouloir supprimer votre revue avec id : ?");
+        alert.setContentText("Etes vous sûr de vouloir supprimer votre interview ?");
         Optional<ButtonType> action = alert.showAndWait();
 
         if (action.get() == ButtonType.OK) {
-            RevueCrud.getInstance().supprimerRevue(revue);
+            InterviewCrud.getInstance().supprimerInterview(interview);
             MainWindowController.chargerInterface(
-                    getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/AfficherTout.fxml")
+                    getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/AfficherTout.fxml")
             );
         }
     }
 
     @FXML
-    private void ajouterRevue(ActionEvent event) {
+    private void ajouterInterview(ActionEvent event) {
         CandidatureOffre candidatureOffre;
         if (CandidatureOffreCrud.getInstance().getCandidatureOffreByCandidatOffre(
-                RevueAfficherToutController.offreDeTravailActuelle.getId(),
+                InterviewAfficherToutController.offreDeTravailActuelle.getId(),
                 MainApp.getSession().getCandidatId()
         ) == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -324,10 +352,9 @@ public class RevueAfficherToutController implements Initializable {
         } else {
             candidatureOffre = CandidatureOffreCrud.getInstance()
                     .getCandidatureOffreByCandidatOffre(
-                            RevueAfficherToutController.offreDeTravailActuelle.getId(),
+                            InterviewAfficherToutController.offreDeTravailActuelle.getId(),
                             MainApp.getSession().getCandidatId()
                     );
-
             System.out.println(
                     "Candidature : " + candidatureOffre.getId()
                     + " / Candidat : " + candidatureOffre.getCandidatId()
@@ -336,7 +363,7 @@ public class RevueAfficherToutController implements Initializable {
 
             if (candidatureOffre.getEtat().equals("accepté")) {
                 MainWindowController.chargerInterface(
-                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/Manipuler.fxml")
+                        getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/Manipuler.fxml")
                 );
             }
         }
@@ -345,18 +372,8 @@ public class RevueAfficherToutController implements Initializable {
     @FXML
     private void selectionnerSociete(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/revue/SelectionnerSociete.fxml")
+                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/interview/SelectionnerSociete.fxml")
         );
-    }
-
-    @FXML
-    private void rechercher(KeyEvent event) {
-
-        containerAllRevue.getChildren().clear();
-
-        List<Revue> listRevue = RevueCrud.getInstance().getRevuesParOffreParObjet(offreDeTravailActuelle.getId(), inputRecherche.getText());
-
-        afficherRevues(listRevue);
     }
 
     public static void information(String content) {
@@ -367,19 +384,15 @@ public class RevueAfficherToutController implements Initializable {
         alert.showAndWait();
     }
 
-    private void setStarsFloat(float nbEtoiles) {
-        ImageView[] stars = {star1, star2, star3, star4, star5};
-        for (int i = 0; i < 5; i++) {
-            if (nbEtoiles >= i + 1) {
-                stars[i].setImage(new Image("app/images/mdi/star.png"));
-            } else if ((nbEtoiles > i) && (nbEtoiles < i + 1)) {
-                stars[i].setImage(new Image("app/images/mdi/star-half.png"));
-            } else {
-                stars[i].setImage(new Image("app/images/mdi/star-outline.png"));
-            }
-            ColorAdjust blackEffect = new ColorAdjust();
-            blackEffect.setBrightness(-1.0);
-            stars[i].setEffect(blackEffect);
-        }
+    @FXML
+    private void rechercheParNomPrenom(KeyEvent event) {
+        comboBoxTri.setValue(defaultDifficulte);
+
+        List<Interview> listInterview = InterviewCrud.getInstance().getInterviewsParOffreParCandidat(
+                offreDeTravailActuelle.getId(),
+                inputRecherche.getText()
+        );
+        afficherInterviews(listInterview);
     }
+
 }
