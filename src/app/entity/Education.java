@@ -41,6 +41,15 @@ public class Education {
         this.duree = duree;
     }
 
+    public Education(String description, String niveauEducation, String filiere, String etablissement, String ville, String duree) {
+        this.description = description;
+        this.niveauEducation = niveauEducation;
+        this.filiere = filiere;
+        this.etablissement = etablissement;
+        this.ville = ville;
+        this.duree = duree;
+    }
+    
     public int getId() {
         return id;
     }
