@@ -5,7 +5,6 @@
  */
 package app.gui.front_end.candidat;
 
-import app.MainApp;
 import app.controller.front_end.MainWindowController;
 import app.entity.Competence;
 import app.service.CompetenceCrud;
@@ -22,33 +21,35 @@ import javafx.scene.control.TextField;
  *
  * @author Faten
  */
-public class AjoutCompetenceController implements Initializable {
+public class ModifierCompetenceController implements Initializable {
 
     @FXML
     private TextField InputLevel;
     @FXML
     private TextField Inputname;
     @FXML
-    private Button ajouterComp;
+    private Button ModifierComp;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }
+    Competence competence = ProfileController. competenceActuelle;
+     Inputname.setText(competence.getName());
+     InputLevel.setText(String.valueOf( competence.getLevel()));
+
+    }    
 
     @FXML
-    private void AjouterCompetence(ActionEvent event) {
-        Competence competence = new Competence(MainApp.getSession().getCandidatId(),
-                Inputname.getText(), Integer.parseInt(InputLevel.getText()));
+    private void ModifierCompetence(ActionEvent event) {
+        Competence competence = new Competence(ProfileController.competenceActuelle.getId(),ProfileController.competenceActuelle.getCandidatId(),
+                    Inputname.getText(), Integer.parseInt(InputLevel.getText()));
+                CompetenceCrud.getInstance().modifierCompetence(competence);
 
-        CompetenceCrud.getInstance().ajouterCompetence(competence);
-        MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-        );
-
+                 MainWindowController.chargerInterface(
+                    getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+                    );
     }
-
+    
 }

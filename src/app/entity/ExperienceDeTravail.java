@@ -37,16 +37,6 @@ public class ExperienceDeTravail {
         this.ville = ville;
         this.duree = duree;
     }
-    
-    public ExperienceDeTravail(String description, String titreEmploi, String nomEntreprise, String ville, String duree) {
-        this.description = description;
-        this.titreEmploi = titreEmploi;
-        this.nomEntreprise = nomEntreprise;
-        this.ville = ville;
-        this.duree = duree;
-    }
-
-    
 
     public int getId() {
         return id;

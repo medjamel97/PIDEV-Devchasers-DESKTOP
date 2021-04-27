@@ -22,6 +22,8 @@ public interface CompetenceCrudInterface {
     public ObservableList<Competence> getCompetence();
 
     public Competence getCompetenceById(int idCompetence);
+    
+        public ObservableList<Competence> getCompetenceByCandidat(int idCandidat);
 
     public int getLastId();
 }

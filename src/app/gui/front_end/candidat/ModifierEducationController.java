@@ -5,6 +5,10 @@
  */
 package app.gui.front_end.candidat;
 
+import app.MainApp;
+import app.controller.front_end.MainWindowController;
+import app.entity.Education;
+import app.service.EducationCrud;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -41,11 +46,33 @@ public class ModifierEducationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Education education = ProfileController.educationActuelle;
+        InputDescription.setText(education.getDescription());
+        InputniveauEdu.setText(education.getNiveauEducation());
+        InputFiliere.setText(education.getFiliere());
+        InputEtabli.setText(education.getEtablissement());
+        InputVille.setText(education.getVille());
+        InputDuree.setText(education.getDuree());
     }    
 
     @FXML
     private void ModifierEducation(ActionEvent event) {
+        
+                Education education = new Education(ProfileController.educationActuelle.getId(),ProfileController.educationActuelle.getCandidatId(),
+                    InputDescription.getText(), InputniveauEdu.getText(), InputFiliere.getText(), InputEtabli.getText(), InputVille.getText(), InputDuree.getText());
+                EducationCrud.getInstance().modifierEducation(education);
+
+                 MainWindowController.chargerInterface(
+                    getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
+                    );
+    }
+
+    @FXML
+    private void drag(MouseEvent event) {
+    }
+
+    @FXML
+    private void startDrag(MouseEvent event) {
     }
     
 }

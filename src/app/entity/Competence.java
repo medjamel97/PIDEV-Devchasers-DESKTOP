@@ -28,10 +28,7 @@ public class Competence {
         this.name = name;
         this.level = level;
     }
-public Competence(String name, int level) {
-        this.name = name;
-        this.level = level;
-    }
+
     public int getId() {
         return id;
     }

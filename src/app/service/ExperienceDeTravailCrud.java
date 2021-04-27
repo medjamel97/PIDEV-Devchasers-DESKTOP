@@ -40,13 +40,13 @@ public class ExperienceDeTravailCrud implements ExperienceDeTravailCrudInterface
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO experience_de_travail (description,titre_emploi,nom_entreprise,ville,duree)VALUES ( ? , ? , ? , ? ,?)");
-//            preparedStatement.setInt(2, experience_de_travail.getCandidatId());
-            preparedStatement.setString(1, experience_de_travail.getDescription());
-            preparedStatement.setString(2, experience_de_travail.getTitreEmploi());
-            preparedStatement.setString(3,experience_de_travail.getNomEntreprise());
-            preparedStatement.setString(4, experience_de_travail.getVille());
-            preparedStatement.setString(5, experience_de_travail.getDuree());
+                    "INSERT INTO experience_de_travail (candidat_id,description,titre_emploi,nom_entreprise,ville,duree)VALUES ( ? ,? , ? , ? , ? ,?)");
+           preparedStatement.setInt(1, experience_de_travail.getCandidatId());
+            preparedStatement.setString(2, experience_de_travail.getDescription());
+            preparedStatement.setString(3, experience_de_travail.getTitreEmploi());
+            preparedStatement.setString(4,experience_de_travail.getNomEntreprise());
+            preparedStatement.setString(5, experience_de_travail.getVille());
+            preparedStatement.setString(6, experience_de_travail.getDuree());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -80,6 +80,31 @@ public class ExperienceDeTravailCrud implements ExperienceDeTravailCrudInterface
         }
         return listExperienceDeTravail;
     }
+    
+    @Override
+    public ObservableList<ExperienceDeTravail> getExperienceDeTravailByCandidat (int idCandidat) {
+        ObservableList<ExperienceDeTravail> listExpdetravail = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM experience_de_travail WHERE candidat_id = ?");
+            preparedStatement.setInt(1, idCandidat);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listExpdetravail.add(new ExperienceDeTravail(
+                       resultSet.getInt("id"),
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("description"),
+                        resultSet.getString("titre_emploi"),
+                        resultSet.getString("nom_entreprise"),
+                        resultSet.getString("ville"),
+                        resultSet.getString("duree")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage pour un candidat (educations) : " + e.getMessage());
+        }
+        return listExpdetravail;
+    }
 
     @Override
     public ExperienceDeTravail getExperienceDeTravailById(int idExperienceDeTravail) {
@@ -112,16 +137,15 @@ public class ExperienceDeTravailCrud implements ExperienceDeTravailCrudInterface
          PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "UPDATE `experience` "
-                    + "SET `` = ?, `description` = ?, `titre_emploi` = ?, `nom_entreprise` = ?, , `ville` = ?, `duree` = ?"
+                    "UPDATE `experience_de_travail` "
+                    + "SET  `description` = ?, `titre_emploi` = ?, `nom_entreprise` = ?, `ville` = ?, `duree` = ? "
                     + "WHERE `id` = ?");
             preparedStatement.setString(1, experience_de_travail.getDescription());
             preparedStatement.setString(2, experience_de_travail.getTitreEmploi());
             preparedStatement.setString(3, experience_de_travail.getNomEntreprise());
-            preparedStatement.setString(5, experience_de_travail.getVille());
-            preparedStatement.setString(6, experience_de_travail.getDuree());
-            preparedStatement.setInt(7, experience_de_travail.getId());
-
+            preparedStatement.setString(4, experience_de_travail.getVille());
+            preparedStatement.setString(5, experience_de_travail.getDuree());
+            preparedStatement.setInt(6, experience_de_travail.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {

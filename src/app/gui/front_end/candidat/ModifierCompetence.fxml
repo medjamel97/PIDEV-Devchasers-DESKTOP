@@ -9,11 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.gui.front_end.candidat.AjoutCompetenceController">
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="app.gui.front_end.candidat.ModifierCompetenceController">
    <children>
-      <AnchorPane id="AnchorPane" layoutX="8.0" prefHeight="649.0" prefWidth="698.0">
+      <AnchorPane id="AnchorPane" layoutX="18.0" layoutY="10.0" prefHeight="649.0" prefWidth="698.0">
          <children>
-            <Text layoutX="186.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Competence" textAlignment="CENTER" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="30.0">
+            <Text layoutX="186.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Competence" textAlignment="CENTER" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="30.0">
                <font>
                   <Font name="Segoe UI" size="30.0" />
                </font>
@@ -32,9 +33,9 @@
                   <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="257.0" layoutY="355.0">
+            <HBox alignment="CENTER" layoutX="268.0" layoutY="358.0">
                <children>
-                  <Button fx:id="ajouterComp" mnemonicParsing="false" onAction="#AjouterCompetence" prefHeight="52.0" prefWidth="94.0" styleClass="success-button" stylesheets="@candidat.css" text="ajouter" textFill="#f8f7f7" />
+                  <Button fx:id="ModifierComp" mnemonicParsing="false" onAction="#ModifierCompetence" prefHeight="53.0" prefWidth="111.0" styleClass="success-button" stylesheets="@candidat.css" text="Modifier" textFill="#f8f7f7" />
                </children>
             </HBox>
          </children>

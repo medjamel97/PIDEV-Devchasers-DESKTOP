@@ -5,6 +5,7 @@
  */
 package app.gui.front_end.candidat;
 
+import app.MainApp;
 import app.controller.InscriptionCandidatController;
 import app.controller.front_end.MainWindowController;
 import app.entity.Education;
@@ -32,7 +33,7 @@ import org.controlsfx.control.Notifications;
  * @author Faten
  */
 public class AjouterEducationController implements Initializable {
-  
+
     @FXML
     private Button ajouterEdu;
     @FXML
@@ -54,13 +55,13 @@ public class AjouterEducationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void AjouterEducation(ActionEvent event) {
-        
-        if (InputDescription.getText().isEmpty() | InputniveauEdu.getText().isEmpty() | InputFiliere.getText().isEmpty() | InputEtabli.getText().isEmpty()|
-                 InputVille.getText().isEmpty()|  InputDuree.getText().isEmpty()) {
+
+        if (InputDescription.getText().isEmpty() | InputniveauEdu.getText().isEmpty() | InputFiliere.getText().isEmpty() | InputEtabli.getText().isEmpty()
+                | InputVille.getText().isEmpty() | InputDuree.getText().isEmpty()) {
             Notifications notificationBuilder = Notifications.create()
                     .title("Erreur").text("veillez remplir les champs vides ").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
                     .position(Pos.CENTER_LEFT)
@@ -73,30 +74,29 @@ public class AjouterEducationController implements Initializable {
 
             Parent root;
         } else {
-        Education education = new Education( 
-                InputDescription.getText(),  InputniveauEdu.getText(), InputFiliere.getText(),  InputEtabli.getText(),  InputVille.getText(),  InputDuree.getText()); 
-        Notifications notificationBuilder = Notifications.create()
+            Education education = new Education(MainApp.getSession().getCandidatId(),
+                    InputDescription.getText(), InputniveauEdu.getText(), InputFiliere.getText(), InputEtabli.getText(), InputVille.getText(), InputDuree.getText());
+            Notifications notificationBuilder = Notifications.create()
                     .title("Succes").text("Votre education a été ajoutè avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
                     .position(Pos.CENTER_LEFT)
                     .onAction((eventAjoutPub) -> {
                         System.out.println("clicked ON ");
                     });
             notificationBuilder.show();
-        EducationCrud.getInstance().ajouterEducation(education);
-        MainWindowController.chargerInterface(
+            EducationCrud.getInstance().ajouterEducation(education);
+            MainWindowController.chargerInterface(
                     getClass().getResource("/app/gui/front_end/candidat/profile.fxml")
-            );       
+            );
         }
     }
 
     @FXML
     private void drag(MouseEvent event) {
-       
+
     }
 
     @FXML
     private void startDrag(MouseEvent event) {
     }
 
-    
 }

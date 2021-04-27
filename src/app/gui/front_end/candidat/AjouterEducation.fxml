@@ -47,7 +47,7 @@
                   <TextField fx:id="InputVille" layoutX="40.0" layoutY="230.0" prefHeight="50.0" prefWidth="280.0" promptText="ville" styleClass="form-control" stylesheets="@candidat.css" />
                   <HBox layoutX="40.0" layoutY="197.0">
                      <children>
-                        <Label text="Prenom" />
+                        <Label text="Ville" />
                         <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
                      </children>
                   </HBox>
