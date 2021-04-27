@@ -5,8 +5,12 @@
  */
 package app.controller.front_end;
 
+import static app.controller.back_end.MissionMesMissionsController.missionActuelle;
+import static app.controller.back_end.MissionMesMissionsController.missionClicked;
 import app.entity.Mission;
 import app.service.MissionCrud;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +22,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -27,6 +32,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -41,8 +50,6 @@ public class MissionAfficherToutController implements Initializable {
 
     @FXML
     private Button btnRetour;
-    @FXML
-    private Button btnAjout;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -64,13 +71,11 @@ public class MissionAfficherToutController implements Initializable {
     @FXML
     private TableView<Mission> idTableau;
     @FXML
-    private Button btnModifier;
+    private TextField txrecherche;
     @FXML
-    private Button btnSupprimer;
+    private Button btnexcel;
     @FXML
     private Text textMissionIdActuelle;
-    @FXML
-    private TextField txrecherche;
 
     /**
      * Initializes the controller class.
@@ -78,8 +83,6 @@ public class MissionAfficherToutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         missionActuelle = null;
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
         Date date = new Date();
 
         List<Mission> listmission = MissionCrud.getInstance().getMission();
@@ -103,13 +106,13 @@ public class MissionAfficherToutController implements Initializable {
         observableListMission.addAll(listFed);
         idTableau.setItems(observableListMission);
 
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
-        columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
-        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));
+        columnId.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        columnNom.setCellValueFactory(new PropertyValueFactory<>("description"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>("nombreHeures"));
+        columnNbHeure.setCellValueFactory(new PropertyValueFactory<>("prixHeure"));
+        columnPrixHeure.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("ville"));
+        columnSociete.setCellValueFactory(new PropertyValueFactory<>("societeId"));
         idTableau.setItems(observableListMission);
         Recherche();
     }
@@ -121,14 +124,12 @@ public class MissionAfficherToutController implements Initializable {
         );
     }
 
-    @FXML
     private void ajouterMission(ActionEvent event) {
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/societe/mission/ajouterMission.fxml")
         );
     }
 
-    @FXML
     private void modifier(ActionEvent event) {
         if (missionActuelle != null) {
             MainWindowController.chargerInterface(
@@ -137,12 +138,9 @@ public class MissionAfficherToutController implements Initializable {
         }
     }
 
-    @FXML
     private void supprimer(ActionEvent event) {
         MissionCrud.getInstance().supprimerMission(missionActuelle);
         missionActuelle = null;
-        btnModifier.setDisable(true);
-        btnSupprimer.setDisable(true);
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/societe/mission/affichermission.fxml")
         );
@@ -150,15 +148,29 @@ public class MissionAfficherToutController implements Initializable {
 
     @FXML
     private void changerMissionActuelle(MouseEvent event) {
-        btnModifier.setDisable(false);
-        btnSupprimer.setDisable(false);
         missionActuelle = idTableau.getSelectionModel().getSelectedItem();
         if (event.getClickCount() == 2) {
             missionClicked = idTableau.getSelectionModel().getSelectedItem();
-            textMissionIdActuelle.setText("id choisi : " + missionClicked.getId());
-        }
+            textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
+//                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                     alert.setTitle("erreur");
+//                     alert.setHeaderText(null);
+//                     alert.setContentText("cette mission deja existe!!! ");    
+//                     alert.showAndWait();
 
-        textMissionIdActuelle.setText("id choisi : " + missionActuelle.getId());
+          WebView webView = new WebView();
+            WebEngine webEngine = webView.getEngine();
+            System.out.println(missionClicked.getLatitude());
+            webEngine.load("http://127.0.0.1:8000/map/"+missionClicked.getLatitude()+"/"+missionClicked.getLongitude());
+
+            Scene scene = new Scene(webView, 600, 600);
+            Stage primaryStage = new Stage();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Hello World");
+            primaryStage.show();
+            webView.getEngine().executeScript("document.body.innerHTML = '';");
+        }
+          textMissionIdActuelle.setText("somme totale= " + missionActuelle.getNombreHeures()*missionActuelle.getPrixHeure());
     }
 
     @FXML
@@ -214,6 +226,21 @@ public class MissionAfficherToutController implements Initializable {
         abList.addAll(old);
         idTableau.setItems(abList);
         idTableau.refresh();
+    }
+
+    @FXML
+    private void excel(ActionEvent event) throws IOException {
+           FileChooser chooser = new FileChooser();
+        // Set extension filter
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel Files(.xls)", ".xls");
+        chooser.getExtensionFilters().add(filter);
+        // Show save dialog
+        File file = chooser.showSaveDialog(btnexcel.getScene().getWindow());
+        MissionCrud m = new MissionCrud();
+        if (file != null) {
+           m.Excel(file);
+
+        }
     }
 
 }
