@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
@@ -11,11 +11,16 @@ import java.net.URL;
 import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -35,7 +40,7 @@ public class OffreAjouterController implements Initializable {
 
     private void offre(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/AfficherTout.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml")
         );
     }
 
@@ -49,7 +54,19 @@ public class OffreAjouterController implements Initializable {
         if (controleDeSaisie(offreDeTravail)) {
             OffreDeTravailCrud.getInstance().ajouterOffre(offreDeTravail);
 
-            offre(event);
+              Notifications notificationBuilder = Notifications.create()
+                .title("Alerte").text("Offre ajouté avec succès").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                .position(Pos.CENTER_LEFT)
+                .onAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) {
+                        System.out.println("clicked ON ");
+                    }
+                });
+        notificationBuilder.darkStyle();
+        notificationBuilder.show(); 
+           // offre(event);
+            
+            
         }
     }
 
@@ -76,5 +93,6 @@ public class OffreAjouterController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
 
 }

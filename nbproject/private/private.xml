@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/gui/MainStyle.css</file>
-            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/gui/back_end/style.css</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/service/RevueCrud.java</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/service/InterviewCrud.java</file>
+            <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/back_end/TopBarController.java</file>
             <file>file:/D:/Projects/PIDEV-2021/PIDEV-DESKTOP/src/app/controller/back_end/SideBarController.java</file>
         </group>
     </open-files>

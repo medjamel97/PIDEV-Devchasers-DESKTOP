@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.controller.front_end;
+package app.controller.back_end;
 
 import app.entity.OffreDeTravail;
 import app.service.OffreDeTravailCrud;
@@ -35,7 +35,7 @@ public class OffreModifierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        OffreDeTravail c = OffreAfficherToutController.offreActuelle;
+        OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
         textJob.setText(c.getNom());
         textDesc.setText(c.getDescription());
 
@@ -43,13 +43,13 @@ public class OffreModifierController implements Initializable {
 
     private void offre(ActionEvent event) {
         MainWindowController.chargerInterface(
-                getClass().getResource("/app/gui/front_end/societe/offre_de_travail/AfficherTout.fxml")
+                getClass().getResource("/app/gui/back_end/societe/offre_de_travail/AfficherMesOffres.fxml")
         );
     }
 
     @FXML
     private void ModiferOffre(ActionEvent event) {
-        OffreDeTravail c = OffreAfficherToutController.offreActuelle;
+        OffreDeTravail c = OffreAfficherMesOffres.offreActuelle;
         c.setNom(textJob.getText());
         c.setDescription(textDesc.getText());
 

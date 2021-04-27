@@ -156,7 +156,7 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
-                    + "FROM offre_de_travail"
+                    + "FROM offre_de_travail "
                     + "WHERE nom LIKE ?");
             preparedStatement.setString(1, recherche + "%");
 
@@ -198,4 +198,29 @@ public class OffreDeTravailCrud implements OffreDeTravailCrudInterface {
         return null;
     }
 
+    @Override
+    public List<OffreDeTravail> getOffreDeTravailByCategorieId(int idCat) {
+        ObservableList<OffreDeTravail> listOffreDeTravail = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT *"
+                    + "FROM offre_de_travail "
+                    + "WHERE categorie_id = ?");
+            preparedStatement.setInt(1, idCat);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listOffreDeTravail.add(new OffreDeTravail(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("categorie_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("description")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage par categorie : " + e.getMessage());
+        }
+        return listOffreDeTravail;
+    }
 }

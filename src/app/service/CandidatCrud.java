@@ -151,7 +151,7 @@ public class CandidatCrud implements CandidatCrudInterface {
             preparedStatement.setInt(1, idCandidat);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 return new Candidat(
                         resultSet.getInt("id"),
                         resultSet.getString("nom"),
