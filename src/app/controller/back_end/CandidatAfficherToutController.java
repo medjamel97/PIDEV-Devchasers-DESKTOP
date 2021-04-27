@@ -7,11 +7,14 @@ package app.controller.back_end;
 
 import app.entity.Candidat;
 import app.service.CandidatCrud;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -29,12 +32,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
  *
- * @author Grim
+ * @author 
  */
+
 public class CandidatAfficherToutController implements Initializable {
 
     ObservableList<Candidat> candidats = FXCollections.observableArrayList();
@@ -192,4 +206,17 @@ public class CandidatAfficherToutController implements Initializable {
         }
         return tab;
     }*/
+
+//    @FXML
+//    private void excel(ActionEvent event) throws IOException {
+//              FileChooser chooser = new FileChooser();
+//        Set extension filter
+//        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel Files(.xls)", ".xls");
+//        chooser.getExtensionFilters().add(filter);
+//        Show save dialog
+//        File file = chooser.showSaveDialog(excel.getScene().getWindow());
+//        CandidatCrud m = new CandidatCrud();
+//       if (file != null) {
+//           m.Excel(file) ; }    
+  
 }

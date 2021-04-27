@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  * @author Grim
  */
 public interface EducationCrudInterface {
-    
+
     public void ajouterEducation(Education education);
 
     public void modifierEducation(Education education);
@@ -21,6 +21,8 @@ public interface EducationCrudInterface {
     public void supprimerEducation(Education education);
 
     public ObservableList<Education> getEducations();
+
+    public ObservableList<Education> getEducationsByCandidat(int idCandidat);
 
     public Education getEducationById(int idEducation);
 

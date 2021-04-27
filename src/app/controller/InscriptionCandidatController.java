@@ -14,8 +14,11 @@ import java.net.URL;
 import java.sql.Types;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -94,8 +98,9 @@ public class InscriptionCandidatController implements Initializable {
 
     @FXML
     private void inscription(ActionEvent event) {
-
+      
         int idCandidat = CandidatCrud.getInstance().getLastId() + 1;
+    
 
         Candidat candidat = new Candidat(
                 idCandidat,
@@ -116,7 +121,23 @@ public class InscriptionCandidatController implements Initializable {
                 true,
                 true
         );
+  if (inputNom.getText().isEmpty() 
+			|inputPrenom.getText().isEmpty() | inputSexe.getValue().isEmpty() | inputTelephone.getText().isEmpty()) {
+            Notifications notificationBuilder = Notifications.create()
+                    .title("Erreur").text("veillez remplir les champs vides ").graphic(null).hideAfter(javafx.util.Duration.seconds(5))
+                    .position(Pos.CENTER_LEFT)
+                    .onAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event) {
+                            System.out.println("clicked ON ");
+                        }
+                    });
+            notificationBuilder.show();
 
+            Parent root;
+        } 
+ 
+  
+  
         CandidatCrud.getInstance().ajouterCandidat(candidat);
         UserCrud.getInstance().ajouterUtilisateur(user);
 

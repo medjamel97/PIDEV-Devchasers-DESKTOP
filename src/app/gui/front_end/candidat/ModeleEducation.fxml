@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="500.0" styleClass="form-control" stylesheets="@candidat.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="nomEtablissement" layoutX="14.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nom Etablissement" textAlignment="CENTER" AnchorPane.leftAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fx:id="description" layoutX="222.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" />
+      <Text fx:id="niveauEducation" layoutX="217.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="niveau d'education" textAlignment="CENTER" AnchorPane.bottomAnchor="154.2314453125" AnchorPane.leftAnchor="200.0">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font></Text>
+      <Text fx:id="ville" layoutX="242.0" layoutY="130.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="ville" wrappingWidth="89.00000429153442" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="90.0" />
+      <Text fx:id="filiere" layoutX="230.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filiere" textAlignment="CENTER" AnchorPane.leftAnchor="200.0">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font></Text>
+      <ImageView fx:id="EducationIMG" fitHeight="135.0" fitWidth="177.0" layoutX="14.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" />
+      <Button fx:id="modifier" layoutX="408.0" layoutY="25.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="Modifier" />
+      <Button fx:id="supprimer" layoutX="408.0" layoutY="63.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" stylesheets="@candidat.css" text="supprimer" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</AnchorPane>

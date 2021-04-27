@@ -4,14 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/controller/front_end/TopBarController.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/controller/back_end/SideBarController.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/gui/front_end/candidat/AjouterCompetence.fxml</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/entity/Competence.java</file>
+            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/service/ExperienceDeTravailCrud.java</file>
+            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/interfaces/CompetenceCrudInterface.java</file>
             <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/gui/front_end/candidat/AjouterExperienceDeTravailController.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/controller/front_end/CandidatAfficherToutController.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/entity/Education.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/service/UserCrud.java</file>
-            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/entity/Candidat.java</file>
+            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/controller/back_end/CandidatAfficherToutController.java</file>
+            <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/gui/front_end/candidat/ProfileController.java</file>
             <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/gui/front_end/candidat/AjouterEducationController.java</file>
             <file>file:/C:/Users/Asus/Desktop/PiDV/PIDEV-Devchasers-DESKTOP/src/app/service/EducationCrud.java</file>
         </group>

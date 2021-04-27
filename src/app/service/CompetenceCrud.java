@@ -42,15 +42,39 @@ public class CompetenceCrud implements CompetenceCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO competence(name,level)VALUES ( ? , ? )");
-            preparedStatement.setString(1, competence.getName());
-            preparedStatement.setInt(2, competence.getId());
+                    "INSERT INTO competence(candidat_id,name,level)VALUES ( ? ,? , ? )");
+            preparedStatement.setInt(1, competence.getCandidatId());
+            preparedStatement.setString(2, competence.getName());
+            preparedStatement.setInt(3, competence.getLevel());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("Erreur d'ajout competence : " + e.getMessage());
         }
     }
+    
+    
+    @Override
+    public ObservableList<Competence> getCompetenceByCandidat(int idCandidat) {
+        ObservableList<Competence> listCompetence = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM competence WHERE candidat_id = ?");
+            preparedStatement.setInt(1, idCandidat);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listCompetence.add(new Competence(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("level")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur d'affichage pour un candidat (educations) : " + e.getMessage());
+        }
+        return listCompetence;
+    }
+
 
     @Override
     public void modifierCompetence(Competence competence) {
@@ -58,10 +82,11 @@ public class CompetenceCrud implements CompetenceCrudInterface {
         try {
             preparedStatement = connexion.prepareStatement(
                     "UPDATE `competence` "
-                    + "SET `name` = ?, `level` = ?"
-                    + "WHERE `id` = ?");
+                    + "SET `name` = ?, `level` = ? "
+                    + "WHERE `id` = ? ");
             preparedStatement.setString(1, competence.getName());
             preparedStatement.setInt(2, competence.getLevel());
+            preparedStatement.setInt(3, competence.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {

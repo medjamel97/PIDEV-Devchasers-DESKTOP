@@ -22,5 +22,8 @@ public interface ExperienceDeTravailCrudInterface {
     public ObservableList<ExperienceDeTravail> getExperienceDeTravail();
 
     public ExperienceDeTravail getExperienceDeTravailById(int idExperienceDeTravail);
+   
+    public ObservableList<ExperienceDeTravail> getExperienceDeTravailByCandidat(int idCandidat);
+
     
 }
