@@ -5,6 +5,7 @@
  */
 package app.service;
 
+import app.MainApp;
 import app.entity.Commentaire;
 import app.interfaces.CommentaireCrudInterface;
 import app.utils.ConnecteurBD;
@@ -42,9 +43,10 @@ public class CommentaireCrud implements CommentaireCrudInterface {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
-                    "INSERT INTO commentaire (publication_id, description) VALUES ( ? , ? )");
+                    "INSERT INTO commentaire (publication_id, user_id, description) VALUES ( ? , ? , ?)");
             preparedStatement.setInt(1, commentaire.getPublicationId());
-            preparedStatement.setString(2, commentaire.getDescription());
+            preparedStatement.setInt(2, commentaire.getUserId());
+            preparedStatement.setString(3, commentaire.getDescription());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -67,6 +69,7 @@ public class CommentaireCrud implements CommentaireCrudInterface {
                 listCommentaire.add(new Commentaire(
                         resultSet.getInt("id"),
                         resultSet.getInt("publication_id"),
+                        resultSet.getInt("user_id"),
                         resultSet.getString("description")
                 ));
             }
@@ -94,17 +97,16 @@ public class CommentaireCrud implements CommentaireCrudInterface {
     }
 
     @Override
-    public void ModiferCommentaire(Commentaire u) {
+    public void ModiferCommentaire(Commentaire commentaire) {
         PreparedStatement preparedStatement;
         System.out.println("aaaaaaa");
         try {
             preparedStatement = connexion.prepareStatement(
                     "UPDATE commentaire "
-                    + "SET publication_id = ?, description = ? "
+                    + "SET  description = ? "
                     + "WHERE id = ?");
-            preparedStatement.setInt(1, u.getId());
-            preparedStatement.setInt(2, u.getPublicationId());
-            preparedStatement.setString(3, u.getDescription());
+            preparedStatement.setString(1, commentaire.getDescription());
+            preparedStatement.setInt(2, commentaire.getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

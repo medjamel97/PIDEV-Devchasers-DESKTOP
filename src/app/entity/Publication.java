@@ -5,7 +5,7 @@
  */
 package app.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -17,10 +17,10 @@ public class Publication {
     private int candidatId;
     private String titre;
     private String description;
-    private Date date;
+    private Timestamp date;
     private float pourcentageLike;
 
-    public Publication(int id, int candidatId, String titre, String description, Date date, float pourcentageLike) {
+    public Publication(int id, int candidatId, String titre, String description, Timestamp date, float pourcentageLike) {
         this.id = id;
         this.candidatId = candidatId;
         this.titre = titre;
@@ -29,7 +29,7 @@ public class Publication {
         this.pourcentageLike = pourcentageLike;
     }
 
-    public Publication(int candidatId, String titre, String description, Date date, float pourcentageLike) {
+    public Publication(int candidatId, String titre, String description, Timestamp date, float pourcentageLike) {
         this.candidatId = candidatId;
         this.titre = titre;
         this.description = description;
@@ -69,11 +69,11 @@ public class Publication {
         this.description = description;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

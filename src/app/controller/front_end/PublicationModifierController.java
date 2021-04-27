@@ -8,7 +8,9 @@ package app.controller.front_end;
 import app.entity.Publication;
 import app.service.PublicationCrud;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +55,7 @@ public class PublicationModifierController implements Initializable {
                 Types.NULL,
                 objet,
                 desc,
-                null,
+                Timestamp.valueOf(LocalDateTime.now()),
                 Types.NULL
         );
         PublicationCrud.getInstance().ModiferPublication(publication);

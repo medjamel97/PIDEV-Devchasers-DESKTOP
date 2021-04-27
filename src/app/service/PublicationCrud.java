@@ -9,7 +9,6 @@ import app.entity.Publication;
 import app.interfaces.PublicationCrudInterface;
 import app.utils.ConnecteurBD;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,7 +51,7 @@ public class PublicationCrud implements PublicationCrudInterface {
                         resultSet.getInt("candidat_id"),
                         resultSet.getString("titre"),
                         resultSet.getString("description"),
-                        resultSet.getDate("date"),
+                        resultSet.getTimestamp("date"),
                         resultSet.getInt("pourcentage_like")
                 ));
             }
@@ -98,19 +97,20 @@ public class PublicationCrud implements PublicationCrudInterface {
         ObservableList<Publication> listPublication = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
-                    "SELECT * FROM publication WHERE titre LIKE ?");
+                    "SELECT * FROM publication WHERE titre LIKE ? order by date desc");
             preparedStatement.setString(1, titre + "%");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            ResultSet resultSet = preparedStatement.executeQuery();       
+            while (resultSet.next()) { 
                 listPublication.add(new Publication(
                         resultSet.getInt("id"),
                         resultSet.getInt("candidat_id"),
                         resultSet.getString("titre"),
                         resultSet.getString("description"),
-                        resultSet.getDate("date"),
+                        resultSet.getTimestamp("date"),
                         resultSet.getInt("pourcentage_like")
                 ));
             }
+          
         } catch (SQLException e) {
             System.out.println("Erreur recherche publication : " + e.getMessage());
         }
@@ -129,7 +129,7 @@ public class PublicationCrud implements PublicationCrudInterface {
                     resultSet.getInt("candidat_id"),
                     resultSet.getString("titre"),
                     resultSet.getString("description"),
-                    resultSet.getDate("date"),
+                    resultSet.getTimestamp("date"),
                     resultSet.getInt("pourcentage_like")
             );
         } catch (SQLException e) {
@@ -148,7 +148,7 @@ public class PublicationCrud implements PublicationCrudInterface {
 
             res.setString(1, publication.getDescription());
             res.setString(2, publication.getTitre());
-            res.setDate(3, (Date) publication.getDate());
+            res.setTimestamp(3, publication.getDate());
             res.executeUpdate();
             System.out.println("Publication ajouté");
 
@@ -169,7 +169,7 @@ public class PublicationCrud implements PublicationCrudInterface {
             );
             preparedStatement.setString(1, publication.getTitre());
             preparedStatement.setString(2, publication.getDescription());
-            preparedStatement.setDate(3, publication.getDate());
+            preparedStatement.setTimestamp(3, publication.getDate());
             preparedStatement.setInt(4, publication.getId());
 
             preparedStatement.executeUpdate();
@@ -182,14 +182,17 @@ public class PublicationCrud implements PublicationCrudInterface {
 
     @Override
     public void SupprimerPublication(Publication publication) {
-
+        System.out.println("bdet 1 ");
         // ... user chose CANCEL or closed the dialog
         PreparedStatement preparedStatement;
         try {
+             System.out.println("bdet 2 ");
             preparedStatement = connexion.prepareStatement("DELETE FROM `publication` WHERE `id`=?");
+            System.out.println(publication.getId());
             preparedStatement.setInt(1, publication.getId());
-
+            System.out.println("bdet 3 ");
             preparedStatement.executeUpdate();
+            System.out.println("bdet 4 ");
             preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("Erreur de suppresion publication : " + e.getMessage());
