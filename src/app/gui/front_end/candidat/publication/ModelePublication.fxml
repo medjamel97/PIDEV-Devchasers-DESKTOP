@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #242526;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #242526; -fx-border-color: #2d88ff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Text fill="#c5e4f8" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre">
             <font>
@@ -32,11 +32,24 @@
             </padding>
         </VBox>
         <TextField layoutX="9.0" layoutY="179.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="110.0" />
-        <Button layoutX="227.0" layoutY="179.0" mnemonicParsing="false" text="Ajouter" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="10.0" />
-        <Text fill="#c5e4f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Commentaire" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0">
+        <Button layoutX="515.0" layoutY="180.0" mnemonicParsing="false" style="-fx-background-color: #2d88ff;" text="Ajouter" textFill="WHITE" AnchorPane.bottomAnchor="16.666666666666657" AnchorPane.rightAnchor="27.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+        <Text fill="#c5e4f8" layoutX="10.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commentaire" AnchorPane.bottomAnchor="18.148000717163086" AnchorPane.leftAnchor="10.0">
             <font>
                 <Font name="Cairo-SemiBold" size="12.0" />
             </font>
         </Text>
+      <Text fill="#c5e4f8" layoutX="574.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+         <font>
+            <Font name="Cairo-SemiBold" size="12.0" />
+         </font>
+      </Text>
+      <Button fx:id="pdf_btn" layoutX="332.0" layoutY="72.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" style="-fx-background-color: #2d88ff;" text="pdf" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

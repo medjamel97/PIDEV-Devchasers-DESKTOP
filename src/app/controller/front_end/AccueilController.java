@@ -5,9 +5,14 @@
  */
 package app.controller.front_end;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +23,10 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * FXML Controller class
@@ -32,6 +41,8 @@ public class AccueilController implements Initializable {
     private Button btn1;
     @FXML
     private Button btn2;
+    @FXML
+    private Button party;
 
     /**
      * Initializes the controller class.
@@ -49,7 +60,7 @@ public class AccueilController implements Initializable {
             affichage.getChildren().clear();
             affichage.getChildren().add(parent);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //final java.net.URL resource = getClass().getResource("app/utils/el-fichier-mte3ek.mp3");
@@ -69,7 +80,7 @@ public class AccueilController implements Initializable {
             affichage.getChildren().clear();
             affichage.getChildren().add(parent);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -90,10 +101,6 @@ public class AccueilController implements Initializable {
         }
     }
 
-    @FXML
-    private void tets_(ActionEvent event) {
-
-    }
 
     DropShadow shadow = new DropShadow();
 
@@ -106,6 +113,7 @@ public class AccueilController implements Initializable {
     @FXML
     private void hover_on(MouseEvent event) {
         btn1.setCursor(Cursor.HAND);
+        shadow.setColor(Color.FUCHSIA);
         btn1.setEffect(shadow);
     }
 
@@ -117,7 +125,22 @@ public class AccueilController implements Initializable {
     @FXML
     private void hover_on2(MouseEvent event) {
         btn2.setCursor(Cursor.HAND);
+            shadow.setColor(Color.FUCHSIA);
         btn2.setEffect(shadow);
+    }
+
+    @FXML
+    private void music(ActionEvent event) throws IOException {
+         InputStream music;
+        try {
+            music = new FileInputStream("party.wav");
+            AudioStream audios= new AudioStream(music);
+            AudioPlayer.player.start(audios);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, " n'existe pas");
+        }
     }
 
 }

@@ -4,21 +4,33 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="289.0" prefWidth="412.0" style="-fx-background-color: #3a3b3c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.PublicationAjouterController">
+<AnchorPane id="AnchorPane" prefHeight="289.0" prefWidth="412.0" style="-fx-background-color: #3a3b3c;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.PublicationAjouterController">
     <children>
-        <Label layoutX="51.0" layoutY="55.0" text="Titre" textFill="#c5e4f8" />
-        <Label layoutX="43.0" layoutY="111.0" text="Description" textFill="#c5e4f8" />
-        <TextArea fx:id="description" layoutX="153.0" layoutY="99.0" prefHeight="113.0" prefWidth="214.0" />
-        <TextField fx:id="titre" layoutX="153.0" layoutY="51.0" />
-        <Button fx:id="ajouter_btn" layoutX="241.0" layoutY="241.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: #0f91f3;" text="Ajouter" textFill="#fafcfd">
+        <Label layoutX="45.0" layoutY="27.0" text="Titre" textFill="#c5e4f8" />
+        <Label layoutX="37.0" layoutY="83.0" text="Description" textFill="#c5e4f8" />
+        <TextArea fx:id="description" layoutX="147.0" layoutY="71.0" prefHeight="113.0" prefWidth="214.0" />
+        <TextField fx:id="titre" layoutX="147.0" layoutY="23.0" />
+        <Button fx:id="ajouter_btn" layoutX="332.0" layoutY="253.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: #0f91f3;" text="Ajouter" textFill="#fafcfd">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
         </Button>
         <Label fx:id="res" layoutX="62.0" layoutY="224.0" prefHeight="17.0" prefWidth="69.0" textFill="WHITE" />
         <Label fx:id="label" layoutX="14.0" layoutY="241.0" prefHeight="25.0" prefWidth="207.0" textFill="WHITE" />
+      <AnchorPane id="AnchorPane" layoutX="14.0" layoutY="181.0" prefHeight="139.0" prefWidth="293.0">
+         <children>
+            <Label fx:id="label1" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+            <TextField fx:id="code" layoutX="101.0" layoutY="148.0" promptText="Captcha" />
+            <Button fx:id="reset" layoutX="13.0" layoutY="74.0" mnemonicParsing="false" onAction="#reseting" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #0f91f3;" text="Reset" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <ImageView fx:id="cap" fitHeight="83.0" fitWidth="102.0" layoutX="99.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

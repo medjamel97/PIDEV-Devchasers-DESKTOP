@@ -5,15 +5,16 @@
  */
 package app.controller.front_end;
 
+import Entities.Pdf;
+import app.MainApp;
 import app.entity.Commentaire;
 import app.entity.Publication;
 import app.service.CommentaireCrud;
 import app.service.PublicationCrud;
+import app.utils.sms;
 import java.io.IOException;
-
 import java.net.URL;
 import java.sql.SQLDataException;
-import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -27,11 +28,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -52,6 +52,7 @@ public class PublicationAfficherToutController implements Initializable {
     private TextField txrecherche;
     @FXML
     private VBox pubvbox;
+        public  static String numTelephone ;
 
     /**
      * Initializes the controller class.
@@ -63,17 +64,19 @@ public class PublicationAfficherToutController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         List<Publication> listPublication = PublicationCrud.getInstance().getAll();
         for (int i = 0; i < listPublication.size(); i++) {
-            creepub(listPublication.get(i));
+            pubvbox.getChildren().add(creepub(listPublication.get(i)));
+
         }
     }
 
-    public void creepub(Publication publication) {
-
+    public Parent creepub(Publication publication) {
+        Parent modelePub;
         try {
-            Parent modelePub = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/publication/ModelePublication.fxml"));
-            pubvbox.getChildren().add(modelePub);
+            
+            modelePub = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/publication/ModelePublication.fxml"));
             ((Text) ((AnchorPane) modelePub).getChildren().get(0)).setText(publication.getTitre());
             ((Text) ((AnchorPane) modelePub).getChildren().get(1)).setText(publication.getDescription());
+            ((Text) ((AnchorPane) modelePub).getChildren().get(8)).setText(publication.getDate().toLocalDateTime().toLocalDate().toString());
             ((Button) ((AnchorPane) modelePub).getChildren().get(2)).setOnAction((event) -> {
                 try {
                     Supprimer(event, publication);
@@ -90,40 +93,88 @@ public class PublicationAfficherToutController implements Initializable {
 
             ((Button) ((AnchorPane) modelePub).getChildren().get(6)).setOnAction((event) -> {
                 String textComm = ((TextField) ((AnchorPane) modelePub).getChildren().get(5)).getText();
-                Commentaire c = new Commentaire(publication.getId(), Types.NULL, textComm);
+                Commentaire c = new Commentaire(publication.getId(), MainApp.getSession().getId(), textComm);
                 CommentaireCrud.getInstance().AjouterCommentaire(c);
-                Parent modeleComForAjout;
-                try {
-                    modeleComForAjout = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/publication/ModeleCommentaire.fxml"));
-                    ((VBox) ((AnchorPane) modelePub).getChildren().get(4)).getChildren().add(modeleComForAjout);
-                    ((Text) ((StackPane) ((AnchorPane) modeleComForAjout).getChildren().get(0)).getChildren().get(0))
-                            .setText(c.getDescription());
-                } catch (IOException ex) {
-                    Logger.getLogger(PublicationAfficherToutController.class.getName()).log(Level.SEVERE, null, ex);
+                VBox commentaireContainer = ((VBox) ((AnchorPane) modelePub).getChildren().get(4));               
+                if (!commentaireContainer.getChildren().contains(commentaireContainer)) {
+                    commentaireContainer.getChildren().add(creerCommentaire(c, commentaireContainer));
                 }
+                // SMS   
+              numTelephone ="+21623292574";
+              sms s = new sms();
+              s.send("Un commentaire a ètè ajouté",numTelephone);
+                
+                
+                
+                
+                
             });
 
-            try {
-                List<Commentaire> listCommentaire = CommentaireCrud.getInstance().getAllCommentairesByPub(publication.getId());
+            List<Commentaire> listCommentaire = CommentaireCrud.getInstance().getAllCommentairesByPub(publication.getId());
+            if (!listCommentaire.isEmpty()) {
 
-                if (!listCommentaire.isEmpty()) {
-                    for (int i = 0; i < listCommentaire.size(); i++) {
-                        Parent modeleCommentaire = FXMLLoader.load(
-                                getClass().getResource("/app/gui/front_end/candidat/publication/ModeleCommenatire.fxml")
-                        );
-                        ((VBox) ((AnchorPane) modelePub).getChildren().get(4)).getChildren().add(modeleCommentaire);
-                        ((Text) ((StackPane) ((AnchorPane) modeleCommentaire).getChildren().get(0)).getChildren().get(0))
-                                .setText(listCommentaire.get(0).getDescription());
-                    }
+                for (int i = 0; i < listCommentaire.size(); i++) {
+                    Commentaire commentaire = listCommentaire.get(i);
+
+                    VBox commentaireContainer = ((VBox) ((AnchorPane) modelePub).getChildren().get(4));
+                    commentaireContainer.getChildren().add(creerCommentaire(commentaire, commentaireContainer));
                 }
-
-            } catch (IOException ex) {
-                Logger.getLogger(PublicationAfficherToutController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            return modelePub;
 
         } catch (IOException ex) {
             Logger.getLogger(PublicationAfficherToutController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+
+    private Parent creerCommentaire(Commentaire commentaire, VBox commentaireContainer) {
+        try {
+            Parent modeleCommentaire = FXMLLoader.load(
+                    getClass().getResource("/app/gui/front_end/candidat/publication/ModeleCommentaire.fxml")
+            );
+
+            HBox hboxContenuCommentaire = (HBox) ((StackPane) ((AnchorPane) modeleCommentaire).getChildren().get(0)).getChildren().get(0);
+
+            //Strin nomDestinataire = UserCrud.getInstance().g
+            ((Text) hboxContenuCommentaire.getChildren().get(0)).setText(commentaire.getDescription());
+
+            Text storedDescription = ((Text) hboxContenuCommentaire.getChildren().get(0));
+            ((Button) hboxContenuCommentaire.getChildren().get(1)).setOnAction(event -> {
+                System.out.println("click mod");
+
+                HBox hBox = new HBox();
+
+                TextField textField = new TextField(storedDescription.getText());
+                Button buttonConfirmer = new Button();
+                buttonConfirmer.setText("Confirmer la modif");
+                buttonConfirmer.setOnAction(value -> {
+                    commentaire.setDescription(textField.getText());
+                    CommentaireCrud.getInstance().ModiferCommentaire(commentaire);
+
+                    commentaireContainer.getChildren().removeAll();
+                    storedDescription.setText(textField.getText());
+                    commentaireContainer.getChildren().remove(hBox);
+                });
+
+                hBox.getChildren().addAll(textField, buttonConfirmer);
+
+                commentaireContainer.getChildren().remove(storedDescription);
+                commentaireContainer.getChildren().add(hBox);
+            });
+            ((Button) hboxContenuCommentaire.getChildren().get(2)).setOnAction(event -> {
+                System.out.println("click supp");
+                System.out.println(commentaire.getId());
+                commentaireContainer.getChildren().removeAll(modeleCommentaire);
+                CommentaireCrud.getInstance().SupprimerCommentaire(commentaire);
+
+            });
+            return modeleCommentaire;
+        } catch (IOException ex) {
+            Logger.getLogger(PublicationAfficherToutController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @FXML
@@ -159,15 +210,23 @@ public class PublicationAfficherToutController implements Initializable {
 
     @FXML
     private void recherche(KeyEvent event) {
+             System.out.println("test 1");
         pubvbox.getChildren().clear();
-        List<Publication> listpublication = PublicationCrud.getInstance().findpubBytitre(txrecherche.getText());
-
+         System.out.println("test 2");
+        List <Publication> listpublication = PublicationCrud.getInstance().findpubBytitre(txrecherche.getText());
+        System.out.println("test 3");
         if (!listpublication.isEmpty()) {
             for (int i = 0; i < listpublication.size(); i++) {
-                creepub(listpublication.get(i));
+                 pubvbox.getChildren().add(creepub(listpublication.get(i)));
             }
-
+            System.out.println("test 4");
         }
     }
 
+    private void pdf_fnct(ActionEvent event) {
+        
+    Pdf p = new Pdf();
+  //  p.add("Mes",.getReclamtion(), tab_Recselected.getType(),tab_Recselected.getDate().toString(),tab_Recselected.getStatRec(),tab_Recselected.getSujet());
+  
+    }
 }
