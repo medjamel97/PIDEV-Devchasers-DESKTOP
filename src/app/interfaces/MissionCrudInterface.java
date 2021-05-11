@@ -20,6 +20,6 @@ public interface MissionCrudInterface {
 
     public void modifierMission(Mission mission);
 
-    public void supprimerMission(Mission mission);
+    public void supprimerMission(Mission mission, boolean override);
 
 }

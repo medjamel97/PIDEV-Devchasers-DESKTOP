@@ -14,20 +14,23 @@ import java.sql.Timestamp;
 public class Conversation {
 
     private int id;
-    private int candidatExpediteurId;
-    private int candidatDestinataireId;
+    private String nom;
+    private int userExpediteurId;
+    private int userDestinataireId;
     private Timestamp dateDernierMessage;
 
-    public Conversation(int id, int candidatExpediteurId, int candidatDestinataireId, Timestamp dateDernierMessage) {
+    public Conversation(int id, String nom, int userExpediteurId, int userDestinataireId, Timestamp dateDernierMessage) {
         this.id = id;
-        this.candidatExpediteurId = candidatExpediteurId;
-        this.candidatDestinataireId = candidatDestinataireId;
+        this.nom = nom;
+        this.userExpediteurId = userExpediteurId;
+        this.userDestinataireId = userDestinataireId;
         this.dateDernierMessage = dateDernierMessage;
     }
 
-    public Conversation(int candidatExpediteurId, int candidatDestinataireId, Timestamp dateDernierMessage) {
-        this.candidatExpediteurId = candidatExpediteurId;
-        this.candidatDestinataireId = candidatDestinataireId;
+    public Conversation(String nom, int userExpediteurId, int userDestinataireId, Timestamp dateDernierMessage) {
+        this.nom = nom;
+        this.userExpediteurId = userExpediteurId;
+        this.userDestinataireId = userDestinataireId;
         this.dateDernierMessage = dateDernierMessage;
     }
 
@@ -39,20 +42,28 @@ public class Conversation {
         this.id = id;
     }
 
-    public int getCandidatExpediteurId() {
-        return candidatExpediteurId;
+    public String getNom() {
+        return nom;
     }
 
-    public void setCandidatExpediteurId(int candidatExpediteurId) {
-        this.candidatExpediteurId = candidatExpediteurId;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public int getCandidatDestinataireId() {
-        return candidatDestinataireId;
+    public int getUserExpediteurId() {
+        return userExpediteurId;
     }
 
-    public void setCandidatDestinataireId(int candidatDestinataireId) {
-        this.candidatDestinataireId = candidatDestinataireId;
+    public void setUserExpediteurId(int userExpediteurId) {
+        this.userExpediteurId = userExpediteurId;
+    }
+
+    public int getUserDestinataireId() {
+        return userDestinataireId;
+    }
+
+    public void setUserDestinataireId(int userDestinataireId) {
+        this.userDestinataireId = userDestinataireId;
     }
 
     public Timestamp getDateDernierMessage() {

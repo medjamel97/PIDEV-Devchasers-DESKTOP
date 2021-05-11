@@ -112,7 +112,7 @@ public class MessageCrud implements MessageCrudInterface {
                     "SELECT *"
                     + "FROM message "
                     + "WHERE conversation_id = ? "
-                    + "ORDER BY date_creation ASC "
+                    + "ORDER BY date_creation DESC "
                     + "LIMIT 1");
             preparedStatement.setInt(1, idConversation);
 
@@ -127,7 +127,6 @@ public class MessageCrud implements MessageCrudInterface {
                         resultSet.getBoolean("est_vu")
                 );
             } else {
-                System.out.println("Aucun resultat dernier message");
                 return null;
             }
         } catch (SQLException e) {

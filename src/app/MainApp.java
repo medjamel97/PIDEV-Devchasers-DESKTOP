@@ -122,16 +122,16 @@ public class MainApp extends Application {
             loadScene(
                     "/app/gui/back_end/MainWindow.fxml",
                     title,
-                    1200,
-                    800,
+                    1300,
+                    900,
                     false
             );
         } else {
             loadScene(
                     "/app/gui/front_end/MainWindow.fxml",
                     title,
-                    1300,
-                    800,
+                    1550,
+                    900,
                     false
             );
         }

@@ -122,6 +122,32 @@ public class UserCrud implements UserCrudInterface {
     }
 
     @Override
+    public User getUserById(int userId) {
+        try {
+            PreparedStatement preparedStatement = connexion.prepareStatement(
+                    "SELECT * FROM user WHERE id = ?"
+            );
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("candidat_id"),
+                        resultSet.getInt("societe_id"),
+                        resultSet.getString("email"),
+                        resultSet.getString("roles"),
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("is_verified"),
+                        resultSet.getBoolean("is_set_up")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de recuperation user by email : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public boolean verifierEmail(String emailConnexion) {
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(

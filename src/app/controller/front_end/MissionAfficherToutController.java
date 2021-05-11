@@ -90,8 +90,8 @@ public class MissionAfficherToutController implements Initializable {
                     observableListMission.add(listmission.get(i));
                     System.out.println("Date-1 is before Date-2  " + listmission.get(i).getNom());
                 } else {
-                    System.out.println("non");
-                    MissionCrud.getInstance().supprimerMission(listmission.get(i));
+                    System.out.println("date mission dépassé : supression ..");
+                    MissionCrud.getInstance().supprimerMission(listmission.get(i), true);
                 }
             }
         }
@@ -137,7 +137,7 @@ public class MissionAfficherToutController implements Initializable {
     }
 
     private void supprimer(ActionEvent event) {
-        MissionCrud.getInstance().supprimerMission(missionActuelle);
+        MissionCrud.getInstance().supprimerMission(missionActuelle, false);
         missionActuelle = null;
         MainWindowController.chargerInterface(
                 getClass().getResource("/app/gui/front_end/societe/mission/affichermission.fxml")

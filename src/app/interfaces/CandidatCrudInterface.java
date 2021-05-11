@@ -20,9 +20,9 @@ public interface CandidatCrudInterface {
 
     public void supprimerCandidat(Candidat candidat);
 
-    public ObservableList<Candidat> getCandiadats();
+    public ObservableList<Candidat> getCandidats();
 
-    public ObservableList<Candidat> getCandiadatsByNomPrenom(String recherche);
+    public ObservableList<Candidat> getCandidatsByNomPrenom(String recherche);
 
     public Candidat getCandidatById(int idCandidat);
 

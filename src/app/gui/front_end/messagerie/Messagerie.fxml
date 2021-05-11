@@ -18,11 +18,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainParent" stylesheets="@../../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MessagerieController">
+<AnchorPane fx:id="mainParent" stylesheets="@../../MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.front_end.MessagerieController">
     <children>
         <AnchorPane fx:id="forEffectAnchorPane" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minWidth="340.0" prefWidth="340.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
+                <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <StackPane>
                             <VBox.margin>
@@ -31,10 +31,10 @@
                             <children>
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Messagerie">
                                     <font>
-                                        <Font name="Segoe UI Light" size="42.0" />
+                                        <Font name="Segoe UI Light" size="55.0" />
                                     </font>
                                     <effect>
-                                        <Glow level="0.24" />
+                                        <Glow level="0.1" />
                                     </effect>
                                 </Text>
                             </children>
@@ -59,6 +59,9 @@
                                                         <String fx:value="search-bar" />
                                                         <String fx:value="border-gray" />
                                                     </styleClass>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
                                                 </TextField>
                                             </children>
                                         </AnchorPane>
@@ -85,6 +88,9 @@
                                             <cursor>
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
                                         </Button>
                                     </children>
                                 </VBox>
@@ -92,7 +98,7 @@
                         </AnchorPane>
                     </children>
                 </VBox>
-                <VBox fx:id="chatContainer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" minWidth="250.0" prefWidth="250.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                <VBox fx:id="chatContainer" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
                     <children>
                         <AnchorPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                             <styleClass>
@@ -109,9 +115,9 @@
                                     <children>
                                         <HBox>
                                             <children>
-                                                <ImageView fx:id="imageCandidat" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="imageUser" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../../../images/default.jpg" />
+                                                        <Image url="@../../../images/default.jpg" />
                                                     </image>
                                                     <HBox.margin>
                                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -122,15 +128,18 @@
                                                 </ImageView>
                                                 <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                     <children>
-                                                        <Text fx:id="chatNomCandidat" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom candidat" VBox.vgrow="ALWAYS">
+                                                        <Text fx:id="chatNomUser" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom user" VBox.vgrow="ALWAYS">
                                                             <VBox.margin>
                                                                 <Insets bottom="10.0" />
                                                             </VBox.margin>
                                                             <font>
-                                                                <Font name="Segoe UI Bold" size="15.0" />
+                                                                <Font name="Segoe UI Bold" size="20.0" />
                                                             </font>
                                                         </Text>
-                                                        <Text fx:id="chatDernierMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Date dernier message" VBox.vgrow="ALWAYS" />
+                                                        <Text fx:id="chatDernierMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Date dernier message" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font></Text>
                                                     </children>
                                                     <HBox.margin>
                                                         <Insets left="20.0" />
@@ -144,7 +153,7 @@
                                                     <children>
                                                         <VBox fx:id="messagesContainer" alignment="TOP_CENTER" spacing="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                             <effect>
-                                                                <DropShadow color="#00000063" height="40.0" radius="19.5" spread="0.21" width="40.0" />
+                                                                <DropShadow color="#00000033" height="50.0" radius="24.5" spread="0.21" width="50.0" />
                                                             </effect>
                                                             <padding>
                                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -161,26 +170,32 @@
                                                 <String fx:value="border-gray" />
                                             </styleClass>
                                             <effect>
-                                                <InnerShadow color="#00000010" height="106.51" radius="53.144999999999996" width="108.07" />
+                                                <InnerShadow color="#00000008" height="107.29" radius="53.34" width="108.07" />
                                             </effect>
                                         </ScrollPane>
                                         <HBox alignment="CENTER" VBox.vgrow="NEVER">
                                             <children>
-                                                <TextField fx:id="inputMessage" onAction="#envoyerMessage" promptText="Tapez votre Message" styleClass="form-control" HBox.hgrow="ALWAYS" />
-                                                <Button alignment="CENTER" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#envoyerMessage" styleClass="background-blue" text="Envoyer" textFill="WHITE" HBox.hgrow="NEVER">
+                                                <TextField fx:id="inputMessage" onAction="#envoyerMessage" promptText="Tapez votre Message" styleClass="form-control" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></TextField>
+                                                <Button alignment="CENTER" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#envoyerMessage" styleClass="background-blue" text="Envoyer  " textFill="WHITE" HBox.hgrow="NEVER">
                                                     <HBox.margin>
                                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                     </HBox.margin>
                                                     <graphic>
-                                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../../../../images/mdi/send-light.png" />
+                                                                <Image url="@../../../images/mdi/send-light.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
                                                 </Button>
                                             </children>
                                         </HBox>
@@ -195,16 +210,19 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="modalBackground" onMouseClicked="#modalBackgroundClick" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="modalBackground" focusTraversable="true" onMouseClicked="#modalBackgroundClick" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox fx:id="modalAjoutConv" alignment="CENTER" maxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="100.0">
             <children>
                 <AnchorPane>
                     <children>
-                        <TextField fx:id="rechercheCandidats" onKeyPressed="#rechercheCandidats" promptText="Rechercher candidats" style="-fx-border-radius: 10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <TextField fx:id="rechercheUsers" onKeyPressed="#rechercheUsers" promptText="Rechercher users" style="-fx-border-radius: 10;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                             <styleClass>
                                 <String fx:value="search-bar" />
                                 <String fx:value="border-gray" />
                             </styleClass>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                 </AnchorPane>
@@ -212,7 +230,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0">
                             <children>
-                                <VBox fx:id="candidatsContainer" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <VBox fx:id="usersContainer" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -226,9 +244,9 @@
                 </ScrollPane>
                 <StackPane>
                     <children>
-                        <Button mnemonicParsing="false" onAction="#toggleAjoutModal" styleClass="danger-button" text="Fermer" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#toggleAjoutModal" prefWidth="175.0" styleClass="danger-button" text="Fermer" textFill="WHITE">
                             <font>
-                                <Font size="14.0" />
+                                <Font size="20.0" />
                             </font>
                             <padding>
                                 <Insets left="20.0" right="20.0" />

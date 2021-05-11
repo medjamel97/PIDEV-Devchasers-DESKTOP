@@ -14,11 +14,11 @@ import javafx.collections.ObservableList;
  */
 public interface ConversationCrudInterface {
 
-    public ObservableList<Conversation> getConversationsByCandidat(int idCandidat);
+    public ObservableList<Conversation> getConversationsByUser(int idUser);
 
-    public ObservableList<Conversation> rechercheConversationByCandidatNomPrenom(int idCandidat, String nomPrenom);
+    public ObservableList<Conversation> rechercheConversationByUserNomPrenom(int idUser, String nomPrenom);
 
-    public Conversation getConversationByCandidats(int idCandidatExpediteur, int idCandidatDestinataire);
+    public Conversation getConversationByUsers(int idUserExpediteur, int idUserDestinataire);
 
     public int recupererMessagesNonLus(int idConversation);
 

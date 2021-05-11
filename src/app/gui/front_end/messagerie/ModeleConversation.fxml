@@ -21,12 +21,12 @@
                 <Insets />
             </HBox.margin>
             <children>
-                <ImageView fx:id="imageConversation" fitHeight="50.0" fitWidth="50.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                <ImageView fx:id="imageConversation" fitHeight="75.0" fitWidth="75.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <effect>
-                        <DropShadow />
+                        <DropShadow color="#0000001a" height="25.0" radius="12.0" width="25.0" />
                     </effect>
                     <image>
-                        <Image url="@../../../../images/default.jpg" />
+                        <Image url="@../../../images/default.jpg" />
                     </image>
                 </ImageView>
                 <AnchorPane fx:id="badgePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="notification-badge" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
@@ -46,27 +46,30 @@
         </AnchorPane>
         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
             <children>
-                <Label fx:id="nomConversation" maxWidth="150.0" text="nom conversation">
+                <Label fx:id="nomConversation" maxWidth="250.0" text="nom conversation">
                     <VBox.margin>
                         <Insets bottom="5.0" />
                     </VBox.margin>
                     <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="dernierMessage" maxWidth="150.0" text="dernier message" />
+                <Label fx:id="dernierMessage" maxWidth="250.0" text="dernier message">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
             </children>
             <HBox.margin>
-                <Insets left="10.0" right="20.0" />
+                <Insets left="20.0" right="20.0" />
             </HBox.margin>
         </VBox>
         <StackPane>
             <children>
                 <Button fx:id="btnSupprimer" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" mnemonicParsing="false" styleClass="white-button">
                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../images/mdi/trash-dark.png" />
+                                <Image url="@../../../images/mdi/trash-dark.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -81,7 +84,7 @@
         </StackPane>
     </children>
     <stylesheets>
-        <URL value="@../../../MainStyle.css" />
+        <URL value="@../../MainStyle.css" />
         <URL value="@stylesheet.css" />
     </stylesheets>
     <styleClass>

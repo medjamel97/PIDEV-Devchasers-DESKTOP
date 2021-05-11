@@ -37,21 +37,22 @@ public class ConversationCrud implements ConversationCrudInterface {
     }
 
     @Override
-    public ObservableList<Conversation> getConversationsByCandidat(int idCandidat) {
+    public ObservableList<Conversation> getConversationsByUser(int idUser) {
         ObservableList<Conversation> listConversation = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
                     + "FROM conversation "
-                    + "WHERE candidat_expediteur_id = ?");
-            preparedStatement.setInt(1, idCandidat);
+                    + "WHERE user_expediteur_id = ?");
+            preparedStatement.setInt(1, idUser);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 listConversation.add(new Conversation(
                         resultSet.getInt("id"),
-                        resultSet.getInt("candidat_expediteur_id"),
-                        resultSet.getInt("candidat_destinataire_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getInt("user_expediteur_id"),
+                        resultSet.getInt("user_destinataire_id"),
                         resultSet.getTimestamp("date_dernier_message")
                 ));
             }
@@ -62,24 +63,25 @@ public class ConversationCrud implements ConversationCrudInterface {
     }
 
     @Override
-    public ObservableList<Conversation> rechercheConversationByCandidatNomPrenom(int candidatId, String nomPrenom) {
+    public ObservableList<Conversation> rechercheConversationByUserNomPrenom(int userId, String nomPrenom) {
         ObservableList<Conversation> listConversation = FXCollections.observableArrayList();
         try {
             PreparedStatement preparedStatement = connexion.prepareStatement(
                     "SELECT *"
-                    + "FROM conversation c join candidat ca on c.candidat_destinataire_id = ca.id "
-                    + "WHERE (ca.nom LIKE ? OR ca.prenom LIKE ?) AND (candidat_expediteur_id = ?)");
+                    + "FROM conversation c join user ca on c.user_destinataire_id = ca.id "
+                    + "WHERE (ca.nom LIKE ? OR ca.prenom LIKE ?) AND (user_expediteur_id = ?)");
 
             preparedStatement.setString(1, nomPrenom + "%");
             preparedStatement.setString(2, nomPrenom + "%");
-            preparedStatement.setInt(3, candidatId);
+            preparedStatement.setInt(3, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 listConversation.add(new Conversation(
                         resultSet.getInt("id"),
-                        resultSet.getInt("candidat_expediteur_id"),
-                        resultSet.getInt("candidat_destinataire_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getInt("user_expediteur_id"),
+                        resultSet.getInt("user_destinataire_id"),
                         resultSet.getTimestamp("date_dernier_message")
                 ));
             }
@@ -90,29 +92,30 @@ public class ConversationCrud implements ConversationCrudInterface {
     }
 
     @Override
-    public Conversation getConversationByCandidats(int idCandidatExpediteur, int idCandidatDestinataire) {
+    public Conversation getConversationByUsers(int idUserExpediteur, int idUserDestinataire) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connexion.prepareStatement(
                     "SELECT * "
                     + "FROM conversation "
-                    + "WHERE candidat_expediteur_id = ? AND candidat_destinataire_id = ?");
-            preparedStatement.setInt(1, idCandidatExpediteur);
-            preparedStatement.setInt(2, idCandidatDestinataire);
+                    + "WHERE user_expediteur_id = ? AND user_destinataire_id = ?");
+            preparedStatement.setInt(1, idUserExpediteur);
+            preparedStatement.setInt(2, idUserDestinataire);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return new Conversation(
                         resultSet.getInt("id"),
-                        resultSet.getInt("candidat_expediteur_id"),
-                        resultSet.getInt("candidat_destinataire_id"),
+                        resultSet.getString("nom"),
+                        resultSet.getInt("user_expediteur_id"),
+                        resultSet.getInt("user_destinataire_id"),
                         resultSet.getTimestamp("date_dernier_message")
                 );
             }
 
         } catch (SQLException e) {
-            System.out.println("Erreur de recuperation conversation by candidats : " + e.getMessage());
+            System.out.println("Erreur de recuperation conversation by users : " + e.getMessage());
         }
         return null;
     }
@@ -160,14 +163,15 @@ public class ConversationCrud implements ConversationCrudInterface {
 
     @Override
     public void ajouterConversation(Conversation conversation) {
-        if (getConversationByCandidats(conversation.getCandidatExpediteurId(), conversation.getCandidatDestinataireId()) == null) {
+        if (getConversationByUsers(conversation.getUserExpediteurId(), conversation.getUserDestinataireId()) == null) {
             PreparedStatement preparedStatement;
             try {
                 preparedStatement = connexion.prepareStatement(
-                        "INSERT INTO conversation (candidat_expediteur_id, candidat_destinataire_id, date_dernier_message) VALUES ( ? , ? , ? )");
-                preparedStatement.setInt(1, conversation.getCandidatExpediteurId());
-                preparedStatement.setInt(2, conversation.getCandidatDestinataireId());
-                preparedStatement.setTimestamp(3, conversation.getDateDernierMessage());
+                        "INSERT INTO conversation (nom, user_expediteur_id, user_destinataire_id, date_dernier_message) VALUES ( ? , ? , ? , ? )");
+                preparedStatement.setString(1, conversation.getNom());
+                preparedStatement.setInt(2, conversation.getUserExpediteurId());
+                preparedStatement.setInt(3, conversation.getUserDestinataireId());
+                preparedStatement.setTimestamp(4, conversation.getDateDernierMessage());
 
                 preparedStatement.executeUpdate();
                 preparedStatement.close();

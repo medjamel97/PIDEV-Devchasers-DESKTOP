@@ -20,6 +20,8 @@ public interface UserCrudInterface {
 
     public User getUserByEmail(String email);
 
+    public User getUserById(int userId);
+
     public String encodePassword(String password);
 
     public boolean verifierEmail(String emailConnexion);

@@ -128,16 +128,29 @@ public class MissionCrud implements MissionCrudInterface {
     }
 
     @Override
-    public void supprimerMission(Mission mission) {
-        PreparedStatement preparedStatement;
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Suppression");
-        alert.setHeaderText(null);
-        alert.setContentText("vous voulez vraiment supprimer cette mission ?");
+    public void supprimerMission(Mission mission, boolean override) {
+        if (!override) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Suppression");
+            alert.setHeaderText(null);
+            alert.setContentText("vous voulez vraiment supprimer cette mission ?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                try {
+                    PreparedStatement preparedStatement;
+                    preparedStatement = connexion.prepareStatement("DELETE FROM `mission` WHERE `id`=?");
+                    preparedStatement.setInt(1, mission.getId());
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.out.println("Erreur de suppresion mission : " + e.getMessage());
+                }
+            }
+        } else {
             try {
+                PreparedStatement preparedStatement;
                 preparedStatement = connexion.prepareStatement("DELETE FROM `mission` WHERE `id`=?");
                 preparedStatement.setInt(1, mission.getId());
                 preparedStatement.executeUpdate();
@@ -145,8 +158,6 @@ public class MissionCrud implements MissionCrudInterface {
             } catch (SQLException e) {
                 System.out.println("Erreur de suppresion mission : " + e.getMessage());
             }
-        } else {
-            // ... user chose CANCEL or closed the dialog
         }
     }
 

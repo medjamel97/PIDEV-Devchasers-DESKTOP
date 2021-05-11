@@ -61,7 +61,7 @@ public class CandidatAfficherToutController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         //pagination.setPageFactory(this::createPage);
-        List<Candidat> listCandidats = CandidatCrud.getInstance().getCandiadats();
+        List<Candidat> listCandidats = CandidatCrud.getInstance().getCandidats();
 
         if (!listCandidats.isEmpty()) {
             for (int i = 0; i < listCandidats.size(); i++) {

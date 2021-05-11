@@ -7,15 +7,20 @@ package app.controller.front_end;
 
 import app.MainApp;
 import app.entity.Candidat;
+import app.entity.User;
 import app.entity.Conversation;
 import app.entity.Message;
+import app.entity.Societe;
 import app.service.CandidatCrud;
+import app.service.UserCrud;
 import app.service.ConversationCrud;
 import app.service.MessageCrud;
+import app.service.SocieteCrud;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +28,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,9 +47,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -51,8 +60,10 @@ import javafx.scene.text.Text;
  */
 public class MessagerieController implements Initializable {
 
-    private static Conversation conversationActuelle;
+    private Conversation conversationActuelle;
     private final int MESSAGE_LIMIT = 20;
+    private boolean countDownStarted;
+    private Timeline messageRefreshTimeline, conversationRefreshTimeline;
 
     @FXML
     private VBox modalAjoutConv;
@@ -67,11 +78,11 @@ public class MessagerieController implements Initializable {
     @FXML
     private AnchorPane modalBackground;
     @FXML
-    private VBox candidatsContainer;
+    private VBox usersContainer;
     @FXML
-    private TextField rechercheCandidats;
+    private TextField rechercheUsers;
     @FXML
-    private Text chatNomCandidat;
+    private Text chatNomUser;
     @FXML
     private Text chatDernierMessage;
     @FXML
@@ -79,7 +90,7 @@ public class MessagerieController implements Initializable {
     @FXML
     private VBox chatContainer;
     @FXML
-    private ImageView imageCandidat;
+    private ImageView imageUser;
     @FXML
     private TextField inputConversation;
 
@@ -88,182 +99,21 @@ public class MessagerieController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        chatContainer.setVisible(false);
+        countDownStarted = false;
         conversationActuelle = null;
+        chatContainer.setVisible(false);
 
         toggleAjoutModal();
 
-        List<Candidat> listCandidat = CandidatCrud.getInstance().getCandiadats();
-        listCandidat.forEach((candidat) -> {
-            if (candidat.getId() != MainApp.getSession().getCandidatId()) {
-                candidatsContainer.getChildren().add(creerCandidat(candidat));
+        List<User> listUser = UserCrud.getInstance().getAll();
+        listUser.forEach((user) -> {
+            if (user.getId() != MainApp.getSession().getId()) {
+                usersContainer.getChildren().add(creerUserForChoice(user));
             }
         });
 
         refreshConversations();
-    }
-
-    private Parent creerConversation(Conversation conversation) {
-        Parent parent;
-        try {
-            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/messagerie/ModeleConversation.fxml"));
-            Candidat candidat = CandidatCrud.getInstance().getCandidatById(conversation.getCandidatDestinataireId());
-            ((Label) parent.lookup("#nomConversation")).setText(candidat.getPrenom() + " " + candidat.getNom());
-            if (ConversationCrud.getInstance().recupererMessagesNonLus(conversation.getId()) > 0) {
-                ((AnchorPane) parent.lookup("#badgePane")).setVisible(true);
-                ((Label) parent.lookup("#notificationBadge")).setText(String.valueOf(ConversationCrud.getInstance()
-                        .recupererMessagesNonLus(conversation.getId()))
-                );
-            }
-
-            ((Button) parent.lookup("#btnSupprimer")).setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmer la suppression");
-                alert.setHeaderText(null);
-                alert.setContentText("Etes vous sûr de vouloir supprimer cette conversation ?");
-                Optional<ButtonType> action = alert.showAndWait();
-
-                if (action.get() == ButtonType.OK) {
-                    ConversationCrud.getInstance().supprimerConversation(conversation);
-                    chatContainer.setVisible(false);
-                    conversationActuelle = null;
-                    refreshConversations();
-                }
-
-            });
-
-            try {
-                ((ImageView) parent.lookup("#imageConversation")).setImage(new Image(candidat.getIdPhoto()));
-            } catch (Exception e) {
-                System.out.println("Erreur lien image : " + candidat.getIdPhoto());
-            }
-
-            String dernierMessage;
-            if (MessageCrud.getInstance().getDernierMessage(conversation.getId()) != null) {
-                dernierMessage = MessageCrud.getInstance().getDernierMessage(conversation.getId()).getContenu();
-            } else {
-                dernierMessage = "Aucun message";
-            }
-            ((Label) parent.lookup("#dernierMessage")).setText(dernierMessage);
-            parent.setOnMouseClicked((event) -> {
-                ConversationCrud.getInstance().markAllAsRead(conversation.getId());
-
-                chatNomCandidat.setText(candidat.getPrenom() + " " + candidat.getNom());
-                try {
-                    imageCandidat.setImage(new Image(candidat.getIdPhoto()));
-                } catch (Exception e) {
-                    System.out.println("Erreur lien image : " + candidat.getIdPhoto());
-                }
-                if (conversation.getDateDernierMessage() != null) {
-                    chatDernierMessage.setText("Dernier message : " + conversation.getDateDernierMessage().toLocalDateTime()
-                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                            ));
-
-                } else {
-                    chatDernierMessage.setText("Chat pas encore commencé");
-                }
-
-                chatContainer.setVisible(true);
-                conversationActuelle = conversation;
-
-                refreshConversations();
-                refreshMessages(conversation.getId(), MESSAGE_LIMIT);
-            });
-            return parent;
-        } catch (IOException ex) {
-            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    private Parent creerMessage(Message message, boolean estProprietaire, int pos) {
-        StackPane parent;
-        try {
-            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/messagerie/ModeleMessage.fxml"));
-            ((Label) ((AnchorPane) parent.getChildren().get(0)).getChildren().get(0)).setText(message.getContenu());
-
-            switch (pos) {
-                case 1:
-                    creerMessageAvecPositon(parent, estProprietaire, "top");
-                    break;
-                case 0:
-                    creerMessageAvecPositon(parent, estProprietaire, "middle");
-                    break;
-                case -1:
-                    creerMessageAvecPositon(parent, estProprietaire, "bottom");
-                    break;
-                default:
-                    creerMessageAvecPositon(parent, estProprietaire, "middle");
-                    break;
-            }
-
-            return parent;
-        } catch (IOException ex) {
-            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    private void creerMessageAvecPositon(StackPane parent, boolean estProprietaire, String position) {
-        if (estProprietaire) {
-            parent.setAlignment(Pos.CENTER_RIGHT);
-            ((AnchorPane) parent.getChildren().get(0)).getStyleClass().add("message-expediteur-" + position);
-        } else {
-            parent.setAlignment(Pos.CENTER_LEFT);
-            ((AnchorPane) parent.getChildren().get(0)).getStyleClass().add("message-destinataire-" + position);
-        }
-    }
-
-    private Parent creerCandidat(Candidat candidat) {
-        Parent parent;
-        try {
-            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/candidat/messagerie/ModeleCandidat.fxml"));
-
-            parent.setOnMouseClicked(event -> {
-                Conversation conversation = new Conversation(MainApp.getSession().getCandidatId(), candidat.getId(), null);
-                conversationActuelle = conversation;
-                ConversationCrud.getInstance().ajouterConversation(
-                        conversation
-                );
-
-                conversationActuelle = ConversationCrud.getInstance().getConversationByCandidats(
-                        MainApp.getSession().getCandidatId(), candidat.getId()
-                );
-
-                toggleAjoutModal();
-
-                chatContainer.setVisible(true);
-
-                chatNomCandidat.setText(candidat.getPrenom() + " " + candidat.getNom());
-                try {
-                    imageCandidat.setImage(new Image(candidat.getIdPhoto()));
-                } catch (Exception e) {
-                    System.out.println("Erreur lien image : " + candidat.getIdPhoto());
-                }
-                if (conversationActuelle.getDateDernierMessage() != null) {
-                    chatDernierMessage.setText("Dernier message : " + conversationActuelle.getDateDernierMessage().toLocalDateTime()
-                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                            ));
-
-                } else {
-                    chatDernierMessage.setText("Chat pas encore commencé");
-                }
-
-                chatContainer.setVisible(true);
-
-                refreshConversations();
-                refreshMessages(
-                        conversationActuelle.getId(),
-                        MESSAGE_LIMIT
-                );
-            });
-            ((Text) parent.lookup("#contenuCandidat")).setText(candidat.getPrenom() + " " + candidat.getNom());
-            return parent;
-        } catch (IOException ex) {
-            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        refreshConversationsEveryInterval();
     }
 
     @FXML
@@ -288,22 +138,22 @@ public class MessagerieController implements Initializable {
     }
 
     @FXML
-    private void rechercheCandidats(KeyEvent event) {
-        candidatsContainer.getChildren().clear();
-        List<Candidat> listCandidat = CandidatCrud.getInstance().getCandiadatsByNomPrenom(rechercheCandidats.getText());
-        listCandidat.forEach((candidat) -> {
-            if (candidat.getId() != MainApp.getSession().getCandidatId()) {
-                candidatsContainer.getChildren().add(creerCandidat(candidat));
+    private void rechercheUsers(KeyEvent event) {
+        /*usersContainer.getChildren().clear();
+        List<User> listUser = UserCrud.getInstance().getUsersByNomPrenom(rechercheUsers.getText());
+        listUser.forEach((user) -> {
+            if (user.getId() != MainApp.getSession().getId()) {
+                usersContainer.getChildren().add(creerUser(user));
             }
-        });
+        });*/
     }
 
     @FXML
     private void rechercheConversations(KeyEvent event) {
         conversationContainer.getChildren().clear();
         List<Conversation> listConversations = ConversationCrud.getInstance()
-                .rechercheConversationByCandidatNomPrenom(
-                        MainApp.getSession().getCandidatId(),
+                .rechercheConversationByUserNomPrenom(
+                        MainApp.getSession().getId(),
                         inputConversation.getText()
                 );
         listConversations.forEach((conversation) -> {
@@ -314,21 +164,40 @@ public class MessagerieController implements Initializable {
     @FXML
     private void envoyerMessage(ActionEvent event) {
 
-        Conversation conversationDestinataire = ConversationCrud.getInstance().getConversationByCandidats(
-                conversationActuelle.getCandidatDestinataireId(),
-                conversationActuelle.getCandidatExpediteurId()
+        String content = inputMessage.getText();
+        inputMessage.setText("");
+        creerMessage(content, true, -1, true);
+
+        Conversation conversationDestinataire = ConversationCrud.getInstance().getConversationByUsers(
+                conversationActuelle.getUserDestinataireId(),
+                conversationActuelle.getUserExpediteurId()
         );
 
         if (conversationDestinataire == null) {
+            String nom = "NaN";
+
+            User user = UserCrud.getInstance().getUserById(conversationActuelle.getUserDestinataireId());
+
+            if (user.getRoles().contains("ROLE_ADMIN")) {
+                nom = "Admin";
+            } else if (user.getRoles().contains("ROLE_SOCIETE")) {
+                Societe societeDestinataire = SocieteCrud.getInstance().getSocieteById(user.getSocieteId());
+                nom = societeDestinataire.getNom();
+            } else if (user.getRoles().contains("ROLE_CANDIDAT")) {
+                Candidat candidatDestinataire = CandidatCrud.getInstance().getCandidatById(user.getCandidatId());
+                nom = candidatDestinataire.getPrenom() + " " + candidatDestinataire.getNom();
+            }
+
             ConversationCrud.getInstance().ajouterConversation(new Conversation(
-                    conversationActuelle.getCandidatDestinataireId(),
-                    conversationActuelle.getCandidatExpediteurId(),
+                    nom,
+                    conversationActuelle.getUserDestinataireId(),
+                    conversationActuelle.getUserExpediteurId(),
                     null
             ));
 
-            conversationDestinataire = ConversationCrud.getInstance().getConversationByCandidats(
-                    conversationActuelle.getCandidatDestinataireId(),
-                    conversationActuelle.getCandidatExpediteurId()
+            conversationDestinataire = ConversationCrud.getInstance().getConversationByUsers(
+                    conversationActuelle.getUserDestinataireId(),
+                    conversationActuelle.getUserExpediteurId()
             );
         }
 
@@ -337,33 +206,248 @@ public class MessagerieController implements Initializable {
         ConversationCrud.getInstance().modifierDateConversation(conversationActuelle);
 
         MessageCrud.getInstance().ajouterMessage(
-                new Message(conversationActuelle.getId(), inputMessage.getText(), timestamp, true, true)
+                new Message(conversationActuelle.getId(), content, timestamp, true, true)
         );
         MessageCrud.getInstance().ajouterMessage(
-                new Message(conversationDestinataire.getId(), inputMessage.getText(), timestamp, false, false)
+                new Message(conversationDestinataire.getId(), content, timestamp, false, false)
         );
-        refreshMessages(conversationActuelle.getId(), MESSAGE_LIMIT);
 
-        inputMessage.setText("");
+        refreshMessages(conversationActuelle.getId());
+
         refreshConversations();
     }
 
+    private Parent creerConversation(Conversation conversation) {
+        Parent parent;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/messagerie/ModeleConversation.fxml"));
+
+            User user = UserCrud.getInstance().getUserById(conversation.getUserDestinataireId());
+
+            String idPhoto = null;
+            if (user.getRoles().contains("ROLE_ADMIN")) {
+                idPhoto = "";
+            } else if (user.getRoles().contains("ROLE_SOCIETE")) {
+                Societe societeDestinataire = SocieteCrud.getInstance().getSocieteById(user.getSocieteId());
+                idPhoto = societeDestinataire.getIdPhoto();
+            } else if (user.getRoles().contains("ROLE_CANDIDAT")) {
+                Candidat candidatDestinataire = CandidatCrud.getInstance().getCandidatById(user.getCandidatId());
+                idPhoto = candidatDestinataire.getIdPhoto();
+            }
+
+            ((Label) parent.lookup("#nomConversation")).setText(conversation.getNom());
+            if (ConversationCrud.getInstance().recupererMessagesNonLus(conversation.getId()) > 0) {
+                ((AnchorPane) parent.lookup("#badgePane")).setVisible(true);
+                ((Label) parent.lookup("#notificationBadge")).setText(String.valueOf(ConversationCrud.getInstance()
+                        .recupererMessagesNonLus(conversation.getId()))
+                );
+            }
+
+            ((Button) parent.lookup("#btnSupprimer")).setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmer la suppression");
+                alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de vouloir supprimer cette conversation ?");
+                Optional<ButtonType> action = alert.showAndWait();
+
+                if (action.get() == ButtonType.OK) {
+                    if (conversationActuelle.getId() == conversation.getId()) {
+                        chatContainer.setVisible(false);
+                        conversationActuelle = null;
+                    }
+                    ConversationCrud.getInstance().supprimerConversation(conversation);
+                    refreshConversations();
+                }
+            });
+
+            try {
+                ((ImageView) parent.lookup("#imageConversation")).setImage(new Image(idPhoto));
+            } catch (Exception e) {
+                System.out.println("Erreur lien image : " + idPhoto);
+            }
+
+            String dernierMessage;
+            if (MessageCrud.getInstance().getDernierMessage(conversation.getId()) != null) {
+                dernierMessage = MessageCrud.getInstance().getDernierMessage(conversation.getId()).getContenu();
+            } else {
+                dernierMessage = "Aucun message";
+            }
+            ((Label) parent.lookup("#dernierMessage")).setText(dernierMessage);
+
+            parent.setOnMouseClicked((event) -> {
+                ConversationCrud.getInstance().markAllAsRead(conversation.getId());
+                initializeChatWindow(user);
+            });
+            return parent;
+        } catch (IOException ex) {
+            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private Parent creerMessage(String contenuMessage, boolean estProprietaire, int pos, boolean faded) {
+        StackPane parent;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/messagerie/ModeleMessage.fxml"));
+            ((Label) ((AnchorPane) parent.getChildren().get(0)).getChildren().get(0)).setText(contenuMessage);
+            switch (pos) {
+                case 1:
+                    creerMessageAvecPositon(parent, estProprietaire, "top", faded);
+                    break;
+                case 0:
+                    creerMessageAvecPositon(parent, estProprietaire, "middle", faded);
+                    break;
+                case -1:
+                    creerMessageAvecPositon(parent, estProprietaire, "bottom", faded);
+                    break;
+                default:
+                    creerMessageAvecPositon(parent, estProprietaire, "middle", faded);
+                    break;
+            }
+
+            return parent;
+        } catch (IOException ex) {
+            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private void creerMessageAvecPositon(StackPane parent, boolean estProprietaire, String position, boolean faded) {
+        if (estProprietaire) {
+            parent.setAlignment(Pos.CENTER_RIGHT);
+            ((AnchorPane) parent.getChildren().get(0)).getStyleClass().add("message-expediteur-" + position);
+            if (faded) {
+                ((AnchorPane) parent.getChildren().get(0)).getStyleClass().add("background-gray");
+            }
+        } else {
+            parent.setAlignment(Pos.CENTER_LEFT);
+            ((AnchorPane) parent.getChildren().get(0)).getStyleClass().add("message-destinataire-" + position);
+        }
+    }
+
+    private Parent creerUserForChoice(User user) {
+        Parent parent;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/app/gui/front_end/messagerie/ModeleUser.fxml"));
+
+            parent.setOnMouseClicked(event -> {
+                toggleAjoutModal();
+                initializeChatWindow(user);
+            });
+
+            HBox hboxContent = (HBox) ((AnchorPane) parent).getChildren().get(0);
+
+            String nomUser = "NaN";
+            String idPhoto = "NaN";
+
+            if (user.getRoles().contains("ROLE_ADMIN")) {
+                nomUser = "Admin";
+                idPhoto = "";
+            } else if (user.getRoles().contains("ROLE_SOCIETE")) {
+                Societe societeDestinataire = SocieteCrud.getInstance().getSocieteById(user.getSocieteId());
+                nomUser = societeDestinataire.getNom();
+                idPhoto = societeDestinataire.getIdPhoto();
+            } else if (user.getRoles().contains("ROLE_CANDIDAT")) {
+                Candidat candidatDestinataire = CandidatCrud.getInstance().getCandidatById(user.getCandidatId());
+                nomUser = candidatDestinataire.getPrenom() + " " + candidatDestinataire.getNom();
+                idPhoto = candidatDestinataire.getIdPhoto();
+            }
+
+            ((Text) hboxContent.lookup("#contenuUser")).setText(nomUser);
+            try {
+                ((ImageView) hboxContent.lookup("#imageUser")).setImage(new Image(idPhoto));
+            } catch (Exception e) {
+                System.out.println("Could not load image : " + idPhoto);
+            }
+
+            return parent;
+        } catch (IOException ex) {
+            Logger.getLogger(MessagerieController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    private void initializeChatWindow(User user) {
+
+        chatContainer.setVisible(true);
+        String nom = "NaN";
+        String idPhoto = "NaN";
+
+        if (user.getRoles().contains("ROLE_ADMIN")) {
+            nom = "Admin";
+            idPhoto = "";
+        } else if (user.getRoles().contains("ROLE_SOCIETE")) {
+            Societe societeDestinataire = SocieteCrud.getInstance().getSocieteById(user.getSocieteId());
+            nom = societeDestinataire.getNom();
+            idPhoto = societeDestinataire.getIdPhoto();
+        } else if (user.getRoles().contains("ROLE_CANDIDAT")) {
+            Candidat candidatDestinataire = CandidatCrud.getInstance().getCandidatById(user.getCandidatId());
+            nom = candidatDestinataire.getPrenom() + " " + candidatDestinataire.getNom();
+            idPhoto = candidatDestinataire.getIdPhoto();
+        }
+
+        chatNomUser.setText(nom);
+        try {
+            imageUser.setImage(new Image(idPhoto));
+        } catch (Exception e) {
+            System.out.println("Erreur lien image : " + idPhoto);
+        }
+
+        // get existing conversation
+        Conversation conversation = ConversationCrud.getInstance().getConversationByUsers(
+                MainApp.getSession().getId(), user.getId()
+        );
+        // create conversation if not exist
+        if (conversation == null) {
+            System.out.println("conversation is null, creating new one ..");
+            conversation = new Conversation(nom, MainApp.getSession().getId(), user.getId(), null);
+            ConversationCrud.getInstance().ajouterConversation(
+                    conversation
+            );
+            conversation = ConversationCrud.getInstance().getConversationByUsers(
+                    MainApp.getSession().getId(), user.getId()
+            );
+        }
+
+        if (conversation.getDateDernierMessage() != null) {
+            chatDernierMessage.setText(
+                    "Dernier message : " + conversation.getDateDernierMessage()
+                            .toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            );
+        } else {
+            chatDernierMessage.setText("Chat pas encore commencé");
+        }
+
+        if (!countDownStarted) {
+            countDownStarted = true;
+        } else {
+            messageRefreshTimeline.stop();
+        }
+        refreshMessages(conversation.getId());
+        refreshMessagesEveryInterval(conversation.getId());
+
+        conversationActuelle = conversation;
+    }
+
     private void refreshConversations() {
+        System.out.println(LocalTime.now() + " : Refreshing conversations");
         conversationContainer.getChildren().clear();
-        List<Conversation> listConversations = ConversationCrud.getInstance().getConversationsByCandidat(MainApp.getSession().getCandidatId());
+        List<Conversation> listConversations = ConversationCrud.getInstance().getConversationsByUser(MainApp.getSession().getId());
         listConversations.forEach((conversation) -> {
-            conversationContainer.getChildren().add(creerConversation(conversation));
+            if (conversation.getDateDernierMessage() != null) {
+                conversationContainer.getChildren().add(creerConversation(conversation));
+            }
         });
     }
 
-    private void refreshMessages(int idConversation, int messageParPage) {
+    private void refreshMessages(int idConversation) {
+        System.out.println(LocalTime.now() + " : Refreshing messages for conversation : " + idConversation);
         messagesContainer.getChildren().clear();
         if (idConversation != 0) {
-            List<Message> listMessages = MessageCrud.getInstance().getMessagesByConversation(idConversation, messageParPage);
+            List<Message> listMessages = MessageCrud.getInstance().getMessagesByConversation(idConversation, MESSAGE_LIMIT);
             Collections.reverse(listMessages);
 
             for (int i = 0; i < listMessages.size(); i++) {
-
                 boolean previous;
                 boolean next;
                 try {
@@ -380,15 +464,15 @@ public class MessagerieController implements Initializable {
                 }
 
                 if (listMessages.get(i).getEstProprietaire()) {
-                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i), true, getPosition(
+                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i).getContenu(), true, getPosition(
                             previous && listMessages.get(i - 1).getEstProprietaire(),
                             next && listMessages.get(i + 1).getEstProprietaire()
-                    )));
+                    ), false));
                 } else {
-                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i), false, getPosition(
+                    messagesContainer.getChildren().add(creerMessage(listMessages.get(i).getContenu(), false, getPosition(
                             previous && !listMessages.get(i - 1).getEstProprietaire(),
                             next && !listMessages.get(i + 1).getEstProprietaire()
-                    )));
+                    ), false));
                 }
             }
         }
@@ -404,4 +488,21 @@ public class MessagerieController implements Initializable {
         return 1;
     }
 
+    private void refreshMessagesEveryInterval(int idConversation) {
+        messageRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
+                    refreshMessages(idConversation);
+                }));
+        messageRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        messageRefreshTimeline.play();
+    }
+
+    private void refreshConversationsEveryInterval() {
+        conversationRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
+                    refreshConversations();
+                }));
+        conversationRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        conversationRefreshTimeline.play();
+    }
 }

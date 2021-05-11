@@ -9,7 +9,6 @@ import app.entity.Candidat;
 import app.service.CandidatCrud;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -20,7 +19,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -87,7 +85,7 @@ public class CandidatAfficherToutController implements Initializable {
         btnModifier.setDisable(true);
         btnSupprimer.setDisable(true);
 
-        List<Candidat> listCandidats = CandidatCrud.getInstance().getCandiadats();
+        List<Candidat> listCandidats = CandidatCrud.getInstance().getCandidats();
 
         if (!listCandidats.isEmpty()) {
             for (int i = 0; i < listCandidats.size(); i++) {
